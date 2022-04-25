@@ -168,12 +168,163 @@ const PumpTwo = () => {
     const [iCOMOXTmpertrValue, setiCOMOXTmpertrValue] = useState([]);
     const [atmtnSetPointsMotor30Rpm, setAtmtnSetPointsMotor30Rpm] = useState([]);
     const [atmtnSetPointMotorFullRpm, setAtmtnSetPointMotorFullRpm] = useState([]);
+    
+    const [selected, setSelectedHistory] = useState("Last 1 Hour");
 
+  const pmpInletHistoryOption = {
+    lasthour: "Last 1 Hour",
+    lastday: "Last 1 Day",
+    lastWeek: "Last 1 Week",
+    lastTwoweeks: "Last 2 Week",
+  };
+
+  const pmpInletHistoryOptionKeys = Object.keys(pmpInletHistoryOption);
+
+
+  const pmpInletHandleChange = (event) => {
+    event.preventDefault();
+    setSelectedHistory(event.target.value);
+
+    fetch(`https://test-zotera-server-dev.azurewebsites.net/getListData?history=${event.target.value}&sensorType=iCOMOX/AccelerometerPrimary/Z/Max/Value`)
+    //fetch(`http://localhost:8080/getListData?history=${event.target.value}&sensorType=iCOMOX/AccelerometerPrimary/Z/Max/Value`)
+      .then((response) => response.json())
+      .then((responseJson) => {
+        // setOldDataPmpInlet(responseJson)
+        validateAndSetFunction([], setiCOMOXAPrmyZMaxValue, "clear")
+        for(var i=responseJson.length-1; i>=0; i--){
+          validateAndSetFunction([responseJson[i]], setiCOMOXAPrmyZMaxValue, "add")
+        }
+      })
+      .catch(error => {
+        // setMsg('Please refresh page and try one more time .There has been a problem with your fetch operation:', error)
+        // console.error('Please refresh page and try one more time .There has been a problem with your fetch operation:', error);
+      });
+
+    fetch(`https://test-zotera-server-dev.azurewebsites.net/getListData?history=${event.target.value}&sensorType=iCOMOX/AccelerometerPrimary/Z/Min/Value`)
+    //fetch(`http://localhost:8080/getListData?history=${event.target.value}&sensorType=iCOMOX/AccelerometerPrimary/Z/Min/Value`)
+      .then((response) => response.json())
+      .then((responseJson) => {
+        // setOldDataUpperTank(responseJson)
+        validateAndSetFunction([], setiCOMOXAPrmyZMinValue, "clear")
+        for(var i=responseJson.length-1; i>=0; i--){
+          validateAndSetFunction([responseJson[i]], setiCOMOXAPrmyZMinValue, "add")
+        }
+      })
+      .catch(error => {
+        // setMsg('Please refresh page and try one more time .There has been a problem with your fetch operation:', error)
+        // console.error('Please refresh page and try one more time .There has been a problem with your fetch operation:', error);
+      });
+
+    fetch(`https://test-zotera-server-dev.azurewebsites.net/getListData?history=${event.target.value}&sensorType=iCOMOX/Temperature/Value`)
+    //fetch(`http://localhost:8080/getListData?history=${event.target.value}&sensorType=iCOMOX/Temperature/Value`)
+      .then((response) => response.json())
+      .then((responseJson) => {
+        // setOldDataUpperTank(responseJson)
+        validateAndSetFunction([], setiCOMOXTmpertrValue, "clear")
+        for(var i=responseJson.length-1; i>=0; i--){
+          validateAndSetFunction([responseJson[i]], setiCOMOXTmpertrValue, "add")
+        }
+      })
+      .catch(error => {
+        // setMsg('Please refresh page and try one more time .There has been a problem with your fetch operation:', error)
+        // console.error('Please refresh page and try one more time .There has been a problem with your fetch operation:', error);
+      });
+
+    fetch(`https://test-zotera-server-dev.azurewebsites.net/getListData?history=${event.target.value}&sensorType=iCOMOX/Acoustic/Max/Value`)
+    //fetch(`http://localhost:8080/getListData?history=${event.target.value}&sensorType=iCOMOX/Acoustic/Max/Value`)
+      .then((response) => response.json())
+      .then((responseJson) => {
+        // setOldDataUpperTank(responseJson)
+        validateAndSetFunction([], setiCOMOXAcMinValue, "clear")
+        for(var i=responseJson.length-1; i>=0; i--){
+          validateAndSetFunction([responseJson[i]], setiCOMOXAcMinValue, "add")
+        }
+      })
+      .catch(error => {
+        // setMsg('Please refresh page and try one more time .There has been a problem with your fetch operation:', error)
+        // console.error('Please refresh page and try one more time .There has been a problem with your fetch operation:', error);
+      });
+
+      fetch(`https://test-zotera-server-dev.azurewebsites.net/getListData?history=${event.target.value}&sensorType=iCOMOX/Acoustic/Min/Value`)
+      //fetch(`http://localhost:8080/getListData?history=${event.target.value}&sensorType=iCOMOX/Acoustic/Min/Value`)
+        .then((response) => response.json())
+        .then((responseJson) => {
+          // setOldDataUpperTank(responseJson)
+          validateAndSetFunction([], setiCOMOXAcMinValue, "clear")
+          for(var i=responseJson.length-1; i>=0; i--){
+            validateAndSetFunction([responseJson[i]], setiCOMOXAcMinValue, "add")
+          }
+        })
+        .catch(error => {
+          // setMsg('Please refresh page and try one more time .There has been a problem with your fetch operation:', error)
+          // console.error('Please refresh page and try one more time .There has been a problem with your fetch operation:', error);
+        });
+
+      fetch(`https://test-zotera-server-dev.azurewebsites.net/getListData?history=${event.target.value}&sensorType=iCOMOX/Acoustic/RMS/Value`)
+      //fetch(`http://localhost:8080/getListData?history=${event.target.value}&sensorType=iCOMOX/Acoustic/RMS/Value`)
+        .then((response) => response.json())
+        .then((responseJson) => {
+          // setOldDataUpperTank(responseJson)
+          validateAndSetFunction([], setiCOMOXAcRMSValue, "clear")
+          for(var i=responseJson.length-1; i>=0; i--){
+            validateAndSetFunction([responseJson[i]], setiCOMOXAcRMSValue, "add")
+          }
+        })
+        .catch(error => {
+          // setMsg('Please refresh page and try one more time .There has been a problem with your fetch operation:', error)
+          // console.error('Please refresh page and try one more time .There has been a problem with your fetch operation:', error);
+        });
+
+      fetch(`https://test-zotera-server-dev.azurewebsites.net/getListData?history=${event.target.value}&sensorType=iCOMOX/Acoustic/Avg/Value`)
+      //fetch(`http://localhost:8080/getListData?history=${event.target.value}&sensorType=iCOMOX/Acoustic/Avg/Value`)
+        .then((response) => response.json())
+        .then((responseJson) => {
+          // setOldDataUpperTank(responseJson)
+          validateAndSetFunction([], setiCOMOXAcAvgValue, "clear")
+          for(var i=responseJson.length-1; i>=0; i--){
+            validateAndSetFunction([responseJson[i]], setiCOMOXAcAvgValue, "add")
+          }
+        })
+        .catch(error => {
+          // setMsg('Please refresh page and try one more time .There has been a problem with your fetch operation:', error)
+          // console.error('Please refresh page and try one more time .There has been a problem with your fetch operation:', error);
+        });
+
+      fetch(`https://test-zotera-server-dev.azurewebsites.net/getListData?history=${event.target.value}&sensorType=AutomationSetpoints/Motor30RPM`)
+      //fetch(`http://localhost:8080/getListData?history=${event.target.value}&sensorType=AutomationSetpoints/Motor30RPM`)
+        .then((response) => response.json())
+        .then((responseJson) => {
+          // setOldDataUpperTank(responseJson)
+          validateAndSetFunction([], setAtmtnSetPointsMotor30Rpm, "clear")
+          for(var i=responseJson.length-1; i>=0; i--){
+            validateAndSetFunction([responseJson[i]], setAtmtnSetPointsMotor30Rpm, "add")
+          }
+        })
+        .catch(error => {
+          // setMsg('Please refresh page and try one more time .There has been a problem with your fetch operation:', error)
+          // console.error('Please refresh page and try one more time .There has been a problem with your fetch operation:', error);
+        });
+
+      fetch(`https://test-zotera-server-dev.azurewebsites.net/getListData?history=${event.target.value}&sensorType=AutomationSetpoints/MotorFullRPM`)
+      //fetch(`http://localhost:8080/getListData?history=${event.target.value}&sensorType=AutomationSetpoints/MotorFullRPM`)
+        .then((response) => response.json())
+        .then((responseJson) => {
+          // setOldDataUpperTank(responseJson)
+          validateAndSetFunction([], setAtmtnSetPointMotorFullRpm, "clear")
+          for(var i=responseJson.length-1; i>=0; i--){
+            validateAndSetFunction([responseJson[i]], setAtmtnSetPointMotorFullRpm, "add")
+          }
+        })
+        .catch(error => {
+          // setMsg('Please refresh page and try one more time .There has been a problem with your fetch operation:', error)
+          // console.error('Please refresh page and try one more time .There has been a problem with your fetch operation:', error);
+        });
+  }
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
 
-    const validateAndSetFunction = (recivedArrayName, setFunctionName) => {
+    const validateAndSetFunction = (recivedArrayName, setFunctionName, action) => {
         if (recivedArrayName.length > 0) {
            // setFunctionName(recivedArrayName)
            setFunctionName(oldArray => {
@@ -186,6 +337,11 @@ const PumpTwo = () => {
             }
           })
         }
+        else if (action=='clear'){
+          setFunctionName(oldArray => {
+            return []
+          })
+        }
     }
 
     function handleChangeWeek(event) {
@@ -194,18 +350,146 @@ const PumpTwo = () => {
 
 
     useEffect(() => {
-        validateAndSetFunction(iCOMOXTemperatureValue, setiCOMOXTmpertrValue);
-        validateAndSetFunction(iCOMOXAccPrimaryZMaxValue, setiCOMOXAPrmyZMaxValue);
-        validateAndSetFunction(iCOMOXAccPrimaryZMinValue, setiCOMOXAPrmyZMinValue);
-        validateAndSetFunction(iCOMOXAcousticMaxValue, setiCOMOXAcMaxValue);
-        validateAndSetFunction(iCOMOXAcousticMinValue, setiCOMOXAcMinValue);
-        validateAndSetFunction(iCOMOXAcousticRMSValue, setiCOMOXAcRMSValue);
-        validateAndSetFunction(iCOMOXAcousticAvgValue, setiCOMOXAcAvgValue);
-        validateAndSetFunction(AutomationSetpoints_Motor30RPM, setAtmtnSetPointsMotor30Rpm);
-        validateAndSetFunction(AutomationSetpoints_MotorFullRPM, setAtmtnSetPointMotorFullRpm);
+        validateAndSetFunction(iCOMOXTemperatureValue, setiCOMOXTmpertrValue, "add");
+        validateAndSetFunction(iCOMOXAccPrimaryZMaxValue, setiCOMOXAPrmyZMaxValue, "add");
+        validateAndSetFunction(iCOMOXAccPrimaryZMinValue, setiCOMOXAPrmyZMinValue, "add");
+        validateAndSetFunction(iCOMOXAcousticMaxValue, setiCOMOXAcMaxValue, "add");
+        validateAndSetFunction(iCOMOXAcousticMinValue, setiCOMOXAcMinValue, "add");
+        validateAndSetFunction(iCOMOXAcousticRMSValue, setiCOMOXAcRMSValue, "add");
+        validateAndSetFunction(iCOMOXAcousticAvgValue, setiCOMOXAcAvgValue, "add");
+        validateAndSetFunction(AutomationSetpoints_Motor30RPM, setAtmtnSetPointsMotor30Rpm, "add");
+        validateAndSetFunction(AutomationSetpoints_MotorFullRPM, setAtmtnSetPointMotorFullRpm, "add");
 
     }, [globalData])
 
+  
+    useEffect(() => {
+        fetch('https://test-zotera-server-dev.azurewebsites.net/getListData?history=lasthour&sensorType=iCOMOX/AccelerometerPrimary/Z/Max/Value')
+        //fetch('http://localhost:8080/getListData?history=lasthour&sensorType=iCOMOX/AccelerometerPrimary/Z/Max/Value')
+          .then((response) => response.json())
+          .then((responseJson) => {
+            // setOldDataPmpInlet(responseJson)
+            for(var i=responseJson.length-1; i>=0; i--){             
+              validateAndSetFunction([responseJson[i]], setiCOMOXAPrmyZMaxValue, "add")
+            }
+          })
+          .catch(error => {
+            // setMsg('Please refresh page and try one more time .There has been a problem with your fetch operation:', error)
+            // console.error('Please refresh page and try one more time .There has been a problem with your fetch operation:', error);
+          });
+    
+        fetch('https://test-zotera-server-dev.azurewebsites.net/getListData?history=lasthour&sensorType=iCOMOX/AccelerometerPrimary/Z/Min/Value')
+        //fetch('http://localhost:8080/getListData?history=lasthour&sensorType=iCOMOX/AccelerometerPrimary/Z/Min/Value')
+          .then((response) => response.json())
+          .then((responseJson) => {
+            // setOldDataUpperTank(responseJson)
+            for(var i=responseJson.length-1; i>=0; i--){
+              validateAndSetFunction([responseJson[i]], setiCOMOXAPrmyZMinValue, "add")
+            }
+          })
+          .catch(error => {
+            // setMsg('Please refresh page and try one more time .There has been a problem with your fetch operation:', error)
+            // console.error('Please refresh page and try one more time .There has been a problem with your fetch operation:', error);
+          });
+    
+          fetch('https://test-zotera-server-dev.azurewebsites.net/getListData?history=lasthour&sensorType=iCOMOX/Temperature/Value')
+        //fetch('http://localhost:8080/getListData?history=lasthour&sensorType=iCOMOX/Temperature/Value')
+        .then((response) => response.json())
+        .then((responseJson) => {
+          // setOldDataUpperTank(responseJson)
+          for(var i=responseJson.length-1; i>=0; i--){
+            validateAndSetFunction([responseJson[i]], setiCOMOXTmpertrValue, "add")
+          }
+        })
+        .catch(error => {
+          // setMsg('Please refresh page and try one more time .There has been a problem with your fetch operation:', error)
+          // console.error('Please refresh page and try one more time .There has been a problem with your fetch operation:', error);
+        });
+    
+         fetch('https://test-zotera-server-dev.azurewebsites.net/getListData?history=lasthour&sensorType=iCOMOX/Acoustic/Max/Value')
+         //fetch('http://localhost:8080/getListData?history=lasthour&sensorType=iCOMOX/Acoustic/Max/Value')
+         .then((response) => response.json())
+         .then((responseJson) => {
+           // setOldDataUpperTank(responseJson)
+           for(var i=responseJson.length-1; i>=0; i--){
+             validateAndSetFunction([responseJson[i]], setiCOMOXAcMaxValue, "add")
+           }
+         })
+         .catch(error => {
+           // setMsg('Please refresh page and try one more time .There has been a problem with your fetch operation:', error)
+           // console.error('Please refresh page and try one more time .There has been a problem with your fetch operation:', error);
+         });
+    
+         fetch('https://test-zotera-server-dev.azurewebsites.net/getListData?history=lasthour&sensorType=iCOMOX/Acoustic/Min/Value')
+         //fetch('http://localhost:8080/getListData?history=lasthour&sensorType=iCOMOX/Acoustic/Min/Value')
+         .then((response) => response.json())
+         .then((responseJson) => {
+           // setOldDataUpperTank(responseJson)
+           for(var i=responseJson.length-1; i>=0; i--){
+             validateAndSetFunction([responseJson[i]], setiCOMOXAcMinValue, "add")
+           }
+         })
+         .catch(error => {
+           // setMsg('Please refresh page and try one more time .There has been a problem with your fetch operation:', error)
+           // console.error('Please refresh page and try one more time .There has been a problem with your fetch operation:', error);
+         });
+    
+         fetch('https://test-zotera-server-dev.azurewebsites.net/getListData?history=lasthour&sensorType=iCOMOX/Acoustic/RMS/Value')
+         //fetch('http://localhost:8080/getListData?history=lasthour&sensorType=iCOMOX/Acoustic/RMS/Value')
+         .then((response) => response.json())
+         .then((responseJson) => {
+           // setOldDataUpperTank(responseJson)
+           for(var i=responseJson.length-1; i>=0; i--){
+             validateAndSetFunction([responseJson[i]], setiCOMOXAcRMSValue, "add")
+           }
+         })
+         .catch(error => {
+           // setMsg('Please refresh page and try one more time .There has been a problem with your fetch operation:', error)
+           // console.error('Please refresh page and try one more time .There has been a problem with your fetch operation:', error);
+         });
+    
+         fetch('https://test-zotera-server-dev.azurewebsites.net/getListData?history=lasthour&sensorType=iCOMOX/Acoustic/Avg/Value')
+         //fetch('http://localhost:8080/getListData?history=lasthour&sensorType=iCOMOX/Acoustic/Avg/Value')
+         .then((response) => response.json())
+         .then((responseJson) => {
+           // setOldDataUpperTank(responseJson)
+           for(var i=responseJson.length-1; i>=0; i--){
+             validateAndSetFunction([responseJson[i]], setiCOMOXAcAvgValue, "add")
+           }
+         })
+         .catch(error => {
+           // setMsg('Please refresh page and try one more time .There has been a problem with your fetch operation:', error)
+           // console.error('Please refresh page and try one more time .There has been a problem with your fetch operation:', error);
+         });
+    
+         fetch('https://test-zotera-server-dev.azurewebsites.net/getListData?history=lasthour&sensorType=AutomationSetpoints/Motor30RPM')
+         //fetch('http://localhost:8080/getListData?history=lasthour&sensorType=AutomationSetpoints/Motor30RPM')
+         .then((response) => response.json())
+         .then((responseJson) => {
+           // setOldDataUpperTank(responseJson)
+           for(var i=responseJson.length-1; i>=0; i--){
+             validateAndSetFunction([responseJson[i]], setAtmtnSetPointsMotor30Rpm, "add")
+           }
+         })
+         .catch(error => {
+           // setMsg('Please refresh page and try one more time .There has been a problem with your fetch operation:', error)
+           // console.error('Please refresh page and try one more time .There has been a problem with your fetch operation:', error);
+         });
+    
+         fetch('https://test-zotera-server-dev.azurewebsites.net/getListData?history=lasthour&sensorType=AutomationSetpoints/MotorFullRPM')
+         //fetch('http://localhost:8080/getListData?history=lasthour&sensorType=AutomationSetpoints/MotorFullRPM')
+         .then((response) => response.json())
+         .then((responseJson) => {
+           // setOldDataUpperTank(responseJson)
+           for(var i=responseJson.length-1; i>=0; i--){
+             validateAndSetFunction([responseJson[i]], setAtmtnSetPointMotorFullRpm, "add")
+           }
+         })
+         .catch(error => {
+           // setMsg('Please refresh page and try one more time .There has been a problem with your fetch operation:', error)
+           // console.error('Please refresh page and try one more time .There has been a problem with your fetch operation:', error);
+         });
+      }, [])
 
     return (
         <>
@@ -259,7 +543,7 @@ const PumpTwo = () => {
                                                         <TableCell className={classes.paddingStyle} ><b>Pump Status</b></TableCell>
                                                         <TableCell className={classes.paddingStyle} >
                                                             <FormControl>
-                                                                <Select className={classes.dropDownBtnStyle}
+                                                                {/* <Select className={classes.dropDownBtnStyle}
                                                                     value={selectedWeek}
                                                                     onChange={handleChangeWeek}
                                                                     inputProps={{
@@ -269,6 +553,20 @@ const PumpTwo = () => {
                                                                     {valuesWeek.map((value, index) => {
                                                                         return <MenuItem value={value} key={index * 2.54}>{value}</MenuItem>;
                                                                     })}
+                                                                </Select> */}                                                                
+                                                                <Select className={classes.dropDownBtnStyle}
+                                                                // value={selected ? selected : ''}
+                                                                onChange={pmpInletHandleChange}
+                                                                inputProps={{
+                                                                    name: "statusHistory",
+                                                                    id: "statusHistory",
+                                                                }}
+                                                                defaultValue='lasthour'
+                                                                >
+
+                                                                {pmpInletHistoryOptionKeys.map((value, index) => {
+                                                                    return <MenuItem value={value} key={index * 2.54}>{pmpInletHistoryOption[value]}</MenuItem>;
+                                                                })}
                                                                 </Select>
                                                             </FormControl>
                                                         </TableCell>
@@ -427,7 +725,7 @@ const PumpTwo = () => {
                                                         <TableCell className={classes.paddingStyle} ><b>Pump Status</b></TableCell>
                                                         <TableCell className={classes.paddingStyle} >
                                                             <FormControl>
-                                                                <Select className={classes.dropDownBtnStyle}
+                                                                {/* <Select className={classes.dropDownBtnStyle}
                                                                     value={selectedWeek}
                                                                     onChange={handleChangeWeek}
                                                                     inputProps={{
@@ -437,6 +735,20 @@ const PumpTwo = () => {
                                                                     {valuesWeek.map((value, index) => {
                                                                         return <MenuItem value={value} key={index * 2.54}>{value}</MenuItem>;
                                                                     })}
+                                                                </Select> */}                                                               
+                                                                <Select className={classes.dropDownBtnStyle}
+                                                                // value={selected ? selected : ''}
+                                                                onChange={pmpInletHandleChange}
+                                                                inputProps={{
+                                                                    name: "statusHistory",
+                                                                    id: "statusHistory",
+                                                                }}
+                                                                defaultValue='lasthour'
+                                                                >
+
+                                                                {pmpInletHistoryOptionKeys.map((value, index) => {
+                                                                    return <MenuItem value={value} key={index * 2.54}>{pmpInletHistoryOption[value]}</MenuItem>;
+                                                                })}
                                                                 </Select>
                                                             </FormControl>
                                                         </TableCell>
