@@ -1,0 +1,1099 @@
+ {
+    "IotData": {
+        "topic": {
+            "namespace": "spBv1.0",
+            "edgeNodeDescriptor": "SRT-COMOX-SM/Vibration",
+            "groupId": "SRT-COMOX-SM",
+            "edgeNodeId": "Vibration",
+            "type": "NDATA"
+        },
+        "payload": {
+            "timestamp": 1639657850329,
+            "metrics": [
+                {
+                    "name": "X",
+                    "timestamp": 1639657789688,
+                    "dataType": "Double",
+                    "value": -0.175023058975276
+                },
+                {
+                    "name": "Y",
+                    "timestamp": 1639657789688,
+                    "dataType": "Double",
+                    "value": -0.0175023058975276
+                },
+                {
+                    "name": "Z",
+                    "timestamp": 1639657789688,
+                    "dataType": "Double",
+                    "value": 0.9845643345292054
+                },
+                {
+                    "name": "X",
+                    "timestamp": 1639657790689,
+                    "dataType": "Double",
+                    "value": 0.4376807933167431
+                },
+                {
+                    "name": "Y",
+                    "timestamp": 1639657790689,
+                    "dataType": "Double",
+                    "value": 0.043768079331674314
+                },
+                {
+                    "name": "Z",
+                    "timestamp": 1639657790689,
+                    "dataType": "Double",
+                    "value": 0.8991304261127117
+                },
+                {
+                    "name": "X",
+                    "timestamp": 1639657791692,
+                    "dataType": "Double",
+                    "value": 0.8834714466863257
+                },
+                {
+                    "name": "Y",
+                    "timestamp": 1639657791692,
+                    "dataType": "Double",
+                    "value": 0.08834714466863258
+                },
+                {
+                    "name": "Z",
+                    "timestamp": 1639657791692,
+                    "dataType": "Double",
+                    "value": 0.4684850081805934
+                },
+                {
+                    "name": "X",
+                    "timestamp": 1639657792694,
+                    "dataType": "Double",
+                    "value": 0.9899349314445247
+                },
+                {
+                    "name": "Y",
+                    "timestamp": 1639657792694,
+                    "dataType": "Double",
+                    "value": 0.09899349314445248
+                },
+                {
+                    "name": "Z",
+                    "timestamp": 1639657792694,
+                    "dataType": "Double",
+                    "value": -0.14152325429385837
+                },
+                {
+                    "name": "X",
+                    "timestamp": 1639657793695,
+                    "dataType": "Double",
+                    "value": 0.7172512211719023
+                },
+                {
+                    "name": "Y",
+                    "timestamp": 1639657793695,
+                    "dataType": "Double",
+                    "value": 0.07172512211719023
+                },
+                {
+                    "name": "Z",
+                    "timestamp": 1639657793695,
+                    "dataType": "Double",
+                    "value": -0.696814671004719
+                },
+                {
+                    "name": "X",
+                    "timestamp": 1639657794697,
+                    "dataType": "Double",
+                    "value": 0.16945271010943505
+                },
+                {
+                    "name": "Y",
+                    "timestamp": 1639657794697,
+                    "dataType": "Double",
+                    "value": 0.016945271010943504
+                },
+                {
+                    "name": "Z",
+                    "timestamp": 1639657794697,
+                    "dataType": "Double",
+                    "value": -0.9855383194156216
+                },
+                {
+                    "name": "X",
+                    "timestamp": 1639657795697,
+                    "dataType": "Double",
+                    "value": -0.44219476750018666
+                },
+                {
+                    "name": "Y",
+                    "timestamp": 1639657795697,
+                    "dataType": "Double",
+                    "value": -0.044219476750018666
+                },
+                {
+                    "name": "Z",
+                    "timestamp": 1639657795697,
+                    "dataType": "Double",
+                    "value": -0.8969190529782807
+                },
+                {
+                    "name": "X",
+                    "timestamp": 1639657796700,
+                    "dataType": "Double",
+                    "value": -0.8858151383119575
+                },
+                {
+                    "name": "Y",
+                    "timestamp": 1639657796700,
+                    "dataType": "Double",
+                    "value": -0.08858151383119575
+                },
+                {
+                    "name": "Z",
+                    "timestamp": 1639657796700,
+                    "dataType": "Double",
+                    "value": -0.4640382966279483
+                },
+                {
+                    "name": "X",
+                    "timestamp": 1639657797701,
+                    "dataType": "Double",
+                    "value": -0.9893029068235509
+                },
+                {
+                    "name": "Y",
+                    "timestamp": 1639657797701,
+                    "dataType": "Double",
+                    "value": -0.0989302906823551
+                },
+                {
+                    "name": "Z",
+                    "timestamp": 1639657797701,
+                    "dataType": "Double",
+                    "value": 0.14587583264705808
+                },
+                {
+                    "name": "X",
+                    "timestamp": 1639657798702,
+                    "dataType": "Double",
+                    "value": -0.7141795426660787
+                },
+                {
+                    "name": "Y",
+                    "timestamp": 1639657798702,
+                    "dataType": "Double",
+                    "value": -0.07141795426660788
+                },
+                {
+                    "name": "Z",
+                    "timestamp": 1639657798702,
+                    "dataType": "Double",
+                    "value": 0.6999625567394806
+                },
+                {
+                    "name": "X",
+                    "timestamp": 1639657799704,
+                    "dataType": "Double",
+                    "value": -0.16511646118285844
+                },
+                {
+                    "name": "Y",
+                    "timestamp": 1639657799704,
+                    "dataType": "Double",
+                    "value": -0.016511646118285844
+                },
+                {
+                    "name": "Z",
+                    "timestamp": 1639657799704,
+                    "dataType": "Double",
+                    "value": 0.9862740766371433
+                },
+                {
+                    "name": "X",
+                    "timestamp": 1639657800710,
+                    "dataType": "Double",
+                    "value": 0.44950609602589353
+                },
+                {
+                    "name": "Y",
+                    "timestamp": 1639657800710,
+                    "dataType": "Double",
+                    "value": 0.044950609602589356
+                },
+                {
+                    "name": "Z",
+                    "timestamp": 1639657800710,
+                    "dataType": "Double",
+                    "value": 0.8932772635836872
+                },
+                {
+                    "name": "X",
+                    "timestamp": 1639657801723,
+                    "dataType": "Double",
+                    "value": 0.8924283781237179
+                },
+                {
+                    "name": "Y",
+                    "timestamp": 1639657801723,
+                    "dataType": "Double",
+                    "value": 0.0892428378123718
+                },
+                {
+                    "name": "Z",
+                    "timestamp": 1639657801723,
+                    "dataType": "Double",
+                    "value": 0.4511890844418451
+                },
+                {
+                    "name": "X",
+                    "timestamp": 1639657802732,
+                    "dataType": "Double",
+                    "value": 0.9862740766371434
+                },
+                {
+                    "name": "Y",
+                    "timestamp": 1639657802732,
+                    "dataType": "Double",
+                    "value": 0.09862740766371435
+                },
+                {
+                    "name": "Z",
+                    "timestamp": 1639657802732,
+                    "dataType": "Double",
+                    "value": -0.16511646118285794
+                },
+                {
+                    "name": "X",
+                    "timestamp": 1639657803748,
+                    "dataType": "Double",
+                    "value": 0.6936533058128049
+                },
+                {
+                    "name": "Y",
+                    "timestamp": 1639657803748,
+                    "dataType": "Double",
+                    "value": 0.0693653305812805
+                },
+                {
+                    "name": "Z",
+                    "timestamp": 1639657803748,
+                    "dataType": "Double",
+                    "value": -0.7203090248879069
+                },
+                {
+                    "name": "X",
+                    "timestamp": 1639657804769,
+                    "dataType": "Double",
+                    "value": 0.12470984481409865
+                },
+                {
+                    "name": "Y",
+                    "timestamp": 1639657804769,
+                    "dataType": "Double",
+                    "value": 0.012470984481409866
+                },
+                {
+                    "name": "Z",
+                    "timestamp": 1639657804769,
+                    "dataType": "Double",
+                    "value": -0.9921932546668736
+                },
+                {
+                    "name": "X",
+                    "timestamp": 1639657805779,
+                    "dataType": "Double",
+                    "value": -0.48779871649245043
+                },
+                {
+                    "name": "Y",
+                    "timestamp": 1639657805779,
+                    "dataType": "Double",
+                    "value": -0.04877987164924505
+                },
+                {
+                    "name": "Z",
+                    "timestamp": 1639657805779,
+                    "dataType": "Double",
+                    "value": -0.8729561341718827
+                },
+                {
+                    "name": "X",
+                    "timestamp": 1639657806795,
+                    "dataType": "Double",
+                    "value": -0.9119196810785912
+                },
+                {
+                    "name": "Y",
+                    "timestamp": 1639657806795,
+                    "dataType": "Double",
+                    "value": -0.09119196810785912
+                },
+                {
+                    "name": "Z",
+                    "timestamp": 1639657806795,
+                    "dataType": "Double",
+                    "value": -0.4103687308525351
+                },
+                {
+                    "name": "X",
+                    "timestamp": 1639657807816,
+                    "dataType": "Double",
+                    "value": -0.9761901181955527
+                },
+                {
+                    "name": "Y",
+                    "timestamp": 1639657807816,
+                    "dataType": "Double",
+                    "value": -0.09761901181955528
+                },
+                {
+                    "name": "Z",
+                    "timestamp": 1639657807816,
+                    "dataType": "Double",
+                    "value": 0.21691669630840535
+                },
+                {
+                    "name": "X",
+                    "timestamp": 1639657808829,
+                    "dataType": "Double",
+                    "value": -0.6561117160599733
+                },
+                {
+                    "name": "Y",
+                    "timestamp": 1639657808829,
+                    "dataType": "Double",
+                    "value": -0.06561117160599733
+                },
+                {
+                    "name": "Z",
+                    "timestamp": 1639657808829,
+                    "dataType": "Double",
+                    "value": 0.7546637768230545
+                },
+                {
+                    "name": "X",
+                    "timestamp": 1639657809838,
+                    "dataType": "Double",
+                    "value": -0.08159061156815804
+                },
+                {
+                    "name": "Y",
+                    "timestamp": 1639657809838,
+                    "dataType": "Double",
+                    "value": -0.008159061156815804
+                },
+                {
+                    "name": "Z",
+                    "timestamp": 1639657809838,
+                    "dataType": "Double",
+                    "value": 0.9966659280340299
+                },
+                {
+                    "name": "X",
+                    "timestamp": 1639657810853,
+                    "dataType": "Double",
+                    "value": 0.5278455119450663
+                },
+                {
+                    "name": "Y",
+                    "timestamp": 1639657810853,
+                    "dataType": "Double",
+                    "value": 0.05278455119450664
+                },
+                {
+                    "name": "Z",
+                    "timestamp": 1639657810853,
+                    "dataType": "Double",
+                    "value": 0.8493404002633166
+                },
+                {
+                    "name": "X",
+                    "timestamp": 1639657811863,
+                    "dataType": "Double",
+                    "value": 0.9286154021410173
+                },
+                {
+                    "name": "Y",
+                    "timestamp": 1639657811863,
+                    "dataType": "Double",
+                    "value": 0.09286154021410174
+                },
+                {
+                    "name": "Z",
+                    "timestamp": 1639657811863,
+                    "dataType": "Double",
+                    "value": 0.37104371023705096
+                },
+                {
+                    "name": "X",
+                    "timestamp": 1639657812876,
+                    "dataType": "Double",
+                    "value": 0.9673208785005658
+                },
+                {
+                    "name": "Y",
+                    "timestamp": 1639657812876,
+                    "dataType": "Double",
+                    "value": 0.09673208785005659
+                },
+                {
+                    "name": "Z",
+                    "timestamp": 1639657812876,
+                    "dataType": "Double",
+                    "value": -0.2535553549363404
+                },
+                {
+                    "name": "X",
+                    "timestamp": 1639657813892,
+                    "dataType": "Double",
+                    "value": 0.6257328917723579
+                },
+                {
+                    "name": "Y",
+                    "timestamp": 1639657813892,
+                    "dataType": "Double",
+                    "value": 0.0625732891772358
+                },
+                {
+                    "name": "Z",
+                    "timestamp": 1639657813892,
+                    "dataType": "Double",
+                    "value": -0.7800374017662247
+                },
+                {
+                    "name": "X",
+                    "timestamp": 1639657814913,
+                    "dataType": "Double",
+                    "value": 0.03455064137447246
+                },
+                {
+                    "name": "Y",
+                    "timestamp": 1639657814913,
+                    "dataType": "Double",
+                    "value": 0.003455064137447246
+                },
+                {
+                    "name": "Z",
+                    "timestamp": 1639657814913,
+                    "dataType": "Double",
+                    "value": -0.9994029483549729
+                },
+                {
+                    "name": "X",
+                    "timestamp": 1639657815929,
+                    "dataType": "Double",
+                    "value": -0.5677862779100517
+                },
+                {
+                    "name": "Y",
+                    "timestamp": 1639657815929,
+                    "dataType": "Double",
+                    "value": -0.05677862779100517
+                },
+                {
+                    "name": "Z",
+                    "timestamp": 1639657815929,
+                    "dataType": "Double",
+                    "value": -0.8231760095004286
+                },
+                {
+                    "name": "X",
+                    "timestamp": 1639657816944,
+                    "dataType": "Double",
+                    "value": -0.946288695380672
+                },
+                {
+                    "name": "Y",
+                    "timestamp": 1639657816944,
+                    "dataType": "Double",
+                    "value": -0.0946288695380672
+                },
+                {
+                    "name": "Z",
+                    "timestamp": 1639657816944,
+                    "dataType": "Double",
+                    "value": -0.32332291133593644
+                },
+                {
+                    "name": "X",
+                    "timestamp": 1639657817960,
+                    "dataType": "Double",
+                    "value": -0.9525977838244709
+                },
+                {
+                    "name": "Y",
+                    "timestamp": 1639657817960,
+                    "dataType": "Double",
+                    "value": -0.09525977838244709
+                },
+                {
+                    "name": "Z",
+                    "timestamp": 1639657817960,
+                    "dataType": "Double",
+                    "value": 0.30423257920989766
+                },
+                {
+                    "name": "X",
+                    "timestamp": 1639657818976,
+                    "dataType": "Double",
+                    "value": -0.5837112809325289
+                },
+                {
+                    "name": "Y",
+                    "timestamp": 1639657818976,
+                    "dataType": "Double",
+                    "value": -0.05837112809325289
+                },
+                {
+                    "name": "Z",
+                    "timestamp": 1639657818976,
+                    "dataType": "Double",
+                    "value": 0.8119612924962042
+                },
+                {
+                    "name": "X",
+                    "timestamp": 1639657819994,
+                    "dataType": "Double",
+                    "value": 0.01633555518660411
+                },
+                {
+                    "name": "Y",
+                    "timestamp": 1639657819994,
+                    "dataType": "Double",
+                    "value": 0.001633555518660411
+                },
+                {
+                    "name": "Z",
+                    "timestamp": 1639657819994,
+                    "dataType": "Double",
+                    "value": 0.9998665659160453
+                },
+                {
+                    "name": "X",
+                    "timestamp": 1639657821007,
+                    "dataType": "Double",
+                    "value": 0.6074312988461209
+                },
+                {
+                    "name": "Y",
+                    "timestamp": 1639657821007,
+                    "dataType": "Double",
+                    "value": 0.06074312988461209
+                },
+                {
+                    "name": "Z",
+                    "timestamp": 1639657821007,
+                    "dataType": "Double",
+                    "value": 0.7943722157667114
+                },
+                {
+                    "name": "X",
+                    "timestamp": 1639657822023,
+                    "dataType": "Double",
+                    "value": 0.9611654217888519
+                },
+                {
+                    "name": "Y",
+                    "timestamp": 1639657822023,
+                    "dataType": "Double",
+                    "value": 0.0961165421788852
+                },
+                {
+                    "name": "Z",
+                    "timestamp": 1639657822023,
+                    "dataType": "Double",
+                    "value": 0.2759728826487459
+                },
+                {
+                    "name": "X",
+                    "timestamp": 1639657823044,
+                    "dataType": "Double",
+                    "value": 0.9352217514007471
+                },
+                {
+                    "name": "Y",
+                    "timestamp": 1639657823044,
+                    "dataType": "Double",
+                    "value": 0.09352217514007471
+                },
+                {
+                    "name": "Z",
+                    "timestamp": 1639657823044,
+                    "dataType": "Double",
+                    "value": -0.3540625307864688
+                },
+                {
+                    "name": "X",
+                    "timestamp": 1639657824060,
+                    "dataType": "Double",
+                    "value": 0.5400640630241159
+                },
+                {
+                    "name": "Y",
+                    "timestamp": 1639657824060,
+                    "dataType": "Double",
+                    "value": 0.054006406302411596
+                },
+                {
+                    "name": "Z",
+                    "timestamp": 1639657824060,
+                    "dataType": "Double",
+                    "value": -0.8416239111562146
+                },
+                {
+                    "name": "X",
+                    "timestamp": 1639657825070,
+                    "dataType": "Double",
+                    "value": -0.0640446269970783
+                },
+                {
+                    "name": "Y",
+                    "timestamp": 1639657825070,
+                    "dataType": "Double",
+                    "value": -0.00640446269970783
+                },
+                {
+                    "name": "Z",
+                    "timestamp": 1639657825070,
+                    "dataType": "Double",
+                    "value": -0.9979470355448755
+                },
+                {
+                    "name": "X",
+                    "timestamp": 1639657826085,
+                    "dataType": "Double",
+                    "value": -0.6456176426324699
+                },
+                {
+                    "name": "Y",
+                    "timestamp": 1639657826085,
+                    "dataType": "Double",
+                    "value": -0.06456176426324699
+                },
+                {
+                    "name": "Z",
+                    "timestamp": 1639657826085,
+                    "dataType": "Double",
+                    "value": -0.7636608275417119
+                },
+                {
+                    "name": "X",
+                    "timestamp": 1639657827094,
+                    "dataType": "Double",
+                    "value": -0.9725164064979237
+                },
+                {
+                    "name": "Y",
+                    "timestamp": 1639657827094,
+                    "dataType": "Double",
+                    "value": -0.09725164064979237
+                },
+                {
+                    "name": "Z",
+                    "timestamp": 1639657827094,
+                    "dataType": "Double",
+                    "value": -0.2328343597761404
+                },
+                {
+                    "name": "X",
+                    "timestamp": 1639657828107,
+                    "dataType": "Double",
+                    "value": -0.9204775730305195
+                },
+                {
+                    "name": "Y",
+                    "timestamp": 1639657828107,
+                    "dataType": "Double",
+                    "value": -0.09204775730305195
+                },
+                {
+                    "name": "Z",
+                    "timestamp": 1639657828107,
+                    "dataType": "Double",
+                    "value": 0.3907953908989264
+                },
+                {
+                    "name": "X",
+                    "timestamp": 1639657829117,
+                    "dataType": "Double",
+                    "value": -0.5095821353997765
+                },
+                {
+                    "name": "Y",
+                    "timestamp": 1639657829117,
+                    "dataType": "Double",
+                    "value": -0.05095821353997765
+                },
+                {
+                    "name": "Z",
+                    "timestamp": 1639657829117,
+                    "dataType": "Double",
+                    "value": 0.860422016966909
+                },
+                {
+                    "name": "X",
+                    "timestamp": 1639657830129,
+                    "dataType": "Double",
+                    "value": 0.10098684116060014
+                },
+                {
+                    "name": "Y",
+                    "timestamp": 1639657830129,
+                    "dataType": "Double",
+                    "value": 0.010098684116060014
+                },
+                {
+                    "name": "Z",
+                    "timestamp": 1639657830129,
+                    "dataType": "Double",
+                    "value": 0.9948877614647814
+                },
+                {
+                    "name": "X",
+                    "timestamp": 1639657831149,
+                    "dataType": "Double",
+                    "value": 0.6757960679434694
+                },
+                {
+                    "name": "Y",
+                    "timestamp": 1639657831149,
+                    "dataType": "Double",
+                    "value": 0.06757960679434694
+                },
+                {
+                    "name": "Z",
+                    "timestamp": 1639657831149,
+                    "dataType": "Double",
+                    "value": 0.7370886476890998
+                },
+                {
+                    "name": "X",
+                    "timestamp": 1639657832160,
+                    "dataType": "Double",
+                    "value": 0.9813329641761736
+                },
+                {
+                    "name": "Y",
+                    "timestamp": 1639657832160,
+                    "dataType": "Double",
+                    "value": 0.09813329641761737
+                },
+                {
+                    "name": "Z",
+                    "timestamp": 1639657832160,
+                    "dataType": "Double",
+                    "value": 0.1923164408499829
+                },
+                {
+                    "name": "X",
+                    "timestamp": 1639657833170,
+                    "dataType": "Double",
+                    "value": 0.9042912881463557
+                },
+                {
+                    "name": "Y",
+                    "timestamp": 1639657833170,
+                    "dataType": "Double",
+                    "value": 0.09042912881463558
+                },
+                {
+                    "name": "Z",
+                    "timestamp": 1639657833170,
+                    "dataType": "Double",
+                    "value": -0.42691599429232513
+                },
+                {
+                    "name": "X",
+                    "timestamp": 1639657834185,
+                    "dataType": "Double",
+                    "value": 0.47236617474283255
+                },
+                {
+                    "name": "Y",
+                    "timestamp": 1639657834185,
+                    "dataType": "Double",
+                    "value": 0.04723661747428326
+                },
+                {
+                    "name": "Z",
+                    "timestamp": 1639657834185,
+                    "dataType": "Double",
+                    "value": -0.8814024035358786
+                },
+                {
+                    "name": "X",
+                    "timestamp": 1639657835194,
+                    "dataType": "Double",
+                    "value": -0.1415232542938581
+                },
+                {
+                    "name": "Y",
+                    "timestamp": 1639657835194,
+                    "dataType": "Double",
+                    "value": -0.01415232542938581
+                },
+                {
+                    "name": "Z",
+                    "timestamp": 1639657835194,
+                    "dataType": "Double",
+                    "value": -0.9899349314445248
+                },
+                {
+                    "name": "X",
+                    "timestamp": 1639657836207,
+                    "dataType": "Double",
+                    "value": -0.7022027600794677
+                },
+                {
+                    "name": "Y",
+                    "timestamp": 1639657836207,
+                    "dataType": "Double",
+                    "value": -0.07022027600794677
+                },
+                {
+                    "name": "Z",
+                    "timestamp": 1639657836207,
+                    "dataType": "Double",
+                    "value": -0.7119770247253612
+                },
+                {
+                    "name": "X",
+                    "timestamp": 1639657837216,
+                    "dataType": "Double",
+                    "value": -0.9874909794530675
+                },
+                {
+                    "name": "Y",
+                    "timestamp": 1639657837216,
+                    "dataType": "Double",
+                    "value": -0.09874909794530676
+                },
+                {
+                    "name": "Z",
+                    "timestamp": 1639657837216,
+                    "dataType": "Double",
+                    "value": -0.1576755069718231
+                },
+                {
+                    "name": "X",
+                    "timestamp": 1639657838232,
+                    "dataType": "Double",
+                    "value": -0.8869785948821864
+                },
+                {
+                    "name": "Y",
+                    "timestamp": 1639657838232,
+                    "dataType": "Double",
+                    "value": -0.08869785948821865
+                },
+                {
+                    "name": "Z",
+                    "timestamp": 1639657838232,
+                    "dataType": "Double",
+                    "value": 0.4618105371478895
+                },
+                {
+                    "name": "X",
+                    "timestamp": 1639657839245,
+                    "dataType": "Double",
+                    "value": -0.4388103280570312
+                },
+                {
+                    "name": "Y",
+                    "timestamp": 1639657839245,
+                    "dataType": "Double",
+                    "value": -0.04388103280570312
+                },
+                {
+                    "name": "Z",
+                    "timestamp": 1639657839245,
+                    "dataType": "Double",
+                    "value": 0.8985797104266714
+                },
+                {
+                    "name": "X",
+                    "timestamp": 1639657840248,
+                    "dataType": "Double",
+                    "value": 0.17502305897527604
+                },
+                {
+                    "name": "Y",
+                    "timestamp": 1639657840248,
+                    "dataType": "Double",
+                    "value": 0.017502305897527604
+                },
+                {
+                    "name": "Z",
+                    "timestamp": 1639657840248,
+                    "dataType": "Double",
+                    "value": 0.9845643345292053
+                },
+                {
+                    "name": "X",
+                    "timestamp": 1639657841267,
+                    "dataType": "Double",
+                    "value": 0.7285383699252727
+                },
+                {
+                    "name": "Y",
+                    "timestamp": 1639657841267,
+                    "dataType": "Double",
+                    "value": 0.07285383699252727
+                },
+                {
+                    "name": "Z",
+                    "timestamp": 1639657841267,
+                    "dataType": "Double",
+                    "value": 0.6850049952712948
+                },
+                {
+                    "name": "X",
+                    "timestamp": 1639657842291,
+                    "dataType": "Double",
+                    "value": 0.993822274489234
+                },
+                {
+                    "name": "Y",
+                    "timestamp": 1639657842291,
+                    "dataType": "Double",
+                    "value": 0.0993822274489234
+                },
+                {
+                    "name": "Z",
+                    "timestamp": 1639657842291,
+                    "dataType": "Double",
+                    "value": 0.11098327229382639
+                },
+                {
+                    "name": "X",
+                    "timestamp": 1639657843301,
+                    "dataType": "Double",
+                    "value": 0.8661301045447303
+                },
+                {
+                    "name": "Y",
+                    "timestamp": 1639657843301,
+                    "dataType": "Double",
+                    "value": 0.08661301045447303
+                },
+                {
+                    "name": "Z",
+                    "timestamp": 1639657843301,
+                    "dataType": "Double",
+                    "value": -0.4998186090986754
+                },
+                {
+                    "name": "X",
+                    "timestamp": 1639657844310,
+                    "dataType": "Double",
+                    "value": 0.40175599191656775
+                },
+                {
+                    "name": "Y",
+                    "timestamp": 1639657844310,
+                    "dataType": "Double",
+                    "value": 0.04017559919165678
+                },
+                {
+                    "name": "Z",
+                    "timestamp": 1639657844310,
+                    "dataType": "Double",
+                    "value": -0.9157467570017023
+                },
+                {
+                    "name": "X",
+                    "timestamp": 1639657845316,
+                    "dataType": "Double",
+                    "value": -0.2169166963084054
+                },
+                {
+                    "name": "Y",
+                    "timestamp": 1639657845316,
+                    "dataType": "Double",
+                    "value": -0.021691669630840543
+                },
+                {
+                    "name": "Z",
+                    "timestamp": 1639657845316,
+                    "dataType": "Double",
+                    "value": -0.9761901181955527
+                },
+                {
+                    "name": "X",
+                    "timestamp": 1639657846329,
+                    "dataType": "Double",
+                    "value": -0.7546637768230542
+                },
+                {
+                    "name": "Y",
+                    "timestamp": 1639657846329,
+                    "dataType": "Double",
+                    "value": -0.07546637768230542
+                },
+                {
+                    "name": "Z",
+                    "timestamp": 1639657846329,
+                    "dataType": "Double",
+                    "value": -0.6561117160599735
+                },
+                {
+                    "name": "X",
+                    "timestamp": 1639657847338,
+                    "dataType": "Double",
+                    "value": -0.9966659280340299
+                },
+                {
+                    "name": "Y",
+                    "timestamp": 1639657847338,
+                    "dataType": "Double",
+                    "value": -0.099666592803403
+                },
+                {
+                    "name": "Z",
+                    "timestamp": 1639657847338,
+                    "dataType": "Double",
+                    "value": -0.08159061156815799
+                },
+                {
+                    "name": "X",
+                    "timestamp": 1639657848347,
+                    "dataType": "Double",
+                    "value": -0.8513242907452758
+                },
+                {
+                    "name": "Y",
+                    "timestamp": 1639657848347,
+                    "dataType": "Double",
+                    "value": -0.08513242907452759
+                },
+                {
+                    "name": "Z",
+                    "timestamp": 1639657848347,
+                    "dataType": "Double",
+                    "value": 0.5246398307287135
+                },
+                {
+                    "name": "X",
+                    "timestamp": 1639657849360,
+                    "dataType": "Double",
+                    "value": -0.3727934488260934
+                },
+                {
+                    "name": "Y",
+                    "timestamp": 1639657849360,
+                    "dataType": "Double",
+                    "value": -0.03727934488260934
+                },
+                {
+                    "name": "Z",
+                    "timestamp": 1639657849360,
+                    "dataType": "Double",
+                    "value": 0.9279143519271307
+                }
+            ],
+            "seq": 34
+        }
+    },
+    "MessageDate": "2021-12-16T12:30:50.436Z",
+    "DeviceId": "IgnitionDemo"
+}
