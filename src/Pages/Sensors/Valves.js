@@ -174,7 +174,7 @@ const Valves = () => {
       .then((response) => response.json())
       .then((responseJson) => {
         // setOldDataPmpInlet(responseJson)
-        for(var i=responseJson.length-1; i>=0; i--){             
+        for(var i=14; i>=0; i--){             
           validateAndSetFunction([responseJson[i]], setUprTnkIncmngValve, "add")
         }
       })
@@ -188,7 +188,7 @@ const Valves = () => {
       .then((response) => response.json())
       .then((responseJson) => {
         // setOldDataUpperTank(responseJson)
-        for(var i=responseJson.length-1; i>=0; i--){
+        for(var i=14; i>=0; i--){
           validateAndSetFunction([responseJson[i]], setLwrTnkOutgngValve, "add")
         }
       })
@@ -202,7 +202,7 @@ const Valves = () => {
     .then((response) => response.json())
     .then((responseJson) => {
       // setOldDataUpperTank(responseJson)
-      for(var i=responseJson.length-1; i>=0; i--){
+      for(var i=14; i>=0; i--){
         validateAndSetFunction([responseJson[i]], setUprTnkIncmingValve, "add")
       }
     })

@@ -140,7 +140,7 @@ const FlowMeter = () => {
       .then((response) => response.json())
       .then((responseJson) => {
         // setOldDataPmpInlet(responseJson)
-        for(var i=responseJson.length-1; i>=0; i--){             
+        for(var i=14; i>=0; i--){             
           validateAndSetFunction([responseJson[i]], setFlowUprTnkOutgng, "add")
         }
       })
@@ -154,7 +154,7 @@ const FlowMeter = () => {
       .then((response) => response.json())
       .then((responseJson) => {
         // setOldDataUpperTank(responseJson)
-        for(var i=responseJson.length-1; i>=0; i--){
+        for(var i=14; i>=0; i--){
           validateAndSetFunction([responseJson[i]], setFlowUprTnkIncmng, "add")
         }
       })

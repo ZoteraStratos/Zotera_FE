@@ -175,7 +175,7 @@ const SensorsTemperature = () => {
       .then((response) => response.json())
       .then((responseJson) => {
         // setOldDataPmpInlet(responseJson)
-        for(var i=responseJson.length-1; i>=0; i--){             
+        for(var i=14; i>=0; i--){             
           validateAndSetFunction([responseJson[i]], setWaterTempsRawWaterTemp, "add")
         }
       })
@@ -189,7 +189,7 @@ const SensorsTemperature = () => {
       .then((response) => response.json())
       .then((responseJson) => {
         // setOldDataUpperTank(responseJson)
-        for(var i=responseJson.length-1; i>=0; i--){
+        for(var i=14; i>=0; i--){
           validateAndSetFunction([responseJson[i]], setiCOMOXTmpertrValue, "add")
         }
       })

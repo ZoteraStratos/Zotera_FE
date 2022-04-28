@@ -319,7 +319,7 @@ const PumpMonitor = (props) => {
       .then((response) => response.json())
       .then((responseJson) => {
         // setOldDataPmpInlet(responseJson)
-        for(var i=responseJson.length-1; i>=0; i--){             
+        for(var i=4; i>=0; i--){             
           validateAndSetFunction([responseJson[i]], setiCOMOXAPrmyXMaxValue, "add")
         }
       })
@@ -333,7 +333,7 @@ const PumpMonitor = (props) => {
       .then((response) => response.json())
       .then((responseJson) => {
         // setOldDataUpperTank(responseJson)
-        for(var i=responseJson.length-1; i>=0; i--){
+        for(var i=4; i>=0; i--){
           validateAndSetFunction([responseJson[i]], setiCOMOXAPrmyXMinValue, "add")
         }
       })
@@ -347,7 +347,7 @@ const PumpMonitor = (props) => {
     .then((response) => response.json())
     .then((responseJson) => {
       // setOldDataUpperTank(responseJson)
-      for(var i=responseJson.length-1; i>=0; i--){
+      for(var i=4; i>=0; i--){
         validateAndSetFunction([responseJson[i]], setiCOMOXAPrmyYMaxValue, "add")
       }
     })
@@ -361,7 +361,7 @@ const PumpMonitor = (props) => {
      .then((response) => response.json())
      .then((responseJson) => {
        // setOldDataUpperTank(responseJson)
-       for(var i=responseJson.length-1; i>=0; i--){
+       for(var i=4; i>=0; i--){
          validateAndSetFunction([responseJson[i]], setiCOMOXAPrmyYMinValue, "add")
        }
      })
@@ -375,7 +375,7 @@ const PumpMonitor = (props) => {
      .then((response) => response.json())
      .then((responseJson) => {
        // setOldDataUpperTank(responseJson)
-       for(var i=responseJson.length-1; i>=0; i--){
+       for(var i=4; i>=0; i--){
          validateAndSetFunction([responseJson[i]], setiCOMOXAPrmyZMaxValue, "add")
        }
      })
@@ -389,7 +389,7 @@ const PumpMonitor = (props) => {
      .then((response) => response.json())
      .then((responseJson) => {
        // setOldDataUpperTank(responseJson)
-       for(var i=responseJson.length-1; i>=0; i--){
+       for(var i=4; i>=0; i--){
          validateAndSetFunction([responseJson[i]], setiCOMOXAPrmyZMinValue, "add")
        }
      })
@@ -403,7 +403,7 @@ const PumpMonitor = (props) => {
      .then((response) => response.json())
      .then((responseJson) => {
        // setOldDataUpperTank(responseJson)
-       for(var i=responseJson.length-1; i>=0; i--){
+       for(var i=4; i>=0; i--){
          validateAndSetFunction([responseJson[i]], setAtmtnSetPointsMotor30Rpm, "add")
        }
      })
@@ -417,7 +417,7 @@ const PumpMonitor = (props) => {
      .then((response) => response.json())
      .then((responseJson) => {
        // setOldDataUpperTank(responseJson)
-       for(var i=responseJson.length-1; i>=0; i--){
+       for(var i=4; i>=0; i--){
          validateAndSetFunction([responseJson[i]], setAtmtnSetPointMotorFullRpm, "add")
        }
      })
@@ -431,7 +431,7 @@ const PumpMonitor = (props) => {
      .then((response) => response.json())
      .then((responseJson) => {
        // setOldDataUpperTank(responseJson)
-       for(var i=responseJson.length-1; i>=0; i--){
+       for(var i=4; i>=0; i--){
          validateAndSetFunction([responseJson[i]], setABBDriveSpeed, "add")
        }
      })

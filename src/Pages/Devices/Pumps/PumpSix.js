@@ -367,7 +367,7 @@ const PumpSix = () => {
       .then((response) => response.json())
       .then((responseJson) => {
         // setOldDataPmpInlet(responseJson)
-        for(var i=responseJson.length-1; i>=0; i--){             
+        for(var i=4; i>=0; i--){             
           validateAndSetFunction([responseJson[i]], setiCOMOXAPrmyZMaxValue, "add")
         }
       })
@@ -381,7 +381,7 @@ const PumpSix = () => {
       .then((response) => response.json())
       .then((responseJson) => {
         // setOldDataUpperTank(responseJson)
-        for(var i=responseJson.length-1; i>=0; i--){
+        for(var i=4; i>=0; i--){
           validateAndSetFunction([responseJson[i]], setiCOMOXAPrmyZMinValue, "add")
         }
       })
@@ -395,7 +395,7 @@ const PumpSix = () => {
     .then((response) => response.json())
     .then((responseJson) => {
       // setOldDataUpperTank(responseJson)
-      for(var i=responseJson.length-1; i>=0; i--){
+      for(var i=4; i>=0; i--){
         validateAndSetFunction([responseJson[i]], setiCOMOXTmpertrValue, "add")
       }
     })
@@ -409,7 +409,7 @@ const PumpSix = () => {
      .then((response) => response.json())
      .then((responseJson) => {
        // setOldDataUpperTank(responseJson)
-       for(var i=responseJson.length-1; i>=0; i--){
+       for(var i=4; i>=0; i--){
          validateAndSetFunction([responseJson[i]], setiCOMOXAcMaxValue, "add")
        }
      })
@@ -423,7 +423,7 @@ const PumpSix = () => {
      .then((response) => response.json())
      .then((responseJson) => {
        // setOldDataUpperTank(responseJson)
-       for(var i=responseJson.length-1; i>=0; i--){
+       for(var i=4; i>=0; i--){
          validateAndSetFunction([responseJson[i]], setiCOMOXAcMinValue, "add")
        }
      })
@@ -437,7 +437,7 @@ const PumpSix = () => {
      .then((response) => response.json())
      .then((responseJson) => {
        // setOldDataUpperTank(responseJson)
-       for(var i=responseJson.length-1; i>=0; i--){
+       for(var i=4; i>=0; i--){
          validateAndSetFunction([responseJson[i]], setiCOMOXAcRMSValue, "add")
        }
      })
@@ -451,7 +451,7 @@ const PumpSix = () => {
      .then((response) => response.json())
      .then((responseJson) => {
        // setOldDataUpperTank(responseJson)
-       for(var i=responseJson.length-1; i>=0; i--){
+       for(var i=4; i>=0; i--){
          validateAndSetFunction([responseJson[i]], setiCOMOXAcAvgValue, "add")
        }
      })
@@ -465,7 +465,7 @@ const PumpSix = () => {
      .then((response) => response.json())
      .then((responseJson) => {
        // setOldDataUpperTank(responseJson)
-       for(var i=responseJson.length-1; i>=0; i--){
+       for(var i=4; i>=0; i--){
          validateAndSetFunction([responseJson[i]], setAtmtnSetPointsMotor30Rpm, "add")
        }
      })
@@ -479,7 +479,7 @@ const PumpSix = () => {
      .then((response) => response.json())
      .then((responseJson) => {
        // setOldDataUpperTank(responseJson)
-       for(var i=responseJson.length-1; i>=0; i--){
+       for(var i=4; i>=0; i--){
          validateAndSetFunction([responseJson[i]], setAtmtnSetPointMotorFullRpm, "add")
        }
      })
