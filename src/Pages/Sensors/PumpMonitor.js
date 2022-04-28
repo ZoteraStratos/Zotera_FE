@@ -267,27 +267,24 @@ const PumpMonitor = (props) => {
 
   const validateAndSetFunction = (recivedArrayName, setFunctionName, action) => {
     if (recivedArrayName.length > 0) {
-      // setFunctionName(recivedArrayName)
+      //  setFunctionName(recivedArrayName)
 
       setFunctionName(oldArray => {
-        console.log("oldArray", oldArray)
         let oldData = [...oldArray];
-        console.log("oldData", oldData)
         if (oldData.length > 5) {
           oldData.shift();
           return [...oldData, recivedArrayName[0]]
         } else {
-          console.log("[...oldData, recivedArrayName]", [...oldData, recivedArrayName])
           return [...oldData, recivedArrayName[0]]
         }
-      })
+      })          
     }
     else if (action=='clear'){
       setFunctionName(oldArray => {
         return []
       })
     }
-  }
+}
 
   useEffect(() => {
 
@@ -399,7 +396,7 @@ const PumpMonitor = (props) => {
      });
 
      fetch('https://test-zotera-server-dev.azurewebsites.net/getListData?history=lasthour&sensorType=AutomationSetpoints/Motor30RPM')
-     //fetch(`http://localhost:8080/getListData?history=lasthour&sensorType=AutomationSetpoints/Motor30RPM')
+     //fetch('http://localhost:8080/getListData?history=lasthour&sensorType=AutomationSetpoints/Motor30RPM')
      .then((response) => response.json())
      .then((responseJson) => {
        // setOldDataUpperTank(responseJson)
@@ -413,7 +410,7 @@ const PumpMonitor = (props) => {
      });
 
      fetch('https://test-zotera-server-dev.azurewebsites.net/getListData?history=lasthour&sensorType=AutomationSetpoints/MotorFullRPM')
-     //fetch(`http://localhost:8080/getListData?history=lasthour&sensorType=AutomationSetpoints/MotorFullRPM')
+     //fetch('http://localhost:8080/getListData?history=lasthour&sensorType=AutomationSetpoints/MotorFullRPM')
      .then((response) => response.json())
      .then((responseJson) => {
        // setOldDataUpperTank(responseJson)
@@ -568,7 +565,7 @@ const PumpMonitor = (props) => {
                 newBackGrndColr={'yellow'}
                 newBorderColr={'yellow'}
                 allLabelNames={['AutomationSetpoints/Motor30RPM', 'AutomationSetpoints/MotorFullRPM', 'ABBDriveSpeed']}
-                arrayOfRespectiveDataset={[AutomationSetpoints_Motor30RPM, AutomationSetpoints_MotorFullRPM, aBBDriveSpeed]}
+                arrayOfRespectiveDataset={[atmtnSetPointsMotor30Rpm, atmtnSetPointMotorFullRpm, aBBDriveSpeed]}
                 dataSetbackgroundColor={['red', 'green', 'blue']}
                 siUnit={'RPM'}
                 heightForChart={300}
