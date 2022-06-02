@@ -33,15 +33,12 @@ export const searchDFS = ({ data, cond, childPathKey = "files" }) => {
 
         if (parentPath) {
           parentPath.forEach((p) => {
-            // check if parent has the `current item`
             if (p && p[childPathKey].includes(item)) {
               parent = p;
-              // set next & previous indexes
               next = p[childPathKey][index + 1];
               prev = p[childPathKey][index - 1];
             } else {
               parent = tree;
-              // if parent is null then check the root of the tree
               next = tree[index + 1];
               prev = tree[index - 1];
             }
@@ -50,7 +47,6 @@ export const searchDFS = ({ data, cond, childPathKey = "files" }) => {
         return;
       }
       if (item[childPathKey]) {
-        // push parent stack
         parentPath.push(item);
         recursiveFind(item[childPathKey]);
       }
@@ -72,7 +68,8 @@ export const useDidMountEffect = (func, deps) => {
   useEffect(() => {
     if (didMount.current) func();
     else didMount.current = true;
-  }, deps);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [deps]);
 };
 
 export const createFile = ({ name }) => ({ name, type: "file" });

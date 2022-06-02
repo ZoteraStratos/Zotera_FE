@@ -1,5 +1,3 @@
-import React from "react";
-  
 const Rtus = () => {
   return (
     <div className="rtus">
@@ -7,5 +5,5 @@ const Rtus = () => {
     </div>
   );
 };
-  
+
 export default Rtus;

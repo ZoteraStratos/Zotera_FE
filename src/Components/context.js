@@ -1,162 +1,260 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect } from "react";
+import { SOCKET_URL } from "../constants";
 
 const AppContext = React.createContext();
 
 export const AppProvider = ({ children }) => {
-    const [globalData, setGlobalData] = useState(0);
-    const [iCOMOX_Temperature_Value, setiCOMOXTemperatureValue] = useState(0);
-    const [AutomationSetpoints_Motor30RPM, setAutomationSetpointsMotor30RPM] = useState(0);
-    const [AutomationSetpoints_MotorFullRPM, setAutomationSetpointsMotorFullRPM] = useState(0);
-    const [ABBDrive_Speed, setABBDriveSpeed] = useState(0);
-    const [UpperTankLevel, setUpperTankLevel] = useState(0);
-    const [LowerTankLevel, setLowerTankLevel] = useState(0);
-    const [pumpInletPressure_Value, setPumpInletPressureValue] = useState([]);
-    const [upperTankIncomingPressureRaw, setUpperTankIncomingPressureRaw] = useState([]);
-    const [upperTankIncomingPressureValue, setUpperTankIncomingPressureValue] = useState([]);
-    const [pumpInletPressureRaw, setPumpInletPressureRaw] = useState([]);
+  const [globalData, setGlobalData] = useState(0);
+  const [iCOMOX_Temperature_Value, setiCOMOXTemperatureValue] = useState(0);
+  const [AutomationSetpoints_Motor30RPM, setAutomationSetpointsMotor30RPM] =
+    useState(0);
+  const [AutomationSetpoints_MotorFullRPM, setAutomationSetpointsMotorFullRPM] =
+    useState(0);
+  const [ABBDrive_Speed, setABBDriveSpeed] = useState(0);
+  const [UpperTankLevel, setUpperTankLevel] = useState(0);
+  const [LowerTankLevel, setLowerTankLevel] = useState(0);
+  const [pumpInletPressure_Value, setPumpInletPressureValue] = useState([]);
+  const [upperTankIncomingPressureRaw, setUpperTankIncomingPressureRaw] =
+    useState([]);
+  const [upperTankIncomingPressureValue, setUpperTankIncomingPressureValue] =
+    useState([]);
+  const [pumpInletPressureRaw, setPumpInletPressureRaw] = useState([]);
 
-    const [iCOMOXAccPrimaryXMaxValue, setiCOMOXAccPrimaryXMaxValue] = useState([]);
-    const [iCOMOXAccPrimaryXMinValue, setiCOMOXAccPrimaryXMinValue] = useState([]);
+  const [iCOMOXAccPrimaryXMaxValue, setiCOMOXAccPrimaryXMaxValue] = useState(
+    []
+  );
+  const [iCOMOXAccPrimaryXMinValue, setiCOMOXAccPrimaryXMinValue] = useState(
+    []
+  );
 
-    const [iCOMOXAccPrimaryYMaxValue, setiCOMOXAccPrimaryYMaxValue] = useState([]);
-    const [iCOMOXAccPrimaryYMinValue, setiCOMOXAccPrimaryYMinValue] = useState([]);
+  const [iCOMOXAccPrimaryYMaxValue, setiCOMOXAccPrimaryYMaxValue] = useState(
+    []
+  );
+  const [iCOMOXAccPrimaryYMinValue, setiCOMOXAccPrimaryYMinValue] = useState(
+    []
+  );
 
-    const [iCOMOXAccPrimaryZMaxValue, setiCOMOXAccPrimaryZMaxValue] = useState([]);
-    const [iCOMOXAccPrimaryZMinValue, setiCOMOXAccPrimaryZMinValue] = useState([]);
+  const [iCOMOXAccPrimaryZMaxValue, setiCOMOXAccPrimaryZMaxValue] = useState(
+    []
+  );
+  const [iCOMOXAccPrimaryZMinValue, setiCOMOXAccPrimaryZMinValue] = useState(
+    []
+  );
 
-    const [flowUpperTankOutgoing, setflowUpperTankOutgoing] = useState([]);
-    const [flowUpperTankIncoming, setflowUpperTankIncoming] = useState([]);
+  const [flowUpperTankOutgoing, setflowUpperTankOutgoing] = useState([]);
+  const [flowUpperTankIncoming, setflowUpperTankIncoming] = useState([]);
 
-    const [UpperTankLevelForChart, setUpperTankLevelForChart] = useState([]);
-    const [LowerTankLevelForChart, setLowerTankLevelForChart] = useState([]);
+  const [UpperTankLevelForChart, setUpperTankLevelForChart] = useState([]);
+  const [LowerTankLevelForChart, setLowerTankLevelForChart] = useState([]);
 
-    const [waterTempsRawWaterTemp, setWaterTempsRawWaterTemp] = useState([]);
-    const [iCOMOXTemperatureValue, setICOMOXTemperatureValue] = useState([]);
+  const [waterTempsRawWaterTemp, setWaterTempsRawWaterTemp] = useState([]);
+  const [iCOMOXTemperatureValue, setICOMOXTemperatureValue] = useState([]);
 
-    const [upperTankOutgoingValve, setUpperTankOutgoingValve] = useState([]);
-    const [lowerTankOutgoingValve, setLowerTankOutgoingValve] = useState([]);
-    const [upperTankIncomingValve, setUpperTankIncomingValve] = useState([]);
+  const [upperTankOutgoingValve, setUpperTankOutgoingValve] = useState([]);
+  const [lowerTankOutgoingValve, setLowerTankOutgoingValve] = useState([]);
+  const [upperTankIncomingValve, setUpperTankIncomingValve] = useState([]);
 
-    const [TemperatureSensor, setTemperatureSensor] = useState([]);
+  const [TemperatureSensor, setTemperatureSensor] = useState([]);
 
-    const [iCOMOXAcousticMaxValue, setiCOMOXAcousticMaxValue] = useState([]);
-    const [iCOMOXAcousticMinValue, setiCOMOXAcousticMinValue] = useState([]);
-    const [iCOMOXAcousticRMSValue, setiCOMOXAcousticRMSValue] = useState([]);
-    const [iCOMOXAcousticAvgValue, setiCOMOXAcousticAvgValue] = useState([]);
+  const [iCOMOXAcousticMaxValue, setiCOMOXAcousticMaxValue] = useState([]);
+  const [iCOMOXAcousticMinValue, setiCOMOXAcousticMinValue] = useState([]);
+  const [iCOMOXAcousticRMSValue, setiCOMOXAcousticRMSValue] = useState([]);
+  const [iCOMOXAcousticAvgValue, setiCOMOXAcousticAvgValue] = useState([]);
 
+  useEffect(() => {
+    let socket = new WebSocket(SOCKET_URL);
+    socket.onmessage = function (event) {
+      const value = JSON.parse(event.data);
+      setGlobalData(value.IotData.payload.metrics);
+    };
+    return () => {
+      socket.close();
+    };
+  }, []);
 
-    // This is componentWillUnmount
-    useEffect(() => {
-        let socket = new WebSocket('wss://test-zotera-server-dev.azurewebsites.net/');
-        // let socket = new WebSocket('ws://localhost:8080/');
-        //let socket = new WebSocket('wss://wastewatertreatmentarrowdemoserver.azurewebsites.net/');
-        socket.onmessage = function (event) {
-            const value = JSON.parse(event.data);
-            console.log("value.IotData.payload.metrics:", value.IotData.payload.metrics)
-            setGlobalData(value.IotData.payload.metrics)
-        };
-        return () => {
-            socket.close();
-        }
-    }, [])
+  useEffect(() => {
+    if (globalData) {
+      avoidUndefineValue(
+        valueForKey(globalData, "iCOMOX/Temperature/Value"),
+        setiCOMOXTemperatureValue
+      );
 
+      avoidUndefineValue(
+        valueForKey(globalData, "UpperTankLevel"),
+        setUpperTankLevel
+      );
+      avoidUndefineValue(
+        valueForKey(globalData, "LowerTankLevel"),
+        setLowerTankLevel
+      );
 
+      avoidUndefineValue(
+        valueForKey(globalData, "UpperTankIncomingPressure/Raw"),
+        setUpperTankIncomingPressureRaw
+      );
 
-    useEffect(() => {
-        if (globalData) {
+      let PumpInletPressure_Value = valueForKeyWithTimeStamp(
+        globalData,
+        "PumpInletPressure/Value"
+      );
+      setPumpInletPressureValue(PumpInletPressure_Value);
 
-            let iCOMOX_Temperature_Value = avoidUndefineValue(valueForKey(globalData, 'iCOMOX/Temperature/Value'), setiCOMOXTemperatureValue);
+      let upperTankIncomingPressureValue = valueForKeyWithTimeStamp(
+        globalData,
+        "UpperTankIncomingPressure/Value"
+      );
+      setUpperTankIncomingPressureValue(upperTankIncomingPressureValue);
 
+      let pumpInletPressureRaw = valueForKeyWithTimeStamp(
+        globalData,
+        "PumpInletPressure/Raw"
+      );
+      setPumpInletPressureRaw(pumpInletPressureRaw);
 
-            let UpperTankLevel = avoidUndefineValue(valueForKey(globalData, 'UpperTankLevel'), setUpperTankLevel);
-            let LowerTankLevel = avoidUndefineValue(valueForKey(globalData, 'LowerTankLevel'), setLowerTankLevel);
+      let iCOMOXAccelerometerPrimaryXMaxValue = valueForKeyWithTimeStamp(
+        globalData,
+        "iCOMOX/AccelerometerPrimary/X/Max/Value"
+      );
+      setiCOMOXAccPrimaryXMaxValue(iCOMOXAccelerometerPrimaryXMaxValue);
 
-            let upperTankIncomingPressureRaw = avoidUndefineValue(valueForKey(globalData, 'UpperTankIncomingPressure/Raw'), setUpperTankIncomingPressureRaw);
-            //let LowerTankLevel = avoidUndefineValue(valueForKey(globalData, 'LowerTankLevel'), setLowerTankLevel);
+      let iCOMOXAccelerometerPrimaryXMinValue = valueForKeyWithTimeStamp(
+        globalData,
+        "iCOMOX/AccelerometerPrimary/X/Min/Value"
+      );
+      setiCOMOXAccPrimaryXMinValue(iCOMOXAccelerometerPrimaryXMinValue);
 
-            let PumpInletPressure_Value = valueForKeyWithTimeStamp(globalData, 'PumpInletPressure/Value')
-            setPumpInletPressureValue(PumpInletPressure_Value);
+      let iCOMOXAccelerometerPrimaryYMaxValue = valueForKeyWithTimeStamp(
+        globalData,
+        "iCOMOX/AccelerometerPrimary/Y/Max/Value"
+      );
+      setiCOMOXAccPrimaryYMaxValue(iCOMOXAccelerometerPrimaryYMaxValue);
 
-            let upperTankIncomingPressureValue = valueForKeyWithTimeStamp(globalData, 'UpperTankIncomingPressure/Value')
-            setUpperTankIncomingPressureValue(upperTankIncomingPressureValue);
+      let iCOMOXAccelerometerPrimaryYMinValue = valueForKeyWithTimeStamp(
+        globalData,
+        " iCOMOX/AccelerometerPrimary/Y/Min/Value"
+      );
+      setiCOMOXAccPrimaryYMinValue(iCOMOXAccelerometerPrimaryYMinValue);
 
-            let pumpInletPressureRaw = valueForKeyWithTimeStamp(globalData, 'PumpInletPressure/Raw')
-            setPumpInletPressureRaw(pumpInletPressureRaw);
+      let iCOMOXAccelerometerPrimaryZMaxValue = valueForKeyWithTimeStamp(
+        globalData,
+        "iCOMOX/AccelerometerPrimary/Z/Max/Value"
+      );
+      setiCOMOXAccPrimaryZMaxValue(iCOMOXAccelerometerPrimaryZMaxValue);
 
-            let iCOMOXAccelerometerPrimaryXMaxValue = valueForKeyWithTimeStamp(globalData, 'iCOMOX/AccelerometerPrimary/X/Max/Value')
-            setiCOMOXAccPrimaryXMaxValue(iCOMOXAccelerometerPrimaryXMaxValue);
+      let iCOMOXAccelerometerPrimaryZMinValue = valueForKeyWithTimeStamp(
+        globalData,
+        "iCOMOX/AccelerometerPrimary/Z/Min/Value"
+      );
+      setiCOMOXAccPrimaryZMinValue(iCOMOXAccelerometerPrimaryZMinValue);
 
-            let iCOMOXAccelerometerPrimaryXMinValue = valueForKeyWithTimeStamp(globalData, 'iCOMOX/AccelerometerPrimary/X/Min/Value')
-            setiCOMOXAccPrimaryXMinValue(iCOMOXAccelerometerPrimaryXMinValue);
+      let FlowUpperTankOutgoing = valueForKeyWithTimeStamp(
+        globalData,
+        "Flow/UpperTankOutgoing"
+      );
+      setflowUpperTankOutgoing(FlowUpperTankOutgoing);
 
-            let iCOMOXAccelerometerPrimaryYMaxValue = valueForKeyWithTimeStamp(globalData, 'iCOMOX/AccelerometerPrimary/Y/Max/Value')
-            setiCOMOXAccPrimaryYMaxValue(iCOMOXAccelerometerPrimaryYMaxValue);
+      let FlowUpperTankIncoming = valueForKeyWithTimeStamp(
+        globalData,
+        "Flow/UpperTankIncoming"
+      );
+      setflowUpperTankIncoming(FlowUpperTankIncoming);
 
-            let iCOMOXAccelerometerPrimaryYMinValue = valueForKeyWithTimeStamp(globalData, ' iCOMOX/AccelerometerPrimary/Y/Min/Value')
-            setiCOMOXAccPrimaryYMinValue(iCOMOXAccelerometerPrimaryYMinValue);
+      let UpperTankLevelForChart = valueForKeyWithTimeStamp(
+        globalData,
+        "UpperTankLevel"
+      );
+      setUpperTankLevelForChart(UpperTankLevelForChart);
 
-            let iCOMOXAccelerometerPrimaryZMaxValue = valueForKeyWithTimeStamp(globalData, 'iCOMOX/AccelerometerPrimary/Z/Max/Value')
-            setiCOMOXAccPrimaryZMaxValue(iCOMOXAccelerometerPrimaryZMaxValue);
+      let LowerTankLevelForChart = valueForKeyWithTimeStamp(
+        globalData,
+        "LowerTankLevel"
+      );
+      setLowerTankLevelForChart(LowerTankLevelForChart);
 
-            let iCOMOXAccelerometerPrimaryZMinValue = valueForKeyWithTimeStamp(globalData, 'iCOMOX/AccelerometerPrimary/Z/Min/Value')
-            setiCOMOXAccPrimaryZMinValue(iCOMOXAccelerometerPrimaryZMinValue);
+      let WaterTempsRawWaterTemp = valueForKeyWithTimeStamp(
+        globalData,
+        "Water/Temps/RawWaterTemp"
+      );
+      setWaterTempsRawWaterTemp(WaterTempsRawWaterTemp);
 
-            let FlowUpperTankOutgoing = valueForKeyWithTimeStamp(globalData, 'Flow/UpperTankOutgoing')
-            setflowUpperTankOutgoing(FlowUpperTankOutgoing);
+      let ICOMOXTemperatureValue = valueForKeyWithTimeStamp(
+        globalData,
+        "iCOMOX/Temperature/Value"
+      );
+      setICOMOXTemperatureValue(ICOMOXTemperatureValue);
 
-            let FlowUpperTankIncoming = valueForKeyWithTimeStamp(globalData, 'Flow/UpperTankIncoming')
-            setflowUpperTankIncoming(FlowUpperTankIncoming);
+      let UpperTankOutgoingValve = valueForKeyWithTimeStamp(
+        globalData,
+        "UpperTankOutgoingValve"
+      );
+      setUpperTankOutgoingValve(UpperTankOutgoingValve);
 
-            let UpperTankLevelForChart = valueForKeyWithTimeStamp(globalData, 'UpperTankLevel')
-            setUpperTankLevelForChart(UpperTankLevelForChart);
+      let LowerTankOutgoingValve = valueForKeyWithTimeStamp(
+        globalData,
+        "LowerTankOutgoingValve"
+      );
+      setLowerTankOutgoingValve(LowerTankOutgoingValve);
 
-            let LowerTankLevelForChart = valueForKeyWithTimeStamp(globalData, 'LowerTankLevel');
-            setLowerTankLevelForChart(LowerTankLevelForChart)
+      let UpperTankIncomingValve = valueForKeyWithTimeStamp(
+        globalData,
+        "UpperTankIncomingValve"
+      );
+      setUpperTankIncomingValve(UpperTankIncomingValve);
 
-            let WaterTempsRawWaterTemp = valueForKeyWithTimeStamp(globalData, 'Water/Temps/RawWaterTemp');
-            setWaterTempsRawWaterTemp(WaterTempsRawWaterTemp)
+      avoidUndefineValue(
+        valueForKey(globalData, "TemperatureSensor1"),
+        setTemperatureSensor
+      );
 
-            let ICOMOXTemperatureValue = valueForKeyWithTimeStamp(globalData, 'iCOMOX/Temperature/Value');
-            setICOMOXTemperatureValue(ICOMOXTemperatureValue)
+      let iCOMOXAcousticMaxValue = valueForKeyWithTimeStamp(
+        globalData,
+        "iCOMOX/Acoustic/Max/Value"
+      );
+      setiCOMOXAcousticMaxValue(iCOMOXAcousticMaxValue);
 
-            let UpperTankOutgoingValve = valueForKeyWithTimeStamp(globalData, 'UpperTankOutgoingValve');
-            setUpperTankOutgoingValve(UpperTankOutgoingValve)
+      let iCOMOXAcousticMinValue = valueForKeyWithTimeStamp(
+        globalData,
+        "iCOMOX/Acoustic/Min/Value"
+      );
+      setiCOMOXAcousticMinValue(iCOMOXAcousticMinValue);
 
-            let LowerTankOutgoingValve = valueForKeyWithTimeStamp(globalData, 'LowerTankOutgoingValve');
-            setLowerTankOutgoingValve(LowerTankOutgoingValve)
+      let iCOMOXAcousticRMSValue = valueForKeyWithTimeStamp(
+        globalData,
+        "iCOMOX/Acoustic/RMS/Value"
+      );
+      setiCOMOXAcousticRMSValue(iCOMOXAcousticRMSValue);
 
-            let UpperTankIncomingValve = valueForKeyWithTimeStamp(globalData, 'UpperTankIncomingValve');
-            setUpperTankIncomingValve(UpperTankIncomingValve)
+      let iCOMOXAcousticAvgValue = valueForKeyWithTimeStamp(
+        globalData,
+        "iCOMOX/Acoustic/Avg/Value"
+      );
+      setiCOMOXAcousticAvgValue(iCOMOXAcousticAvgValue);
 
-            let TemperatureSensor = avoidUndefineValue(valueForKey(globalData, 'TemperatureSensor1'), setTemperatureSensor);
+      let AutomationSetpoints_MotorFullRPM = valueForKeyWithTimeStamp(
+        globalData,
+        "AutomationSetpoints/MotorFullRPM"
+      );
+      setAutomationSetpointsMotorFullRPM(AutomationSetpoints_MotorFullRPM);
 
-            let iCOMOXAcousticMaxValue = valueForKeyWithTimeStamp(globalData, 'iCOMOX/Acoustic/Max/Value')
-            setiCOMOXAcousticMaxValue(iCOMOXAcousticMaxValue);
+      let AutomationSetpoints_Motor30RPM = valueForKeyWithTimeStamp(
+        globalData,
+        "AutomationSetpoints/Motor30RPM"
+      );
+      setAutomationSetpointsMotor30RPM(AutomationSetpoints_Motor30RPM);
 
-            let iCOMOXAcousticMinValue = valueForKeyWithTimeStamp(globalData, 'iCOMOX/Acoustic/Min/Value')
-            setiCOMOXAcousticMinValue(iCOMOXAcousticMinValue);
+      let ABBDrive_Speed = valueForKeyWithTimeStamp(
+        globalData,
+        "ABBDriveSpeed"
+      );
+      setABBDriveSpeed(ABBDrive_Speed);
+    }
+  }, [globalData]);
 
-            let iCOMOXAcousticRMSValue = valueForKeyWithTimeStamp(globalData, 'iCOMOX/Acoustic/RMS/Value')
-            setiCOMOXAcousticRMSValue(iCOMOXAcousticRMSValue);
-
-            let iCOMOXAcousticAvgValue = valueForKeyWithTimeStamp(globalData, 'iCOMOX/Acoustic/Avg/Value')
-            setiCOMOXAcousticAvgValue(iCOMOXAcousticAvgValue);
-
-            let AutomationSetpoints_MotorFullRPM = valueForKeyWithTimeStamp(globalData, 'AutomationSetpoints/MotorFullRPM')
-            setAutomationSetpointsMotorFullRPM(AutomationSetpoints_MotorFullRPM);
-
-            let AutomationSetpoints_Motor30RPM = valueForKeyWithTimeStamp(globalData, 'AutomationSetpoints/Motor30RPM')
-            setAutomationSetpointsMotor30RPM(AutomationSetpoints_Motor30RPM);
-
-            let ABBDrive_Speed = valueForKeyWithTimeStamp(globalData, 'ABBDriveSpeed');
-            setABBDriveSpeed(ABBDrive_Speed);
-
-        }
-    }, [globalData])
-
-
-    return <AppContext.Provider value={{
-        globalData, iCOMOX_Temperature_Value,
+  return (
+    <AppContext.Provider
+      value={{
+        globalData,
+        iCOMOX_Temperature_Value,
         AutomationSetpoints_Motor30RPM,
         AutomationSetpoints_MotorFullRPM,
         ABBDrive_Speed,
@@ -185,39 +283,39 @@ export const AppProvider = ({ children }) => {
         iCOMOXAcousticMaxValue,
         iCOMOXAcousticMinValue,
         iCOMOXAcousticRMSValue,
-        iCOMOXAcousticAvgValue
-    }}>
-        {children}
+        iCOMOXAcousticAvgValue,
+      }}
+    >
+      {children}
     </AppContext.Provider>
-}
-
+  );
+};
 
 function valueForKeyWithTimeStamp(globalData, keyName) {
-
-    var valueOfKeyName = globalData.filter((element) => element.name === keyName).map(({ value, timestamp }) => {
-        let data = { y: value, x: timestamp }
-        return data
-    })
-    return valueOfKeyName
+  var valueOfKeyName = globalData
+    .filter((element) => element.name === keyName)
+    .map(({ value, timestamp }) => {
+      let data = { y: value, x: timestamp };
+      return data;
+    });
+  return valueOfKeyName;
 }
-
 
 function valueForKey(globalData, keyName) {
-
-    var valueOfKeyName = globalData.filter((element) => element.name === keyName).map(({ value }) => value)
-    return valueOfKeyName
+  var valueOfKeyName = globalData
+    .filter((element) => element.name === keyName)
+    .map(({ value }) => value);
+  return valueOfKeyName;
 }
 
-
 function avoidUndefineValue(values, setFunction) {
-    let completeData = values;
-    let lastData = completeData[completeData.length - 1]
-    if (lastData !== undefined) {
-        setFunction(lastData);
-    }
-
+  let completeData = values;
+  let lastData = completeData[completeData.length - 1];
+  if (lastData !== undefined) {
+    setFunction(lastData);
+  }
 }
 
 export const useGlobalContext = () => {
-    return useContext(AppContext)
-}
+  return useContext(AppContext);
+};

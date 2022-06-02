@@ -1,11 +1,11 @@
-import React from "react";
-  
-const  Settings = () => {
+const Settings = () => {
   return (
     <div className="temperature">
-      <h1>Settings :: This Page is Under Construction , Please check Back soon</h1>
+      <h1>
+        Settings :: This Page is Under Construction , Please check Back soon
+      </h1>
     </div>
   );
 };
-  
+
 export default Settings;

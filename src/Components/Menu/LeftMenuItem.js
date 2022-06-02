@@ -1,4 +1,4 @@
-import React, { useState, memo, useEffect } from "react";
+import React, { useState } from "react";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
@@ -6,46 +6,44 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Collapse from "@material-ui/core/Collapse";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import { menu } from "./menu";
 import { hasChildren } from "./utils";
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
   root: {
-    '&$selected': {
-      backgroundColor: '#426887',
-      '&:hover': {
-        backgroundColor: 'white',
-        color: 'black'
-      }
+    "&$selected": {
+      backgroundColor: "#426887",
+      "&:hover": {
+        backgroundColor: "white",
+        color: "black",
+      },
     },
   },
   selected: {
-    backgroundColor: 'red',
+    backgroundColor: "red",
   },
 });
 
-
-function LeftMenuItem() {
-  const location = useLocation()
-
-  return menu.map((item, key) => <MenuItem key={key} item={item} />);
-}
+const LeftMenuItem = () =>
+  menu.map((item, key) => <MenuItem key={key} item={item} />);
 
 const MenuItem = ({ item }) => {
-
   const Component = hasChildren(item) ? MultiLevel : SingleLevel;
   return <Component item={item} />;
 };
 
 const SingleLevel = ({ item }) => {
   const classes = useStyles();
-
   return (
-    <ListItem component={Link} to={item.path} button
+    <ListItem
+      component={Link}
+      to={item.path}
+      button
       classes={{ root: classes.root, selected: classes.selected }}
-      selected >
+      selected
+    >
       <ListItemIcon>{item.icon}</ListItemIcon>
       <ListItemText primary={item.title} />
     </ListItem>
@@ -54,21 +52,21 @@ const SingleLevel = ({ item }) => {
 
 const MultiLevel = ({ item }) => {
   const classes = useStyles();
-
   const { items: children } = item;
   const [open, setOpen] = useState(false);
-
 
   const handleClick = () => {
     setOpen((prev) => !prev);
   };
 
-
-
   return (
     <React.Fragment>
-      <ListItem onClick={handleClick} button
-        classes={{ root: classes.root, selected: classes.selected }} selected >
+      <ListItem
+        onClick={handleClick}
+        button
+        classes={{ root: classes.root, selected: classes.selected }}
+        selected
+      >
         <ListItemIcon>{item.icon}</ListItemIcon>
         <ListItemText primary={item.title} />
         {open ? <ExpandLessIcon /> : <ExpandMoreIcon />}
@@ -84,5 +82,4 @@ const MultiLevel = ({ item }) => {
   );
 };
 
-
-export default memo(LeftMenuItem)
+export default LeftMenuItem;

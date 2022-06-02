@@ -1,13 +1,10 @@
-import React, { Suspense } from 'react';
-import Navbar from './Components/Navbar';
-
-
-
+import React, { Suspense } from "react";
+import Layout from "./Components/Layout";
 
 const App = () => {
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <Navbar />
+      <Layout />
     </Suspense>
   );
 };

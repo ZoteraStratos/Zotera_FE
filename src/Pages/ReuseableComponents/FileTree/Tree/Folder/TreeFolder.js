@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  AiOutlineFolderAdd,
-  AiOutlineFileAdd,
-  AiOutlineFolder,
-  AiOutlineFolderOpen,
-  AiOutlineDelete,
-  AiOutlineEdit,
-} from "react-icons/ai";
+import { AiOutlineFolder, AiOutlineFolderOpen } from "react-icons/ai";
 
 import {
   ActionsWrapper,
@@ -16,7 +9,7 @@ import {
 } from "../Tree.style";
 import { StyledFolder } from "./TreeFolder.style";
 
-import {FILE , FOLDER} from '../state/constants' 
+import { FOLDER } from "../state/constants";
 import { useTreeContext } from "../state/TreeContext";
 import { PlaceholderInput } from "../TreePlaceholderInput";
 
@@ -28,7 +21,7 @@ const FolderName = ({ isOpen, name, handleClick }) => (
 );
 
 const Folder = ({ id, name, children, node }) => {
-  const { dispatch, isImparative, onNodeClick } = useTreeContext();
+  const { dispatch, onNodeClick } = useTreeContext();
   const [isEditing, setEditing] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [childs, setChilds] = useState([]);
@@ -37,15 +30,6 @@ const Folder = ({ id, name, children, node }) => {
     setChilds([children]);
   }, [children]);
 
-  const commitFolderCreation = (name) => {
-    dispatch({ type: FOLDER.CREATE, payload: { id, name } });
-  };
-  const commitFileCreation = (name) => {
-    dispatch({ type: FILE.CREATE, payload: { id, name } });
-  };
-  const commitDeleteFolder = () => {
-    dispatch({ type: FOLDER.DELETE, payload: { id } });
-  };
   const commitFolderEdit = (name) => {
     dispatch({ type: FOLDER.EDIT, payload: { id, name } });
     setEditing(false);
@@ -61,39 +45,9 @@ const Folder = ({ id, name, children, node }) => {
       event.stopPropagation();
       onNodeClick({ node });
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [node]
   );
-
-  const handleFileCreation = (event) => {
-    event.stopPropagation();
-    setIsOpen(true);
-    setChilds([
-      ...childs,
-      <PlaceholderInput
-        type="file"
-        onSubmit={commitFileCreation}
-        onCancel={handleCancel}
-      />,
-    ]);
-  };
-
-  const handleFolderCreation = (event) => {
-    event.stopPropagation();
-    setIsOpen(true);
-    setChilds([
-      ...childs,
-      <PlaceholderInput
-        type="folder"
-        onSubmit={commitFolderCreation}
-        onCancel={handleCancel}
-      />,
-    ]);
-  };
-
-  const handleFolderRename = () => {
-    setIsOpen(true);
-    setEditing(true);
-  };
 
   return (
     <StyledFolder id={id} onClick={handleNodeClick} className="tree__folder">
