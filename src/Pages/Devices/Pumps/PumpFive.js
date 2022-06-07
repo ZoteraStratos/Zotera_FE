@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   makeStyles,
@@ -24,16 +24,6 @@ import {
 } from "@material-ui/core";
 import PropTypes from "prop-types";
 import { HeaderCard } from "../../ReuseableComponents/HeaderCard";
-import { useSocketContext } from "../../../Components/context";
-import { ReactComponent as SoundImage } from "../../../Images/soundImage.svg";
-import { ReactComponent as CavitationImage } from "../../../Images/cavitationImage.svg";
-import { ReactComponent as ImpellerImage } from "../../../Images/impellerImage.svg";
-import { ReactComponent as VibrationImage } from "../../../Images/vibrationImageTwo.svg";
-import { ReactComponent as TemperatureImage } from "../../../Images/temperatureImage.svg";
-import { ReactComponent as BluePumpImage } from "../../../Images/bluePumpImage.svg";
-import { ReactComponent as PumpMotorCadImage } from "../../../Images/pumpMotorCadImage.svg";
-import { ReactComponent as ListOfComponent } from "../../../Images/listOfComponent.svg";
-import { ReactComponent as BluePumpImageOpen } from "../../../Images/BluePumpImageOpen.svg";
 import GlobalChart from "../../ReuseableComponents/Chart/GlobalChart";
 import {
   historyOptions,
@@ -398,47 +388,57 @@ const PumpFive = () => {
                   <Box className={classes.headerCardCenter}>
                     <Grid xs={3}>
                       <div className={classes.headerCardCenter}>
-                        <SoundImage
+                        <image
                           className={classes.imageBorder}
                           width="50"
                           height="50"
+                          src="/soundImage.svg"
+                          alt="soundImage"
                         />
                       </div>
                     </Grid>
                     <Grid xs={3}>
                       <div className={classes.headerCardCenter}>
-                        <CavitationImage
+                        <img
                           className={classes.imageStyle}
                           width="50"
                           height="50"
+                          src="/cavitationImage.svg"
+                          alt="cavitationImage"
                         />
                       </div>
                     </Grid>
                     <Grid xs={3}>
                       <div className={classes.headerCardCenter}>
-                        <ImpellerImage
+                        <img
                           className={classes.imageBorder}
                           width="50"
                           height="50"
+                          src="/impellerImage.svg"
+                          alt="impellerImage"
                         />
                       </div>
                     </Grid>
                     <Grid xs={3}>
                       <div className={classes.headerCardCenter}>
-                        <VibrationImage
+                        <img
                           className={classes.imageBorder}
                           width="50"
                           height="50"
+                          src="/vibrationImageTwo.svg"
+                          alt="vibrationImageTwo"
                         />
                       </div>
                     </Grid>
                     <Grid xs={3}>
                       <div className={classes.headerCardCenter}>
-                        <TemperatureImage
+                        <img
                           className={classes.imageBorder}
                           width="50"
                           height="50"
                           style={{ backgroundColor: "yellow" }}
+                          src="/temperatureImage.svg"
+                          alt="temperatureImage"
                         />
                       </div>
                     </Grid>
@@ -446,10 +446,12 @@ const PumpFive = () => {
                   <Box className={classes.headerCardCenter}>
                     <Grid xs={12} item>
                       <Box className={classes.headerCardCenter}>
-                        <BluePumpImage
+                        <img
                           width="500"
                           height="150"
                           style={{ marginTop: "10px" }}
+                          src="/bluePumpImage.svg"
+                          alt="bluePumpImage"
                         />
                       </Box>
                     </Grid>
@@ -687,47 +689,57 @@ const PumpFive = () => {
                   <Box className={classes.headerCardCenter}>
                     <Grid xs={3}>
                       <div className={classes.headerCardCenter}>
-                        <SoundImage
+                        <img
                           className={classes.imageBorder}
                           width="50"
                           height="50"
+                          src="/soundImage.svg"
+                          alt="soundImage"
                         />
                       </div>
                     </Grid>
                     <Grid xs={3}>
                       <div className={classes.headerCardCenter}>
-                        <CavitationImage
+                        <img
                           className={classes.imageStyle}
                           width="50"
                           height="50"
+                          src="/cavitationImage.svg"
+                          alt="cavitationImage"
                         />
                       </div>
                     </Grid>
                     <Grid xs={3}>
                       <div className={classes.headerCardCenter}>
-                        <ImpellerImage
+                        <img
                           className={classes.imageBorder}
                           width="50"
                           height="50"
+                          src="/impellerImage.svg"
+                          alt="impellerImage"
                         />
                       </div>
                     </Grid>
                     <Grid xs={3}>
                       <div className={classes.headerCardCenter}>
-                        <VibrationImage
+                        <img
                           className={classes.imageBorder}
                           width="50"
                           height="50"
+                          src="/vibrationImageTwo.svg"
+                          alt="vibrationImageTwo"
                         />
                       </div>
                     </Grid>
                     <Grid xs={3}>
                       <div className={classes.headerCardCenter}>
-                        <TemperatureImage
+                        <img
                           className={classes.imageBorder}
                           width="50"
                           height="50"
                           style={{ backgroundColor: "yellow" }}
+                          src="/temperatureImage.svg"
+                          alt="temperatureImage"
                         />
                       </div>
                     </Grid>
@@ -735,10 +747,12 @@ const PumpFive = () => {
                   <Box className={classes.headerCardCenter}>
                     <Grid xs={12} item>
                       <Box className={classes.headerCardCenter}>
-                        <BluePumpImageOpen
+                        <img
                           width="500"
                           height="150"
                           style={{ marginTop: "10px" }}
+                          src="/bluePumpImage.svg"
+                          alt="bluePumpImage"
                         />
                       </Box>
                     </Grid>
@@ -746,17 +760,21 @@ const PumpFive = () => {
                 </Grid>
                 <Grid xs={8} item>
                   <Box className={classes.headerCardCenter}>
-                    <PumpMotorCadImage
+                    <img
                       width="600"
                       height="300"
                       style={{ marginTop: "-40px" }}
+                      svg="/pumpMotorCadImage.svg"
+                      alt="pumpMotorCadImage"
                     />
                   </Box>
                   <Box className={classes.headerCardCenter}>
-                    <ListOfComponent
+                    <img
                       width="700"
                       height="300"
                       style={{ marginTop: "-40px" }}
+                      src="/listOfComponent.svg"
+                      alt="listOfComponent"
                     />
                   </Box>
                 </Grid>

@@ -4,7 +4,6 @@ import Card from "@material-ui/core/Card";
 import CardMedia from "@material-ui/core/CardMedia";
 import { Box, Typography } from "@material-ui/core";
 import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
-import PlantLayoutImage from "../../Images/PlantLayout.png";
 
 const useStyles = makeStyles({
   fiberManualRecordIcon: {
@@ -164,7 +163,7 @@ export default function ImgMediaCard() {
       <CardMedia
         className={classes.media}
         component="img"
-        src={PlantLayoutImage}
+        src="/PlantLayout.png"
         title="Plant Layout Image"
       />
       <Box

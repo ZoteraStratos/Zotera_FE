@@ -14,7 +14,6 @@ import {
   MenuItem,
 } from "@material-ui/core";
 import { HeaderCard } from "../ReuseableComponents/HeaderCard";
-import { ReactComponent as Img } from "../../Images/pumpProcessFlow.svg";
 
 const theme = createTheme({
   breakpoints: {
@@ -288,7 +287,11 @@ const ProcessFlow = () => {
       >
         <Grid container>
           <Grid xs={12} item>
-            <Img style={{ width: "100%", height: "100%", marginLeft: "16%" }} />
+            <img
+              style={{ width: "100%", height: "100%", marginLeft: "16%" }}
+              src="/pumpProcessFlow.svg"
+              alt="pumpProcessFlow"
+            />
           </Grid>
         </Grid>
       </div>

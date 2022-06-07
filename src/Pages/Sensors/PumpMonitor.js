@@ -7,7 +7,6 @@ import { Typography, Box } from "@material-ui/core";
 import { HeaderCard } from "../ReuseableComponents/HeaderCard";
 import Button from "@material-ui/core/Button";
 import DeviceDetailCard from "../ReuseableComponents/DeviceDetailCard";
-import PumpMonitorImage from "../../Images/pumpMonitor.png";
 
 import MultipleTabs from "../ReuseableComponents/MultipleTabs";
 import LineChart from "../ReuseableComponents/Chart/LineChart";
@@ -157,7 +156,7 @@ const PumpMonitor = () => {
         <Grid container spacing={2} display="flex">
           <Grid item xs={3} className={classes.marginForGrid}>
             <DeviceDetailCard
-              imagePath={PumpMonitorImage}
+              imagePath="/pumpMonitor.png"
               deviceNameBlueClr={"Pump Monitor"}
               deviceDetailBlackColor={""}
               deviceDetailBlackColorSiUnit={""}

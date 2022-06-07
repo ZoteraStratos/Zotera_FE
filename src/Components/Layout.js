@@ -15,7 +15,6 @@ import ListItem from "@material-ui/core/ListItem";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import ZoteraLogo from "../Images/zoteraLogo.png";
 import PlantProcessFlow from "../Pages/Dashboard/PlantProcessFlow";
 
 const LeftMenuItem = lazy(() => import("./Menu/LeftMenuItem"));
@@ -201,7 +200,7 @@ class MiniDrawer extends Component {
               noWrap
             >
               <img
-                src={ZoteraLogo}
+                src="/zoteraLogo.png"
                 alt="ZoteraLogo"
                 className={classes.imageStyle}
               />

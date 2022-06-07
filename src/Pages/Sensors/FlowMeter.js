@@ -10,7 +10,6 @@ import {
   MenuItem,
 } from "@material-ui/core";
 import DeviceDetailCard from "../ReuseableComponents/DeviceDetailCard";
-import FlowMeterImage from "../../Images/flowMeter.png";
 import { HeaderCard } from "../ReuseableComponents/HeaderCard";
 import GlobalChart from "../ReuseableComponents/Chart/GlobalChart";
 
@@ -104,7 +103,7 @@ const FlowMeter = () => {
         <Grid container spacing={2} display="flex">
           <Grid xs={6} item>
             <DeviceDetailCard
-              imagePath={FlowMeterImage}
+              imagePath="/flowMeter.png"
               deviceNameBlueClr={"Upper Tank Outgoing Flow Meter "}
               deviceDetailBlackColor={""}
               deviceDetailBlackColorSiUnit={""}
@@ -114,7 +113,7 @@ const FlowMeter = () => {
           </Grid>
           <Grid xs={6} item>
             <DeviceDetailCard
-              imagePath={FlowMeterImage}
+              imagePath="/flowMeter.png"
               deviceNameBlueClr={"Upper Tank Incoming Flow Meter "}
               deviceDetailBlackColor={""}
               deviceDetailBlackColorSiUnit={""}

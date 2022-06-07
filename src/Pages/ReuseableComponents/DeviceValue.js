@@ -3,7 +3,6 @@ import { Typography, Box } from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
 import ProgressBar from "./ProgressBar";
 import { ThemeProvider, createTheme } from "@material-ui/core/styles";
-import { ReactComponent as MotorDamage } from "../../Images/damageMotor.svg";
 
 const theme = createTheme({
   breakpoints: {
@@ -186,7 +185,11 @@ export const ForImage = React.memo(function ForImage({
   return (
     <Box display="flex" alignItems="center" className={classNameUsed}>
       <ThemeProvider theme={theme}>
-        <MotorDamage style={{ width: "100%", height: "100%" }} />
+        <img
+          style={{ width: "100%", height: "100%" }}
+          src="/damageMotor.svg"
+          alt="damageMotor"
+        />
       </ThemeProvider>
     </Box>
   );

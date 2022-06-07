@@ -9,7 +9,6 @@ import {
 import React from "react";
 import { useCallback } from "react";
 import "./pumptable.css";
-import { ReactComponent as Img } from "../Images/bluePumpImage.svg";
 import { Typography, Box } from "@material-ui/core";
 
 const BlackTypographyStyle = {
@@ -35,7 +34,12 @@ export const PumpTable = (props) => {
             <>
               <TableRow>
                 <TableCell>
-                  <Img width="150" height="100" />
+                  <img
+                    src="/bluePumpImage.svg"
+                    alt="bluePumpImage"
+                    width="150"
+                    height="100"
+                  />
                 </TableCell>
                 <TableCell>
                   <TableContainer component={Paper}>

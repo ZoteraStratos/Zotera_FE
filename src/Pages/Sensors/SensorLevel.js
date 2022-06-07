@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import Grid from "@material-ui/core/Grid";
@@ -10,10 +10,8 @@ import {
   MenuItem,
 } from "@material-ui/core";
 import DeviceDetailCard from "../ReuseableComponents/DeviceDetailCard";
-import UpperTankLevelSensorImage from "../../Images/upperTankLevelSensorImage.png";
 import { HeaderCard } from "../ReuseableComponents/HeaderCard";
 import Button from "@material-ui/core/Button";
-import { useSocketContext } from "../../Components/context";
 import GlobalChart from "../ReuseableComponents/Chart/GlobalChart";
 
 import { Chart, registerables } from "chart.js";
@@ -114,7 +112,7 @@ const SensorLevel = () => {
         <Grid container spacing={2} display="flex">
           <Grid xs={6} item>
             <DeviceDetailCard
-              imagePath={UpperTankLevelSensorImage}
+              imagePath="/upperTankLevelSensorImage.png"
               deviceNameBlueClr={"Upper Tank Level Sensor "}
               deviceDetailBlackColor={""}
               deviceDetailBlackColorSiUnit={""}
@@ -124,7 +122,7 @@ const SensorLevel = () => {
           </Grid>
           <Grid xs={6} item>
             <DeviceDetailCard
-              imagePath={UpperTankLevelSensorImage}
+              imagePath="/upperTankLevelSensorImage.png"
               deviceNameBlueClr={"Lower Tank Level Sensor "}
               deviceDetailBlackColor={""}
               deviceDetailBlackColorSiUnit={""}
@@ -153,21 +151,8 @@ const SensorLevel = () => {
                 </Grid>
                 <Grid xs={2} item>
                   <FormControl>
-                    {/* <Select className={classes.dropDownBtnStyle}
-                      value={selected}
-                      onChange={handleChange}
-                      inputProps={{
-                        name: "statusHistory",
-                        id: "statusHistory",
-                      }}
-                    >
-                      {values.map((value, index) => {
-                        return <MenuItem value={value} key={index * 2.54}>{value}</MenuItem>;
-                      })}
-                    </Select> */}
                     <Select
                       className={classes.dropDownBtnStyle}
-                      // value={selected ? selected : ''}
                       onChange={pmpInletHandleChange}
                       inputProps={{
                         name: "statusHistory",

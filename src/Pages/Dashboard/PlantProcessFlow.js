@@ -4,10 +4,9 @@ import {
   ThemeProvider,
   createTheme,
 } from "@material-ui/core/styles";
+import { ReactComponent as Img } from "./pumpImage.svg";
 import Card from "@material-ui/core/Card";
 import CardMedia from "@material-ui/core/CardMedia";
-import pipeflow from "../../Images/imageOne.svg";
-import { ReactComponent as Img } from "../../Images/pumpImage.svg";
 import Grid from "@material-ui/core/Grid";
 import { Typography, Box } from "@material-ui/core";
 import { HeaderCard } from "../ReuseableComponents/HeaderCard";
@@ -132,7 +131,7 @@ const ProcessFlow = () => {
         <CardMedia
           className={classes.media}
           component="img"
-          src={pipeflow}
+          src="/imageOne.svg"
           title="Process Flow Image"
         />
 

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import OutgoingValve from "../../Images/outgoingValve.png";
 import { HeaderCard } from "../ReuseableComponents/HeaderCard";
 import Button from "@material-ui/core/Button";
 import DeviceDetailCard from "../ReuseableComponents/DeviceDetailCard";
@@ -131,7 +130,7 @@ const Valves = () => {
         <Grid item xs={4} sm={4} md={4} lg={4}>
           <Box className={classes.paper}>
             <DeviceDetailCard
-              imagePath={OutgoingValve}
+              imagePath="/outgoingValve.png"
               deviceNameBlueClr={"Upper Tank Outgoing Valve"}
               deviceDetailBlackColor={null}
               deviceDetailBlackColorSiUnit={null}
@@ -143,7 +142,7 @@ const Valves = () => {
         <Grid item xs={4} sm={4} md={4} lg={4}>
           <Box className={classes.paper}>
             <DeviceDetailCard
-              imagePath={OutgoingValve}
+              imagePath="/outgoingValve.png"
               deviceNameBlueClr={"Lower Tank Outgoing Valve"}
               deviceDetailBlackColor={null}
               deviceDetailBlackColorSiUnit={null}
@@ -155,7 +154,7 @@ const Valves = () => {
         <Grid item xs={4} sm={4} md={4} lg={4}>
           <Box className={classes.paper}>
             <DeviceDetailCard
-              imagePath={OutgoingValve}
+              imagePath="/outgoingValve.png"
               deviceNameBlueClr={"Upper Tank Incoming Valve"}
               deviceDetailBlackColor={null}
               deviceDetailBlackColorSiUnit={null}

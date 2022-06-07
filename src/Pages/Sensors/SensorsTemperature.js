@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Typography,
   Box,
@@ -10,12 +10,9 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
-import PumpMonitor from "../../Images/pumpMonitor.png";
-import TemperatureSensorImage from "../../Images/temperatureSensor.png";
 import { HeaderCard } from "../ReuseableComponents/HeaderCard";
 import DeviceDetailCard from "../ReuseableComponents/DeviceDetailCard";
 import DonutChart from "../ReuseableComponents/Chart/DonutChart";
-import { useSocketContext } from "../../Components/context";
 import GlobalChart from "../ReuseableComponents/Chart/GlobalChart";
 import { useChartValuesSubscription } from "../../Hooks/useChartValuesSubscription";
 
@@ -141,7 +138,7 @@ const SensorsTemperature = () => {
       <Grid container spacing={1} justify="flex-start">
         <Grid item xs={12} sm={6} md={3} lg={3}>
           <DeviceDetailCard
-            imagePath={TemperatureSensorImage}
+            imagePath="/temperatureSensor.png"
             deviceNameBlueClr={"Temperature Sensor "}
             deviceDetailBlackColor={" "}
             deviceDetailBlackColorSiUnit={""}
@@ -163,7 +160,7 @@ const SensorsTemperature = () => {
         <Grid item xs={12} sm={6} md={3} lg={3}>
           <br />
           <DeviceDetailCard
-            imagePath={PumpMonitor}
+            imagePath="/pumpMonitor.png"
             deviceNameBlueClr={"Pump Monitor "}
             deviceDetailBlackColor={" "}
             deviceDetailBlackColorSiUnit={""}

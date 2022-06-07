@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
@@ -13,7 +13,6 @@ import {
 import Button from "@material-ui/core/Button";
 
 import DeviceDetailCard from "../ReuseableComponents/DeviceDetailCard";
-import PressureSensorIndicator from "../../Images/pressureSensorDeviceIndicator.png";
 import { HeaderCard } from "../ReuseableComponents/HeaderCard";
 
 import GlobalChart from "../ReuseableComponents/Chart/GlobalChart";
@@ -114,7 +113,7 @@ const PresureSensor = () => {
         <Grid container spacing={2} display="flex">
           <Grid xs={6} item>
             <DeviceDetailCard
-              imagePath={PressureSensorIndicator}
+              imagePath="/pressureSensorDeviceIndicator.png"
               deviceNameBlueClr={"Pump Inlet Pressure Sensor"}
               deviceDetailBlackColor={""}
               deviceDetailBlackColorSiUnit={""}
@@ -124,7 +123,7 @@ const PresureSensor = () => {
           </Grid>
           <Grid xs={6} item>
             <DeviceDetailCard
-              imagePath={PressureSensorIndicator}
+              imagePath="/pressureSensorDeviceIndicator.png"
               deviceNameBlueClr={"Upper Tank Incoming Pressure Sensor "}
               deviceDetailBlackColor={""}
               deviceDetailBlackColorSiUnit={""}

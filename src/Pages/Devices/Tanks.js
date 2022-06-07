@@ -1,7 +1,6 @@
 import { Grid, Box, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import ReuseableTank from "../ReuseableComponents/ReusableTank";
-import TankImage from "../../Images/tankImage.png";
 import GlobalChart from "../ReuseableComponents/Chart/GlobalChart";
 import { HeaderCard } from "../ReuseableComponents/HeaderCard";
 import { useChartValuesSubscription } from "../../Hooks/useChartValuesSubscription";
@@ -79,7 +78,7 @@ const Tanks = () => {
         <Grid item xs={12} sm={6} md={2} lg={2}>
           <ReuseableTank
             imageName={"Upper Tank Level"}
-            imagetank={TankImage}
+            imagetank="/tankImage.png"
             tankValue={`${parseFloat(UpperTankLevel).toFixed(2)}%`}
             classsForImage={classes.upperImageStyle}
           />
@@ -110,7 +109,7 @@ const Tanks = () => {
         <Grid item xs={12} sm={6} md={2} lg={2}>
           <ReuseableTank
             imageName={"Lower Tank Level"}
-            imagetank={TankImage}
+            imagetank="/tankImage.png"
             tankValue={`${parseFloat(LowerTankLevel).toFixed(2)}%`}
             classsForImage={classes.lowerImageStyle}
           />

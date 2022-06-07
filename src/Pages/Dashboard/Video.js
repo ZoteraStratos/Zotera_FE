@@ -5,14 +5,7 @@ import {
 } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardMedia from "@material-ui/core/CardMedia";
-import video from "../../Images/video.svg";
 import { Box } from "@material-ui/core";
-import { ReactComponent as MotorDamage } from "../../Images/damageMotor.svg";
-import { ReactComponent as MotorDamageLbl } from "../../Images/damageImageLbl.svg";
-import { ReactComponent as MotorFiveLbl } from "../../Images/motorFiveLbl.svg";
-import { ReactComponent as MotorFourLbl } from "../../Images/motorFourLbl.svg";
-import { ReactComponent as MotorThreeLbl } from "../../Images/motorThree.svg";
-import { ReactComponent as MotorTwoLbl } from "../../Images/motorTwoLbl.svg";
 
 const theme = createTheme({
   breakpoints: {
@@ -167,18 +160,26 @@ const ProcessFlow = () => {
         <CardMedia
           className={classes.media}
           component="img"
-          src={video}
+          src="/video.svg"
           title="Video"
         />
         <Box display="flex" alignItems="center" className={classes.lts}>
           <ThemeProvider theme={theme}>
-            <MotorDamage style={{ width: "100%", height: "100%" }} />
+            <img
+              style={{ width: "100%", height: "100%" }}
+              src="/damageMotor.svg"
+              alt="damageMotor"
+            />
           </ThemeProvider>
         </Box>
 
         <Box display="flex" alignItems="center" className={classes.dmgMtrLbl}>
           <ThemeProvider theme={theme}>
-            <MotorDamageLbl style={{ width: "100%", height: "100%" }} />
+            <img
+              style={{ width: "100%", height: "100%" }}
+              src="/damageImageLbl.svg"
+              alt="damageImageLbl"
+            />
           </ThemeProvider>
         </Box>
 
@@ -188,7 +189,11 @@ const ProcessFlow = () => {
           className={classes.motorFiveLbl}
         >
           <ThemeProvider theme={theme}>
-            <MotorFiveLbl style={{ width: "100%", height: "100%" }} />
+            <img
+              src="/motorFiveLbl.svg"
+              alt="motorFiveLbl"
+              style={{ width: "100%", height: "100%" }}
+            />
           </ThemeProvider>
         </Box>
 
@@ -198,7 +203,11 @@ const ProcessFlow = () => {
           className={classes.motorFourLbl}
         >
           <ThemeProvider theme={theme}>
-            <MotorFourLbl style={{ width: "100%", height: "100%" }} />
+            <img
+              style={{ width: "100%", height: "100%" }}
+              src="/motorFourLbl.svg"
+              alt="motorFourLbl"
+            />
           </ThemeProvider>
         </Box>
 
@@ -208,13 +217,21 @@ const ProcessFlow = () => {
           className={classes.motorThreeLbl}
         >
           <ThemeProvider theme={theme}>
-            <MotorThreeLbl style={{ width: "100%", height: "100%" }} />
+            <img
+              style={{ width: "100%", height: "100%" }}
+              src="/motorThree.svg"
+              alt="motorThree"
+            />
           </ThemeProvider>
         </Box>
 
         <Box display="flex" alignItems="center" className={classes.motorTwoLbl}>
           <ThemeProvider theme={theme}>
-            <MotorTwoLbl style={{ width: "100%", height: "100%" }} />
+            <img
+              style={{ width: "100%", height: "100%" }}
+              src="/motorTwoLbl.svg"
+              alt="motorTwoLbl"
+            />
           </ThemeProvider>
         </Box>
       </Card>
