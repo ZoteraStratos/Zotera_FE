@@ -13,10 +13,11 @@ import DeviceDetailCard from "../ReuseableComponents/DeviceDetailCard";
 import UpperTankLevelSensorImage from "../../Images/upperTankLevelSensorImage.png";
 import { HeaderCard } from "../ReuseableComponents/HeaderCard";
 import Button from "@material-ui/core/Button";
-import { useGlobalContext } from "../../Components/context";
+import { useSocketContext } from "../../Components/context";
 import GlobalChart from "../ReuseableComponents/Chart/GlobalChart";
 
 import { Chart, registerables } from "chart.js";
+import { useChartValuesSubscription } from "../../Hooks/useChartValuesSubscription";
 Chart.register(...registerables);
 
 const useStyles = makeStyles({
@@ -49,103 +50,32 @@ const useStyles = makeStyles({
   },
 });
 
+const pmpInletHistoryOption = {
+  lasthour: "Last 1 Hour",
+  lastday: "Last 1 Day",
+  lastWeek: "Last 1 Week",
+  lastTwoweeks: "Last 2 Week",
+};
+
+const pmpInletHistoryOptionKeys = Object.keys(pmpInletHistoryOption);
+
 const SensorLevel = () => {
-  const { globalData } = useGlobalContext();
-  const { UpperTankLevelForChart, LowerTankLevelForChart } = useGlobalContext();
-  const [uprTnkLvlFrChart, setUprTnkLvlFrChart] = useState([]);
-  const [lowrTnkLvlFrChart, setLowrTnkLvlFrChart] = useState([]);
+  const classes = useStyles();
+  const [history, setHistory] = useState();
 
-  const pmpInletHistoryOption = {
-    lasthour: "Last 1 Hour",
-    lastday: "Last 1 Day",
-    lastWeek: "Last 1 Week",
-    lastTwoweeks: "Last 2 Week",
-  };
+  const uprTnkLvlFrChart = useChartValuesSubscription(
+    "UpperTankLevel",
+    history
+  );
 
-  const pmpInletHistoryOptionKeys = Object.keys(pmpInletHistoryOption);
+  const lowrTnkLvlFrChart = useChartValuesSubscription(
+    "LowerTankLevel",
+    history
+  );
 
   const pmpInletHandleChange = (event) => {
-    event.preventDefault();
-    fetch(
-      `https://test-zotera-server-dev.azurewebsites.net/getListData?history=${event.target.value}&sensorType=UpperTankLevel`
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        validateAndSetFunction([], setUprTnkLvlFrChart, "clear");
-        for (var i = responseJson.length - 1; i >= 0; i--) {
-          validateAndSetFunction([responseJson[i]], setUprTnkLvlFrChart, "add");
-        }
-      });
-
-    fetch(
-      `https://test-zotera-server-dev.azurewebsites.net/getListData?history=${event.target.value}&sensorType=LowerTankLevel`
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        validateAndSetFunction([], setLowrTnkLvlFrChart, "clear");
-        for (var i = responseJson.length - 1; i >= 0; i--) {
-          validateAndSetFunction(
-            [responseJson[i]],
-            setLowrTnkLvlFrChart,
-            "add"
-          );
-        }
-      });
+    setHistory(event.target.value);
   };
-
-  const classes = useStyles();
-
-  const validateAndSetFunction = (
-    recivedArrayName,
-    setFunctionName,
-    action
-  ) => {
-    if (recivedArrayName.length > 0) {
-      setFunctionName((oldArray) => {
-        let oldData = [...oldArray];
-        if (oldData.length > 15) {
-          oldData.shift();
-          return [...oldData, recivedArrayName[0]];
-        } else {
-          return [...oldData, recivedArrayName[0]];
-        }
-      });
-    } else if (action === "clear") {
-      setFunctionName(() => []);
-    }
-  };
-
-  useEffect(() => {
-    fetch(
-      "https://test-zotera-server-dev.azurewebsites.net/getListData?history=lasthour&sensorType=UpperTankLevel"
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        for (var i = 14; i >= 0; i--) {
-          validateAndSetFunction([responseJson[i]], setUprTnkLvlFrChart, "add");
-        }
-      });
-
-    fetch(
-      "https://test-zotera-server-dev.azurewebsites.net/getListData?history=lasthour&sensorType=LowerTankLevel"
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        for (var i = 14; i >= 0; i--) {
-          validateAndSetFunction(
-            [responseJson[i]],
-            setLowrTnkLvlFrChart,
-            "add"
-          );
-        }
-      });
-  }, []);
-
-  useEffect(() => {
-    validateAndSetFunction(UpperTankLevelForChart, setUprTnkLvlFrChart, "add");
-    validateAndSetFunction(LowerTankLevelForChart, setLowrTnkLvlFrChart, "add");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [globalData]);
 
   return (
     <>

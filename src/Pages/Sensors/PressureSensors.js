@@ -15,10 +15,9 @@ import Button from "@material-ui/core/Button";
 import DeviceDetailCard from "../ReuseableComponents/DeviceDetailCard";
 import PressureSensorIndicator from "../../Images/pressureSensorDeviceIndicator.png";
 import { HeaderCard } from "../ReuseableComponents/HeaderCard";
-import ListOfFileModal from "../ReuseableComponents/ListOfFileModal";
 
-import { useGlobalContext } from "../../Components/context";
 import GlobalChart from "../ReuseableComponents/Chart/GlobalChart";
+import { useChartValuesSubscription } from "../../Hooks/useChartValuesSubscription";
 
 const useStyles = makeStyles({
   root: {
@@ -52,139 +51,31 @@ const useStyles = makeStyles({
   },
 });
 
+const pmpInletHistoryOption = {
+  lasthour: "Last 1 Hour",
+  lastday: "Last 1 Day",
+  lastWeek: "Last 1 Week",
+  lastTwoweeks: "Last 2 Week",
+};
+
+const pmpInletHistoryOptionKeys = Object.keys(pmpInletHistoryOption);
+
 const PresureSensor = () => {
-  const [modalStatus, setModalStatus] = useState(false);
-  const [oldData, setOldData] = useState([]);
-  const [pmpInltPresrValue, setPmpInltPresrValue] = useState([]);
-  const [uprTnkIncmngPrsurValue, setUprTnkIncmngPrsurValue] = useState([]);
-  const {
-    pumpInletPressure_Value,
-    upperTankIncomingPressureValue,
-    globalData,
-  } = useGlobalContext();
+  const classes = useStyles();
+  const [history, setHistory] = useState();
 
-  const pmpInletHistoryOption = {
-    lasthour: "Last 1 Hour",
-    lastday: "Last 1 Day",
-    lastWeek: "Last 1 Week",
-    lastTwoweeks: "Last 2 Week",
-  };
-
-  const pmpInletHistoryOptionKeys = Object.keys(pmpInletHistoryOption);
+  const pmpInltPresrValue = useChartValuesSubscription(
+    "PumpInletPressure/Value",
+    history
+  );
+  const uprTnkIncmngPrsurValue = useChartValuesSubscription(
+    "UpperTankIncomingPressure/Value",
+    history
+  );
 
   const pmpInletHandleChange = (event) => {
-    event.preventDefault();
-
-    fetch(
-      `https://test-zotera-server-dev.azurewebsites.net/getListData?history=${event.target.value}&sensorType=PumpInletPressure/Value`
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        validateAndSetFunction([], setPmpInltPresrValue, "clear");
-        for (var i = responseJson.length - 1; i >= 0; i--) {
-          validateAndSetFunction(
-            [responseJson[i]],
-            setPmpInltPresrValue,
-            "add"
-          );
-        }
-      });
-
-    fetch(
-      `https://test-zotera-server-dev.azurewebsites.net/getListData?history=${event.target.value}&sensorType=UpperTankIncomingPressure/Value`
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        validateAndSetFunction([], setUprTnkIncmngPrsurValue, "clear");
-        for (var i = responseJson.length - 1; i >= 0; i--) {
-          validateAndSetFunction(
-            [responseJson[i]],
-            setUprTnkIncmngPrsurValue,
-            "add"
-          );
-        }
-      });
+    setHistory(event.target.value);
   };
-
-  const handleModalClose = () => {
-    setModalStatus(false);
-  };
-
-  const handleOldData = (data) => {
-    setOldData(data);
-  };
-
-  const classes = useStyles();
-
-  useEffect(() => {
-    if (oldData.length > 0) {
-      const timer = setTimeout(() => {
-        setModalStatus(false);
-      }, 10000);
-      return () => clearTimeout(timer);
-    }
-  }, [oldData]);
-
-  const validateAndSetFunction = (
-    recivedArrayName,
-    setFunctionName,
-    action
-  ) => {
-    if (recivedArrayName.length > 0) {
-      setFunctionName((oldArray) => {
-        let oldData = [...oldArray];
-        if (oldData.length > 15) {
-          oldData.shift();
-          return [...oldData, recivedArrayName[0]];
-        } else {
-          return [...oldData, recivedArrayName[0]];
-        }
-      });
-    } else if (action === "clear") {
-      setFunctionName((oldArray) => {
-        return [];
-      });
-    }
-  };
-
-  useEffect(() => {
-    validateAndSetFunction(
-      upperTankIncomingPressureValue,
-      setUprTnkIncmngPrsurValue
-    );
-    validateAndSetFunction(pumpInletPressure_Value, setPmpInltPresrValue);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [globalData]);
-
-  useEffect(() => {
-    fetch(
-      "https://test-zotera-server-dev.azurewebsites.net/getListData?history=lasthour&sensorType=PumpInletPressure/Value"
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        for (var i = 14; i >= 0; i--) {
-          validateAndSetFunction(
-            [responseJson[i]],
-            setPmpInltPresrValue,
-            "add"
-          );
-        }
-      });
-
-    fetch(
-      "https://test-zotera-server-dev.azurewebsites.net/getListData?history=lasthour&sensorType=UpperTankIncomingPressure/Value"
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        for (var i = 14; i >= 0; i--) {
-          validateAndSetFunction(
-            [responseJson[i]],
-            setUprTnkIncmngPrsurValue,
-            "add"
-          );
-        }
-      });
-  }, []);
 
   return (
     <>
@@ -347,12 +238,6 @@ const PresureSensor = () => {
             </Box>
           </Grid>
         </Grid>
-
-        <ListOfFileModal
-          modalStatus={modalStatus}
-          handleModalClose={handleModalClose}
-          receiveOldData={handleOldData}
-        />
       </Card>
     </>
   );

@@ -1,5 +1,5 @@
 import Grid from "@material-ui/core/Grid";
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import { Typography, Box } from "@material-ui/core";
@@ -13,9 +13,9 @@ import MultipleTabs from "../ReuseableComponents/MultipleTabs";
 import LineChart from "../ReuseableComponents/Chart/LineChart";
 
 import RowRadioButtonsGroup from "../ReuseableComponents/RadioButtons";
-import { useGlobalContext } from "../../Components/context";
 import GlobalChart from "../ReuseableComponents/Chart/GlobalChart";
 import { FormControl, Select, MenuItem } from "@material-ui/core";
+import { useChartValuesSubscription } from "../../Hooks/useChartValuesSubscription";
 
 const useStyles = makeStyles({
   root: {
@@ -52,380 +52,65 @@ const useStyles = makeStyles({
     marginTop: "4%",
   },
 });
+const pmpInletHistoryOption = {
+  lasthour: "Last 1 Hour",
+  lastday: "Last 1 Day",
+  lastWeek: "Last 1 Week",
+  lastTwoweeks: "Last 2 Week",
+};
+
+const pmpInletHistoryOptionKeys = Object.keys(pmpInletHistoryOption);
 
 const PumpMonitor = () => {
   const classes = useStyles();
-  const pmpInletHistoryOption = {
-    lasthour: "Last 1 Hour",
-    lastday: "Last 1 Day",
-    lastWeek: "Last 1 Week",
-    lastTwoweeks: "Last 2 Week",
-  };
-
-  const pmpInletHistoryOptionKeys = Object.keys(pmpInletHistoryOption);
-
-  const pmpInletHandleChange = (event) => {
-    event.preventDefault();
-
-    fetch(
-      `https://test-zotera-server-dev.azurewebsites.net/getListData?history=${event.target.value}&sensorType=iCOMOX/AccelerometerPrimary/X/Max/Value`
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        validateAndSetFunction([], setiCOMOXAPrmyXMaxValue, "clear");
-        for (var i = responseJson.length - 1; i >= 0; i--) {
-          validateAndSetFunction(
-            [responseJson[i]],
-            setiCOMOXAPrmyXMaxValue,
-            "add"
-          );
-        }
-      });
-
-    fetch(
-      `https://test-zotera-server-dev.azurewebsites.net/getListData?history=${event.target.value}&sensorType=iCOMOX/AccelerometerPrimary/X/Min/Value`
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        validateAndSetFunction([], setiCOMOXAPrmyXMinValue, "clear");
-        for (var i = responseJson.length - 1; i >= 0; i--) {
-          validateAndSetFunction(
-            [responseJson[i]],
-            setiCOMOXAPrmyXMinValue,
-            "add"
-          );
-        }
-      });
-
-    fetch(
-      `https://test-zotera-server-dev.azurewebsites.net/getListData?history=${event.target.value}&sensorType=iCOMOX/AccelerometerPrimary/Y/Max/Value`
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        validateAndSetFunction([], setiCOMOXAPrmyYMaxValue, "clear");
-        for (var i = responseJson.length - 1; i >= 0; i--) {
-          validateAndSetFunction(
-            [responseJson[i]],
-            setiCOMOXAPrmyYMaxValue,
-            "add"
-          );
-        }
-      });
-
-    fetch(
-      `https://test-zotera-server-dev.azurewebsites.net/getListData?history=${event.target.value}&sensorType=iCOMOX/AccelerometerPrimary/Y/Min/Value`
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        validateAndSetFunction([], setiCOMOXAPrmyYMinValue, "clear");
-        for (var i = responseJson.length - 1; i >= 0; i--) {
-          validateAndSetFunction(
-            [responseJson[i]],
-            setiCOMOXAPrmyYMinValue,
-            "add"
-          );
-        }
-      });
-
-    fetch(
-      `https://test-zotera-server-dev.azurewebsites.net/getListData?history=${event.target.value}&sensorType=iCOMOX/AccelerometerPrimary/Z/Max/Value`
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        validateAndSetFunction([], setiCOMOXAPrmyZMaxValue, "clear");
-        for (var i = responseJson.length - 1; i >= 0; i--) {
-          validateAndSetFunction(
-            [responseJson[i]],
-            setiCOMOXAPrmyZMaxValue,
-            "add"
-          );
-        }
-      });
-
-    fetch(
-      `https://test-zotera-server-dev.azurewebsites.net/getListData?history=${event.target.value}&sensorType=iCOMOX/AccelerometerPrimary/Z/Min/Value`
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        validateAndSetFunction([], setiCOMOXAPrmyZMinValue, "clear");
-        for (var i = responseJson.length - 1; i >= 0; i--) {
-          validateAndSetFunction(
-            [responseJson[i]],
-            setiCOMOXAPrmyZMinValue,
-            "add"
-          );
-        }
-      });
-
-    fetch(
-      `https://test-zotera-server-dev.azurewebsites.net/getListData?history=${event.target.value}&sensorType=AutomationSetpoints/Motor30RPM`
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        validateAndSetFunction([], setAtmtnSetPointsMotor30Rpm, "clear");
-        for (var i = responseJson.length - 1; i >= 0; i--) {
-          validateAndSetFunction(
-            [responseJson[i]],
-            setAtmtnSetPointsMotor30Rpm,
-            "add"
-          );
-        }
-      });
-
-    fetch(
-      `https://test-zotera-server-dev.azurewebsites.net/getListData?history=${event.target.value}&sensorType=AutomationSetpoints/MotorFullRPM`
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        validateAndSetFunction([], setAtmtnSetPointMotorFullRpm, "clear");
-        for (var i = responseJson.length - 1; i >= 0; i--) {
-          validateAndSetFunction(
-            [responseJson[i]],
-            setAtmtnSetPointMotorFullRpm,
-            "add"
-          );
-        }
-      });
-
-    fetch(
-      `https://test-zotera-server-dev.azurewebsites.net/getListData?history=${event.target.value}&sensorType=ABBDriveSpeed`
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        validateAndSetFunction([], setABBDriveSpeed, "clear");
-        for (var i = responseJson.length - 1; i >= 0; i--) {
-          validateAndSetFunction([responseJson[i]], setABBDriveSpeed, "add");
-        }
-      });
-  };
-
-  const {
-    globalData,
-    iCOMOX_Temperature_Value,
-    AutomationSetpoints_Motor30RPM,
-    AutomationSetpoints_MotorFullRPM,
-    iCOMOXAccPrimaryXMaxValue,
-    iCOMOXAccPrimaryXMinValue,
-    iCOMOXAccPrimaryYMaxValue,
-    iCOMOXAccPrimaryYMinValue,
-    iCOMOXAccPrimaryZMaxValue,
-    iCOMOXAccPrimaryZMinValue,
-    ABBDrive_Speed,
-  } = useGlobalContext();
-
-  const [iCOMOXAPrmyXMaxValue, setiCOMOXAPrmyXMaxValue] = useState([]);
-  const [iCOMOXAPrmyXMinValue, setiCOMOXAPrmyXMinValue] = useState([]);
-
-  const [iCOMOXAPrmyYMaxValue, setiCOMOXAPrmyYMaxValue] = useState([]);
-  const [iCOMOXAPrmyYMinValue, setiCOMOXAPrmyYMinValue] = useState([]);
-
-  const [iCOMOXAPrmyZMaxValue, setiCOMOXAPrmyZMaxValue] = useState([]);
-  const [iCOMOXAPrmyZMinValue, setiCOMOXAPrmyZMinValue] = useState([]);
-
-  const [atmtnSetPointsMotor30Rpm, setAtmtnSetPointsMotor30Rpm] = useState([]);
-  const [atmtnSetPointMotorFullRpm, setAtmtnSetPointMotorFullRpm] = useState(
-    []
+  const [history, setHistory] = useState();
+  const iCOMOXAPrmyXMaxValue = useChartValuesSubscription(
+    "iCOMOX/AccelerometerPrimary/X/Max/Value",
+    history
+  );
+  const iCOMOXAPrmyXMinValue = useChartValuesSubscription(
+    "iCOMOX/AccelerometerPrimary/X/Min/Value",
+    history
+  );
+  const iCOMOXAPrmyYMaxValue = useChartValuesSubscription(
+    "iCOMOX/AccelerometerPrimary/Y/Max/Value",
+    history
+  );
+  const iCOMOXAPrmyYMinValue = useChartValuesSubscription(
+    "iCOMOX/AccelerometerPrimary/Y/Min/Value",
+    history
+  );
+  const iCOMOXAPrmyZMaxValue = useChartValuesSubscription(
+    "iCOMOX/AccelerometerPrimary/Z/Max/Value",
+    history
+  );
+  const iCOMOXAPrmyZMinValue = useChartValuesSubscription(
+    "iCOMOX/AccelerometerPrimary/Z/Min/Value",
+    history
   );
 
-  const [aBBDriveSpeed, setABBDriveSpeed] = useState([]);
+  const atmtnSetPointsMotor30Rpm = useChartValuesSubscription(
+    "AutomationSetpoints/Motor30RPM",
+    history
+  );
+  const atmtnSetPointMotorFullRpm = useChartValuesSubscription(
+    "AutomationSetpoints/MotorFullRPM",
+    history
+  );
+  const aBBDriveSpeed = useChartValuesSubscription("ABBDriveSpeed", history);
 
-  const handleChangeArea = (areaName) => {};
-
-  const validateAndSetFunction = (
-    recivedArrayName,
-    setFunctionName,
-    action
-  ) => {
-    if (recivedArrayName.length > 0) {
-      setFunctionName((oldArray) => {
-        let oldData = [...oldArray];
-        if (oldData.length > 5) {
-          oldData.shift();
-          return [...oldData, recivedArrayName[0]];
-        } else {
-          return [...oldData, recivedArrayName[0]];
-        }
-      });
-    } else if (action === "clear") {
-      setFunctionName((oldArray) => {
-        return [];
-      });
-    }
+  const pmpInletHandleChange = (event) => {
+    setHistory(event.target.value);
   };
 
-  useEffect(() => {
-    validateAndSetFunction(
-      iCOMOXAccPrimaryXMaxValue,
-      setiCOMOXAPrmyXMaxValue,
-      "add"
-    );
-    validateAndSetFunction(
-      iCOMOXAccPrimaryXMinValue,
-      setiCOMOXAPrmyXMinValue,
-      "add"
-    );
+  const iCOMOX_Temperature_Values = useChartValuesSubscription(
+    "iCOMOX/Temperature/Value"
+  );
+  const iCOMOX_Temperature_Value = iCOMOX_Temperature_Values[0]
+    ? iCOMOX_Temperature_Values[0].y
+    : 0;
 
-    validateAndSetFunction(
-      iCOMOXAccPrimaryYMaxValue,
-      setiCOMOXAPrmyYMaxValue,
-      "add"
-    );
-    validateAndSetFunction(
-      iCOMOXAccPrimaryYMinValue,
-      setiCOMOXAPrmyYMinValue,
-      "add"
-    );
-
-    validateAndSetFunction(
-      iCOMOXAccPrimaryZMaxValue,
-      setiCOMOXAPrmyZMaxValue,
-      "add"
-    );
-    validateAndSetFunction(
-      iCOMOXAccPrimaryZMinValue,
-      setiCOMOXAPrmyZMinValue,
-      "add"
-    );
-
-    validateAndSetFunction(
-      AutomationSetpoints_Motor30RPM,
-      setAtmtnSetPointsMotor30Rpm,
-      "add"
-    );
-    validateAndSetFunction(
-      AutomationSetpoints_MotorFullRPM,
-      setAtmtnSetPointMotorFullRpm,
-      "add"
-    );
-
-    validateAndSetFunction(ABBDrive_Speed, setABBDriveSpeed, "add");
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [globalData]);
-
-  useEffect(() => {
-    fetch(
-      "https://test-zotera-server-dev.azurewebsites.net/getListData?history=lasthour&sensorType=iCOMOX/AccelerometerPrimary/X/Max/Value"
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        for (var i = 4; i >= 0; i--) {
-          validateAndSetFunction(
-            [responseJson[i]],
-            setiCOMOXAPrmyXMaxValue,
-            "add"
-          );
-        }
-      });
-
-    fetch(
-      "https://test-zotera-server-dev.azurewebsites.net/getListData?history=lasthour&sensorType=iCOMOX/AccelerometerPrimary/X/Min/Value"
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        for (var i = 4; i >= 0; i--) {
-          validateAndSetFunction(
-            [responseJson[i]],
-            setiCOMOXAPrmyXMinValue,
-            "add"
-          );
-        }
-      });
-
-    fetch(
-      "https://test-zotera-server-dev.azurewebsites.net/getListData?history=lasthour&sensorType=iCOMOX/AccelerometerPrimary/Y/Max/Value"
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        for (var i = 4; i >= 0; i--) {
-          validateAndSetFunction(
-            [responseJson[i]],
-            setiCOMOXAPrmyYMaxValue,
-            "add"
-          );
-        }
-      });
-
-    fetch(
-      "https://test-zotera-server-dev.azurewebsites.net/getListData?history=lasthour&sensorType=iCOMOX/AccelerometerPrimary/Y/Min/Value"
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        for (var i = 4; i >= 0; i--) {
-          validateAndSetFunction(
-            [responseJson[i]],
-            setiCOMOXAPrmyYMinValue,
-            "add"
-          );
-        }
-      });
-
-    fetch(
-      "https://test-zotera-server-dev.azurewebsites.net/getListData?history=lasthour&sensorType=iCOMOX/AccelerometerPrimary/Z/Max/Value"
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        for (var i = 4; i >= 0; i--) {
-          validateAndSetFunction(
-            [responseJson[i]],
-            setiCOMOXAPrmyZMaxValue,
-            "add"
-          );
-        }
-      });
-
-    fetch(
-      "https://test-zotera-server-dev.azurewebsites.net/getListData?history=lasthour&sensorType=iCOMOX/AccelerometerPrimary/Z/Min/Value"
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        for (var i = 4; i >= 0; i--) {
-          validateAndSetFunction(
-            [responseJson[i]],
-            setiCOMOXAPrmyZMinValue,
-            "add"
-          );
-        }
-      });
-
-    fetch(
-      "https://test-zotera-server-dev.azurewebsites.net/getListData?history=lasthour&sensorType=AutomationSetpoints/Motor30RPM"
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        for (var i = 4; i >= 0; i--) {
-          validateAndSetFunction(
-            [responseJson[i]],
-            setAtmtnSetPointsMotor30Rpm,
-            "add"
-          );
-        }
-      });
-
-    fetch(
-      "https://test-zotera-server-dev.azurewebsites.net/getListData?history=lasthour&sensorType=AutomationSetpoints/MotorFullRPM"
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        for (var i = 4; i >= 0; i--) {
-          validateAndSetFunction(
-            [responseJson[i]],
-            setAtmtnSetPointMotorFullRpm,
-            "add"
-          );
-        }
-      });
-
-    fetch(
-      "https://test-zotera-server-dev.azurewebsites.net/getListData?history=lasthour&sensorType=ABBDriveSpeed"
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        for (var i = 4; i >= 0; i--) {
-          validateAndSetFunction([responseJson[i]], setABBDriveSpeed, "add");
-        }
-      });
-  }, []);
+  const handleChangeArea = (areaName) => {};
 
   return (
     <>

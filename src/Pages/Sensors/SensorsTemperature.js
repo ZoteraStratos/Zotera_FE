@@ -15,8 +15,9 @@ import TemperatureSensorImage from "../../Images/temperatureSensor.png";
 import { HeaderCard } from "../ReuseableComponents/HeaderCard";
 import DeviceDetailCard from "../ReuseableComponents/DeviceDetailCard";
 import DonutChart from "../ReuseableComponents/Chart/DonutChart";
-import { useGlobalContext } from "../../Components/context";
+import { useSocketContext } from "../../Components/context";
 import GlobalChart from "../ReuseableComponents/Chart/GlobalChart";
+import { useChartValuesSubscription } from "../../Hooks/useChartValuesSubscription";
 
 const useStyles = makeStyles({
   container: {
@@ -79,123 +80,33 @@ const useStyles = makeStyles({
   },
 });
 
+const pmpInletHistoryOption = {
+  lasthour: "Last 1 Hour",
+  lastday: "Last 1 Day",
+  lastWeek: "Last 1 Week",
+  lastTwoweeks: "Last 2 Week",
+};
+
+const pmpInletHistoryOptionKeys = Object.keys(pmpInletHistoryOption);
+
 const SensorsTemperature = () => {
-  const {
-    waterTempsRawWaterTemp,
-    iCOMOXTemperatureValue,
-    globalData,
-    TemperatureSensor,
-  } = useGlobalContext();
-  const [iCOMOXTmpertrValue, setiCOMOXTmpertrValue] = useState([]);
-  const [wtrTmpsRawWtrTmp, setWaterTempsRawWaterTemp] = useState([]);
-  const [temperatureSensor, setTemperatureSensor] = useState(0);
+  const classes = useStyles();
+  const [history, setHistory] = useState();
 
-  const pmpInletHistoryOption = {
-    lasthour: "Last 1 Hour",
-    lastday: "Last 1 Day",
-    lastWeek: "Last 1 Week",
-    lastTwoweeks: "Last 2 Week",
-  };
+  const iCOMOXTmpertrValue = useChartValuesSubscription(
+    "iCOMOX/Temperature/Value",
+    history
+  );
 
-  const pmpInletHistoryOptionKeys = Object.keys(pmpInletHistoryOption);
+  const wtrTmpsRawWtrTmp = useChartValuesSubscription(
+    "TemperatureSensor1",
+    history
+  );
+  const temperatureSensor = wtrTmpsRawWtrTmp[0] ? wtrTmpsRawWtrTmp[0].y : 0;
 
   const pmpInletHandleChange = (event) => {
-    event.preventDefault();
-
-    fetch(
-      `https://test-zotera-server-dev.azurewebsites.net/getListData?history=${event.target.value}&sensorType=Water/Temps/RawWaterTemp`
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        validateAndSetFunction([], setWaterTempsRawWaterTemp, "clear");
-        for (var i = responseJson.length - 1; i >= 0; i--) {
-          validateAndSetFunction(
-            [responseJson[i]],
-            setWaterTempsRawWaterTemp,
-            "add"
-          );
-        }
-      });
-
-    fetch(
-      `https://test-zotera-server-dev.azurewebsites.net/getListData?history=${event.target.value}&sensorType=iCOMOX/Temperature/Value`
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        validateAndSetFunction([], setiCOMOXTmpertrValue, "clear");
-        for (var i = responseJson.length - 1; i >= 0; i--) {
-          validateAndSetFunction(
-            [responseJson[i]],
-            setiCOMOXTmpertrValue,
-            "add"
-          );
-        }
-      });
+    setHistory(event.target.value);
   };
-
-  const validateAndSetFunction = (
-    recivedArrayName,
-    setFunctionName,
-    action
-  ) => {
-    if (recivedArrayName.length > 0) {
-      setFunctionName((oldArray) => {
-        let oldData = [...oldArray];
-        if (oldData.length > 15) {
-          oldData.shift();
-          return [...oldData, recivedArrayName[0]];
-        } else {
-          return [...oldData, recivedArrayName[0]];
-        }
-      });
-    } else if (action === "clear") {
-      setFunctionName(() => []);
-    }
-  };
-
-  useEffect(() => {
-    validateAndSetFunction(iCOMOXTemperatureValue, setiCOMOXTmpertrValue);
-    validateAndSetFunction(waterTempsRawWaterTemp, setWaterTempsRawWaterTemp);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [globalData]);
-
-  useEffect(() => {
-    fetch(
-      "https://test-zotera-server-dev.azurewebsites.net/getListData?history=lasthour&sensorType=Water/Temps/RawWaterTemp"
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        for (var i = 14; i >= 0; i--) {
-          validateAndSetFunction(
-            [responseJson[i]],
-            setWaterTempsRawWaterTemp,
-            "add"
-          );
-        }
-      });
-
-    fetch(
-      "https://test-zotera-server-dev.azurewebsites.net/getListData?history=lasthour&sensorType=iCOMOX/Temperature/Value"
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        for (var i = 14; i >= 0; i--) {
-          validateAndSetFunction(
-            [responseJson[i]],
-            setiCOMOXTmpertrValue,
-            "add"
-          );
-        }
-      });
-  }, []);
-
-  useEffect(() => {
-    if (TemperatureSensor) {
-      setTemperatureSensor(TemperatureSensor);
-    }
-  }, [TemperatureSensor]);
-
-  const classes = useStyles();
 
   return (
     <React.Fragment className={classes.container}>
@@ -243,7 +154,7 @@ const SensorsTemperature = () => {
           <DonutChart
             labelName={"Temperature"}
             siUnit={" F"}
-            presentRpm={temperatureSensor}
+            presentRpm={`${parseFloat(temperatureSensor).toFixed(2)}`}
             customSegmentStops={increment(100)}
             maxValue={100}
           />

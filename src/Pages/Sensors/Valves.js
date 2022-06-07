@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import OutgoingValve from "../../Images/outgoingValve.png";
 import { HeaderCard } from "../ReuseableComponents/HeaderCard";
@@ -13,10 +13,10 @@ import {
   Grid,
   Card,
 } from "@material-ui/core";
-import { useGlobalContext } from "../../Components/context";
 import GlobalChart from "../ReuseableComponents/Chart/GlobalChart";
 
 import { Chart, registerables } from "chart.js";
+import { useChartValuesSubscription } from "../../Hooks/useChartValuesSubscription";
 Chart.register(...registerables);
 
 const useStyles = makeStyles({
@@ -68,156 +68,34 @@ const useStyles = makeStyles({
     alignItems: "center",
   },
 });
+const pmpInletHistoryOption = {
+  lasthour: "Last 1 Hour",
+  lastday: "Last 1 Day",
+  lastWeek: "Last 1 Week",
+  lastTwoweeks: "Last 2 Week",
+};
+
+const pmpInletHistoryOptionKeys = Object.keys(pmpInletHistoryOption);
 const Valves = () => {
-  const {
-    globalData,
-    upperTankOutgoingValve,
-    upperTankIncomingValve,
-    lowerTankOutgoingValve,
-  } = useGlobalContext();
   const classes = useStyles();
 
-  const [uprTnkIncmngValve, setUprTnkIncmngValve] = useState([]);
-  const [uprTnkIncmingValve, setUprTnkIncmingValve] = useState([]);
-  const [lwrTnkOutgngValve, setLwrTnkOutgngValve] = useState([]);
-
-  const pmpInletHistoryOption = {
-    lasthour: "Last 1 Hour",
-    lastday: "Last 1 Day",
-    lastWeek: "Last 1 Week",
-    lastTwoweeks: "Last 2 Week",
-  };
-
-  const pmpInletHistoryOptionKeys = Object.keys(pmpInletHistoryOption);
+  const [history, setHistory] = useState();
+  const uprTnkIncmngValve = useChartValuesSubscription(
+    "UpperTankOutgoingValve",
+    history
+  );
+  const uprTnkIncmingValve = useChartValuesSubscription(
+    "UpperTankIncomingValve",
+    history
+  );
+  const lwrTnkOutgngValve = useChartValuesSubscription(
+    "LowerTankOutgoingValve",
+    history
+  );
 
   const pmpInletHandleChange = (event) => {
-    event.preventDefault();
-    fetch(
-      `https://test-zotera-server-dev.azurewebsites.net/getListData?history=${event.target.value}&sensorType=UpperTankOutgoingValve`
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        validateAndSetFunction([], setUprTnkIncmngValve, "clear");
-        for (var i = responseJson.length - 1; i >= 0; i--) {
-          validateAndSetFunction(
-            [responseJson[i]],
-            setUprTnkIncmngValve,
-            "add"
-          );
-        }
-      });
-
-    fetch(
-      `https://test-zotera-server-dev.azurewebsites.net/getListData?history=${event.target.value}&sensorType=LowerTankOutgoingValve`
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        validateAndSetFunction([], setLwrTnkOutgngValve, "clear");
-        for (var i = responseJson.length - 1; i >= 0; i--) {
-          validateAndSetFunction(
-            [responseJson[i]],
-            setLwrTnkOutgngValve,
-            "add"
-          );
-        }
-      });
-
-    fetch(
-      `https://test-zotera-server-dev.azurewebsites.net/getListData?history=${event.target.value}&sensorType=UpperTankIncomingValve`
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        validateAndSetFunction([], setUprTnkIncmingValve, "clear");
-        for (var i = responseJson.length - 1; i >= 0; i--) {
-          validateAndSetFunction(
-            [responseJson[i]],
-            setUprTnkIncmingValve,
-            "add"
-          );
-        }
-      });
+    setHistory(event.target.value);
   };
-
-  const validateAndSetFunction = (
-    recivedArrayName,
-    setFunctionName,
-    action
-  ) => {
-    if (recivedArrayName.length > 0) {
-      setFunctionName((oldArray) => {
-        let oldData = [...oldArray];
-        if (oldData.length > 15) {
-          oldData.shift();
-          return [...oldData, recivedArrayName[0]];
-        } else {
-          return [...oldData, recivedArrayName[0]];
-        }
-      });
-    } else if (action === "clear") {
-      setFunctionName((oldArray) => {
-        return [];
-      });
-    }
-  };
-
-  useEffect(() => {
-    fetch(
-      "https://test-zotera-server-dev.azurewebsites.net/getListData?history=lasthour&sensorType=UpperTankOutgoingValve"
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        for (var i = 14; i >= 0; i--) {
-          validateAndSetFunction(
-            [responseJson[i]],
-            setUprTnkIncmngValve,
-            "add"
-          );
-        }
-      });
-
-    fetch(
-      "https://test-zotera-server-dev.azurewebsites.net/getListData?history=lasthour&sensorType=LowerTankOutgoingValve"
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        for (var i = 14; i >= 0; i--) {
-          validateAndSetFunction(
-            [responseJson[i]],
-            setLwrTnkOutgngValve,
-            "add"
-          );
-        }
-      });
-
-    fetch(
-      "https://test-zotera-server-dev.azurewebsites.net/getListData?history=lasthour&sensorType=UpperTankIncomingValve"
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        for (var i = 14; i >= 0; i--) {
-          validateAndSetFunction(
-            [responseJson[i]],
-            setUprTnkIncmingValve,
-            "add"
-          );
-        }
-      });
-  }, []);
-
-  useEffect(() => {
-    validateAndSetFunction(upperTankOutgoingValve, setUprTnkIncmngValve, "add");
-    validateAndSetFunction(
-      upperTankIncomingValve,
-      setUprTnkIncmingValve,
-      "add"
-    );
-    validateAndSetFunction(lowerTankOutgoingValve, setLwrTnkOutgngValve, "add");
-  }, [
-    globalData,
-    lowerTankOutgoingValve,
-    upperTankIncomingValve,
-    upperTankOutgoingValve,
-  ]);
 
   return (
     <React.Fragment className={classes.container}>

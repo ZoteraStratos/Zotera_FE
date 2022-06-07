@@ -1,9 +1,10 @@
 import React, { Suspense } from "react";
 import Layout from "./Components/Layout";
+import Loader from "./Pages/ReuseableComponents/Loader";
 
 const App = () => {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<Loader />}>
       <Layout />
     </Suspense>
   );

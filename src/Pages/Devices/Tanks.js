@@ -1,14 +1,10 @@
-import { useEffect, useState } from "react";
 import { Grid, Box, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import ReuseableTank from "../ReuseableComponents/ReusableTank";
 import TankImage from "../../Images/tankImage.png";
-import { useGlobalContext } from "../../Components/context";
 import GlobalChart from "../ReuseableComponents/Chart/GlobalChart";
 import { HeaderCard } from "../ReuseableComponents/HeaderCard";
-import { BASE_URL } from "../../constants";
-
-const requestUrl = `${BASE_URL}/getListData?history=lasthour`;
+import { useChartValuesSubscription } from "../../Hooks/useChartValuesSubscription";
 
 const useStyles = makeStyles({
   container: {
@@ -46,59 +42,20 @@ const useStyles = makeStyles({
 
 const Tanks = () => {
   const classes = useStyles();
-  const [
-    {
-      flowUprTnkOutgng,
-      flowUprTnkIncmng,
-      pmpInltPresrValue,
-      uprTnkIncmngPresurValue,
-    },
-    setState,
-  ] = useState({
-    flowUprTnkOutgng: [],
-    flowUprTnkIncmng: [],
-    pmpInltPresrValue: [],
-    uprTnkIncmngPresurValue: [],
-  });
 
-  const { UpperTankLevel, LowerTankLevel } = useGlobalContext();
+  const UpperTankLevels = useChartValuesSubscription("UpperTankLevel");
+  const LowerTankLevels = useChartValuesSubscription("LowerTankLevel");
+  const UpperTankLevel = UpperTankLevels[0] ? UpperTankLevels[0].y : 0;
+  const LowerTankLevel = LowerTankLevels[0] ? LowerTankLevels[0].y : 0;
 
-  const validateAndSetFunction = (recivedArrayName, oldArray) => {
-    if (recivedArrayName.length > 0) {
-      let oldData = [...oldArray];
-      if (oldData.length > 15) {
-        oldData.shift();
-        return [...oldData, recivedArrayName[0]];
-      } else {
-        return [...oldData, recivedArrayName[0]];
-      }
-    }
-    return oldArray;
-  };
-
-  useEffect(() => {
-    const mapToJson = (res) => res.json();
-
-    const fetchUpperTankOutgoing = fetch(
-      `${requestUrl}&sensorType=Flow/UpperTankOutgoing`
-    ).then(mapToJson);
-    const fetchUpperTankIncoming = fetch(
-      `${requestUrl}&sensorType=Flow/UpperTankIncoming`
-    ).then(mapToJson);
-    const fetchPumpInletPressure = fetch(
-      `${requestUrl}&sensorType=PumpInletPressure/Value`
-    ).then(mapToJson);
-    const fetchUpperTankIncomingPressure = fetch(
-      `${requestUrl}&sensorType=UpperTankIncomingPressure/Value`
-    ).then(mapToJson);
-
-    Promise.all([
-      fetchUpperTankOutgoing,
-      fetchUpperTankIncoming,
-      fetchPumpInletPressure,
-      fetchUpperTankIncomingPressure,
-    ]).then((r) => console.log(r));
-  }, []);
+  const flowUprTnkOutgng = useChartValuesSubscription("Flow/UpperTankOutgoing");
+  const flowUprTnkIncmng = useChartValuesSubscription("Flow/UpperTankIncoming");
+  const pmpInltPresrValue = useChartValuesSubscription(
+    "PumpInletPressure/Value"
+  );
+  const uprTnkIncmngPresurValue = useChartValuesSubscription(
+    "UpperTankIncomingPressure/Value"
+  );
 
   return (
     <>

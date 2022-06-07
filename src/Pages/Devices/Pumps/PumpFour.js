@@ -24,7 +24,7 @@ import {
 } from "@material-ui/core";
 import PropTypes from "prop-types";
 import { HeaderCard } from "../../ReuseableComponents/HeaderCard";
-import { useGlobalContext } from "../../../Components/context";
+import { useSocketContext } from "../../../Components/context";
 import { ReactComponent as SoundImage } from "../../../Images/soundImage.svg";
 import { ReactComponent as CavitationImage } from "../../../Images/cavitationImage.svg";
 import { ReactComponent as ImpellerImage } from "../../../Images/impellerImage.svg";
@@ -35,6 +35,12 @@ import { ReactComponent as PumpMotorCadImage } from "../../../Images/pumpMotorCa
 import { ReactComponent as ListOfComponent } from "../../../Images/listOfComponent.svg";
 import { ReactComponent as BluePumpImageOpen } from "../../../Images/BluePumpImageOpen.svg";
 import GlobalChart from "../../ReuseableComponents/Chart/GlobalChart";
+import {
+  historyOptions,
+  historyOptionsKeys,
+  useHistoryOptions,
+} from "../../../Hooks/useHistoryOptions";
+import { useChartValuesSubscription } from "../../../Hooks/useChartValuesSubscription";
 
 const theme = createTheme({
   breakpoints: {
@@ -151,333 +157,53 @@ function a11yProps(index) {
 
 const PumpFour = () => {
   const classes = useStyles();
-  const {
-    globalData,
-    iCOMOXAccPrimaryZMaxValue,
-    iCOMOXAccPrimaryZMinValue,
-    iCOMOXAcousticMaxValue,
-    iCOMOXAcousticMinValue,
-    iCOMOXAcousticRMSValue,
-    iCOMOXAcousticAvgValue,
-    iCOMOXTemperatureValue,
-    AutomationSetpoints_Motor30RPM,
-    AutomationSetpoints_MotorFullRPM,
-  } = useGlobalContext();
 
+  const { history, handleChangeHistory } = useHistoryOptions();
   const [value, setValue] = useState(0);
-  const [iCOMOXAPrmyZMaxValue, setiCOMOXAPrmyZMaxValue] = useState([]);
-  const [iCOMOXAPrmyZMinValue, setiCOMOXAPrmyZMinValue] = useState([]);
-  const [iCOMOXAcMaxValue, setiCOMOXAcMaxValue] = useState([]);
-  const [iCOMOXAcMinValue, setiCOMOXAcMinValue] = useState([]);
-  const [iCOMOXAcRMSValue, setiCOMOXAcRMSValue] = useState([]);
-  const [iCOMOXAcAvgValue, setiCOMOXAcAvgValue] = useState([]);
-  const [iCOMOXTmpertrValue, setiCOMOXTmpertrValue] = useState([]);
-  const [atmtnSetPointsMotor30Rpm, setAtmtnSetPointsMotor30Rpm] = useState([]);
-  const [atmtnSetPointMotorFullRpm, setAtmtnSetPointMotorFullRpm] = useState(
-    []
+
+  const iCOMOXAPrmyZMaxValue = useChartValuesSubscription(
+    "iCOMOX/AccelerometerPrimary/Z/Max/Value",
+    history
+  );
+  const iCOMOXAPrmyZMinValue = useChartValuesSubscription(
+    "iCOMOX/AccelerometerPrimary/Z/Min/Value",
+    history
   );
 
-  const pmpInletHistoryOption = {
-    lasthour: "Last 1 Hour",
-    lastday: "Last 1 Day",
-    lastWeek: "Last 1 Week",
-    lastTwoweeks: "Last 2 Week",
-  };
+  const atmtnSetPointsMotor30Rpm = useChartValuesSubscription(
+    "AutomationSetpoints/Motor30RPM",
+    history
+  );
+  const atmtnSetPointMotorFullRpm = useChartValuesSubscription(
+    "AutomationSetpoints/MotorFullRPM",
+    history
+  );
 
-  const pmpInletHistoryOptionKeys = Object.keys(pmpInletHistoryOption);
+  const iCOMOXTmpertrValue = useChartValuesSubscription(
+    "iCOMOX/Temperature/Value",
+    history
+  );
 
-  const pmpInletHandleChange = (event) => {
-    event.preventDefault();
+  const iCOMOXAcMaxValue = useChartValuesSubscription(
+    "iCOMOX/Acoustic/Max/Value",
+    history
+  );
+  const iCOMOXAcMinValue = useChartValuesSubscription(
+    "iCOMOX/Acoustic/Min/Value",
+    history
+  );
+  const iCOMOXAcRMSValue = useChartValuesSubscription(
+    "iCOMOX/Acoustic/RMS/Value",
+    history
+  );
+  const iCOMOXAcAvgValue = useChartValuesSubscription(
+    "iCOMOX/Acoustic/Avg/Value",
+    history
+  );
 
-    fetch(
-      `https://test-zotera-server-dev.azurewebsites.net/getListData?history=${event.target.value}&sensorType=iCOMOX/AccelerometerPrimary/Z/Max/Value`
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        validateAndSetFunction([], setiCOMOXAPrmyZMaxValue, "clear");
-        for (var i = responseJson.length - 1; i >= 0; i--) {
-          validateAndSetFunction(
-            [responseJson[i]],
-            setiCOMOXAPrmyZMaxValue,
-            "add"
-          );
-        }
-      });
-
-    fetch(
-      `https://test-zotera-server-dev.azurewebsites.net/getListData?history=${event.target.value}&sensorType=iCOMOX/AccelerometerPrimary/Z/Min/Value`
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        validateAndSetFunction([], setiCOMOXAPrmyZMinValue, "clear");
-        for (var i = responseJson.length - 1; i >= 0; i--) {
-          validateAndSetFunction(
-            [responseJson[i]],
-            setiCOMOXAPrmyZMinValue,
-            "add"
-          );
-        }
-      });
-
-    fetch(
-      `https://test-zotera-server-dev.azurewebsites.net/getListData?history=${event.target.value}&sensorType=iCOMOX/Temperature/Value`
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        validateAndSetFunction([], setiCOMOXTmpertrValue, "clear");
-        for (var i = responseJson.length - 1; i >= 0; i--) {
-          validateAndSetFunction(
-            [responseJson[i]],
-            setiCOMOXTmpertrValue,
-            "add"
-          );
-        }
-      });
-
-    fetch(
-      `https://test-zotera-server-dev.azurewebsites.net/getListData?history=${event.target.value}&sensorType=iCOMOX/Acoustic/Max/Value`
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        validateAndSetFunction([], setiCOMOXAcMinValue, "clear");
-        for (var i = responseJson.length - 1; i >= 0; i--) {
-          validateAndSetFunction([responseJson[i]], setiCOMOXAcMinValue, "add");
-        }
-      });
-
-    fetch(
-      `https://test-zotera-server-dev.azurewebsites.net/getListData?history=${event.target.value}&sensorType=iCOMOX/Acoustic/Min/Value`
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        validateAndSetFunction([], setiCOMOXAcMinValue, "clear");
-        for (var i = responseJson.length - 1; i >= 0; i--) {
-          validateAndSetFunction([responseJson[i]], setiCOMOXAcMinValue, "add");
-        }
-      });
-
-    fetch(
-      `https://test-zotera-server-dev.azurewebsites.net/getListData?history=${event.target.value}&sensorType=iCOMOX/Acoustic/RMS/Value`
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        validateAndSetFunction([], setiCOMOXAcRMSValue, "clear");
-        for (var i = responseJson.length - 1; i >= 0; i--) {
-          validateAndSetFunction([responseJson[i]], setiCOMOXAcRMSValue, "add");
-        }
-      });
-
-    fetch(
-      `https://test-zotera-server-dev.azurewebsites.net/getListData?history=${event.target.value}&sensorType=iCOMOX/Acoustic/Avg/Value`
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        validateAndSetFunction([], setiCOMOXAcAvgValue, "clear");
-        for (var i = responseJson.length - 1; i >= 0; i--) {
-          validateAndSetFunction([responseJson[i]], setiCOMOXAcAvgValue, "add");
-        }
-      });
-
-    fetch(
-      `https://test-zotera-server-dev.azurewebsites.net/getListData?history=${event.target.value}&sensorType=AutomationSetpoints/Motor30RPM`
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        validateAndSetFunction([], setAtmtnSetPointsMotor30Rpm, "clear");
-        for (var i = responseJson.length - 1; i >= 0; i--) {
-          validateAndSetFunction(
-            [responseJson[i]],
-            setAtmtnSetPointsMotor30Rpm,
-            "add"
-          );
-        }
-      });
-
-    fetch(
-      `https://test-zotera-server-dev.azurewebsites.net/getListData?history=${event.target.value}&sensorType=AutomationSetpoints/MotorFullRPM`
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        validateAndSetFunction([], setAtmtnSetPointMotorFullRpm, "clear");
-        for (var i = responseJson.length - 1; i >= 0; i--) {
-          validateAndSetFunction(
-            [responseJson[i]],
-            setAtmtnSetPointMotorFullRpm,
-            "add"
-          );
-        }
-      });
-  };
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
-  const validateAndSetFunction = (
-    recivedArrayName,
-    setFunctionName,
-    action
-  ) => {
-    if (recivedArrayName.length > 0) {
-      setFunctionName((oldArray) => {
-        let oldData = [...oldArray];
-        if (oldData.length > 5) {
-          oldData.shift();
-          return [...oldData, recivedArrayName[0]];
-        } else {
-          return [...oldData, recivedArrayName[0]];
-        }
-      });
-    } else if (action === "clear") {
-      setFunctionName((oldArray) => {
-        return [];
-      });
-    }
-  };
-
-  useEffect(() => {
-    validateAndSetFunction(
-      iCOMOXTemperatureValue,
-      setiCOMOXTmpertrValue,
-      "add"
-    );
-    validateAndSetFunction(
-      iCOMOXAccPrimaryZMaxValue,
-      setiCOMOXAPrmyZMaxValue,
-      "add"
-    );
-    validateAndSetFunction(
-      iCOMOXAccPrimaryZMinValue,
-      setiCOMOXAPrmyZMinValue,
-      "add"
-    );
-    validateAndSetFunction(iCOMOXAcousticMaxValue, setiCOMOXAcMaxValue, "add");
-    validateAndSetFunction(iCOMOXAcousticMinValue, setiCOMOXAcMinValue, "add");
-    validateAndSetFunction(iCOMOXAcousticRMSValue, setiCOMOXAcRMSValue, "add");
-    validateAndSetFunction(iCOMOXAcousticAvgValue, setiCOMOXAcAvgValue, "add");
-    validateAndSetFunction(
-      AutomationSetpoints_Motor30RPM,
-      setAtmtnSetPointsMotor30Rpm,
-      "add"
-    );
-    validateAndSetFunction(
-      AutomationSetpoints_MotorFullRPM,
-      setAtmtnSetPointMotorFullRpm,
-      "add"
-    );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [globalData]);
-
-  useEffect(() => {
-    fetch(
-      "https://test-zotera-server-dev.azurewebsites.net/getListData?history=lasthour&sensorType=iCOMOX/AccelerometerPrimary/Z/Max/Value"
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        for (var i = 4; i >= 0; i--) {
-          validateAndSetFunction(
-            [responseJson[i]],
-            setiCOMOXAPrmyZMaxValue,
-            "add"
-          );
-        }
-      });
-
-    fetch(
-      "https://test-zotera-server-dev.azurewebsites.net/getListData?history=lasthour&sensorType=iCOMOX/AccelerometerPrimary/Z/Min/Value"
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        for (var i = 4; i >= 0; i--) {
-          validateAndSetFunction(
-            [responseJson[i]],
-            setiCOMOXAPrmyZMinValue,
-            "add"
-          );
-        }
-      });
-
-    fetch(
-      "https://test-zotera-server-dev.azurewebsites.net/getListData?history=lasthour&sensorType=iCOMOX/Temperature/Value"
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        for (var i = 4; i >= 0; i--) {
-          validateAndSetFunction(
-            [responseJson[i]],
-            setiCOMOXTmpertrValue,
-            "add"
-          );
-        }
-      });
-
-    fetch(
-      "https://test-zotera-server-dev.azurewebsites.net/getListData?history=lasthour&sensorType=iCOMOX/Acoustic/Max/Value"
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        for (var i = 4; i >= 0; i--) {
-          validateAndSetFunction([responseJson[i]], setiCOMOXAcMaxValue, "add");
-        }
-      });
-
-    fetch(
-      "https://test-zotera-server-dev.azurewebsites.net/getListData?history=lasthour&sensorType=iCOMOX/Acoustic/Min/Value"
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        for (var i = 4; i >= 0; i--) {
-          validateAndSetFunction([responseJson[i]], setiCOMOXAcMinValue, "add");
-        }
-      });
-
-    fetch(
-      "https://test-zotera-server-dev.azurewebsites.net/getListData?history=lasthour&sensorType=iCOMOX/Acoustic/RMS/Value"
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        for (var i = 4; i >= 0; i--) {
-          validateAndSetFunction([responseJson[i]], setiCOMOXAcRMSValue, "add");
-        }
-      });
-
-    fetch(
-      "https://test-zotera-server-dev.azurewebsites.net/getListData?history=lasthour&sensorType=iCOMOX/Acoustic/Avg/Value"
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        for (var i = 4; i >= 0; i--) {
-          validateAndSetFunction([responseJson[i]], setiCOMOXAcAvgValue, "add");
-        }
-      });
-
-    fetch(
-      "https://test-zotera-server-dev.azurewebsites.net/getListData?history=lasthour&sensorType=AutomationSetpoints/Motor30RPM"
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        for (var i = 4; i >= 0; i--) {
-          validateAndSetFunction(
-            [responseJson[i]],
-            setAtmtnSetPointsMotor30Rpm,
-            "add"
-          );
-        }
-      });
-
-    fetch(
-      "https://test-zotera-server-dev.azurewebsites.net/getListData?history=lasthour&sensorType=AutomationSetpoints/MotorFullRPM"
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        for (var i = 4; i >= 0; i--) {
-          validateAndSetFunction(
-            [responseJson[i]],
-            setAtmtnSetPointMotorFullRpm,
-            "add"
-          );
-        }
-      });
-  }, []);
 
   return (
     <>
@@ -579,39 +305,25 @@ const PumpFour = () => {
                             </TableCell>
                             <TableCell className={classes.paddingStyle}>
                               <FormControl>
-                                {/* <Select className={classes.dropDownBtnStyle}
-                                                                    value={selectedWeek}
-                                                                    onChange={handleChangeWeek}
-                                                                    inputProps={{
-                                                                        name: "statusHistory",
-                                                                        id: "statusHistory",
-                                                                    }} >
-                                                                    {valuesWeek.map((value, index) => {
-                                                                        return <MenuItem value={value} key={index * 2.54}>{value}</MenuItem>;
-                                                                    })}
-                                                                </Select> */}
                                 <Select
                                   className={classes.dropDownBtnStyle}
-                                  // value={selected ? selected : ''}
-                                  onChange={pmpInletHandleChange}
+                                  onChange={handleChangeHistory}
                                   inputProps={{
                                     name: "statusHistory",
                                     id: "statusHistory",
                                   }}
                                   defaultValue="lasthour"
                                 >
-                                  {pmpInletHistoryOptionKeys.map(
-                                    (value, index) => {
-                                      return (
-                                        <MenuItem
-                                          value={value}
-                                          key={index * 2.54}
-                                        >
-                                          {pmpInletHistoryOption[value]}
-                                        </MenuItem>
-                                      );
-                                    }
-                                  )}
+                                  {historyOptionsKeys.map((value, index) => {
+                                    return (
+                                      <MenuItem
+                                        value={value}
+                                        key={index * 2.54}
+                                      >
+                                        {historyOptions[value]}
+                                      </MenuItem>
+                                    );
+                                  })}
                                 </Select>
                               </FormControl>
                             </TableCell>
@@ -881,39 +593,25 @@ const PumpFour = () => {
                             </TableCell>
                             <TableCell className={classes.paddingStyle}>
                               <FormControl>
-                                {/* <Select className={classes.dropDownBtnStyle}
-                                                                    value={selectedWeek}
-                                                                    onChange={handleChangeWeek}
-                                                                    inputProps={{
-                                                                        name: "statusHistory",
-                                                                        id: "statusHistory",
-                                                                    }} >
-                                                                    {valuesWeek.map((value, index) => {
-                                                                        return <MenuItem value={value} key={index * 2.54}>{value}</MenuItem>;
-                                                                    })}
-                                                                </Select> */}
                                 <Select
                                   className={classes.dropDownBtnStyle}
-                                  // value={selected ? selected : ''}
-                                  onChange={pmpInletHandleChange}
+                                  onChange={handleChangeHistory}
                                   inputProps={{
                                     name: "statusHistory",
                                     id: "statusHistory",
                                   }}
                                   defaultValue="lasthour"
                                 >
-                                  {pmpInletHistoryOptionKeys.map(
-                                    (value, index) => {
-                                      return (
-                                        <MenuItem
-                                          value={value}
-                                          key={index * 2.54}
-                                        >
-                                          {pmpInletHistoryOption[value]}
-                                        </MenuItem>
-                                      );
-                                    }
-                                  )}
+                                  {historyOptionsKeys.map((value, index) => {
+                                    return (
+                                      <MenuItem
+                                        value={value}
+                                        key={index * 2.54}
+                                      >
+                                        {historyOptions[value]}
+                                      </MenuItem>
+                                    );
+                                  })}
                                 </Select>
                               </FormControl>
                             </TableCell>

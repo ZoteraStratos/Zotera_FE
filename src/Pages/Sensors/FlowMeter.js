@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -13,10 +12,16 @@ import {
 import DeviceDetailCard from "../ReuseableComponents/DeviceDetailCard";
 import FlowMeterImage from "../../Images/flowMeter.png";
 import { HeaderCard } from "../ReuseableComponents/HeaderCard";
-import { useGlobalContext } from "../../Components/context";
 import GlobalChart from "../ReuseableComponents/Chart/GlobalChart";
 
 import { Chart, registerables } from "chart.js";
+import { useChartValuesSubscription } from "../../Hooks/useChartValuesSubscription";
+import {
+  historyOptions,
+  historyOptionsKeys,
+  useHistoryOptions,
+} from "../../Hooks/useHistoryOptions";
+
 Chart.register(...registerables);
 
 const useStyles = makeStyles({
@@ -52,95 +57,15 @@ const useStyles = makeStyles({
 const FlowMeter = () => {
   const classes = useStyles();
 
-  const { globalData, flowUpperTankOutgoing, flowUpperTankIncoming } =
-    useGlobalContext();
-
-  const [flowUprTnkOutgng, setFlowUprTnkOutgng] = useState([]);
-  const [flowUprTnkIncmng, setFlowUprTnkIncmng] = useState([]);
-
-  const pmpInletHistoryOption = {
-    lasthour: "Last 1 Hour",
-    lastday: "Last 1 Day",
-    lastWeek: "Last 1 Week",
-    lastTwoweeks: "Last 2 Week",
-  };
-
-  const pmpInletHistoryOptionKeys = Object.keys(pmpInletHistoryOption);
-
-  const pmpInletHandleChange = (event) => {
-    event.preventDefault();
-    fetch(
-      `https://test-zotera-server-dev.azurewebsites.net/getListData?history=${event.target.value}&sensorType=Flow/UpperTankOutgoing`
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        validateAndSetFunction([], setFlowUprTnkOutgng, "clear");
-        for (var i = responseJson.length - 1; i >= 0; i--) {
-          validateAndSetFunction([responseJson[i]], setFlowUprTnkOutgng, "add");
-        }
-      });
-
-    fetch(
-      `https://test-zotera-server-dev.azurewebsites.net/getListData?history=${event.target.value}&sensorType=Flow/UpperTankIncoming`
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        validateAndSetFunction([], setFlowUprTnkIncmng, "clear");
-        for (var i = responseJson.length - 1; i >= 0; i--) {
-          validateAndSetFunction([responseJson[i]], setFlowUprTnkIncmng, "add");
-        }
-      });
-  };
-
-  const validateAndSetFunction = (
-    recivedArrayName,
-    setFunctionName,
-    action
-  ) => {
-    if (recivedArrayName.length > 0) {
-      setFunctionName((oldArray) => {
-        let oldData = [...oldArray];
-        if (oldData.length > 15) {
-          oldData.shift();
-          return [...oldData, recivedArrayName[0]];
-        } else {
-          return [...oldData, recivedArrayName[0]];
-        }
-      });
-    } else if (action === "clear") {
-      setFunctionName((oldArray) => {
-        return [];
-      });
-    }
-  };
-
-  useEffect(() => {
-    fetch(
-      "https://test-zotera-server-dev.azurewebsites.net/getListData?history=lasthour&sensorType=Flow/UpperTankOutgoing"
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        for (var i = 14; i >= 0; i--) {
-          validateAndSetFunction([responseJson[i]], setFlowUprTnkOutgng, "add");
-        }
-      });
-
-    fetch(
-      "https://test-zotera-server-dev.azurewebsites.net/getListData?history=lasthour&sensorType=Flow/UpperTankIncoming"
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        for (var i = 14; i >= 0; i--) {
-          validateAndSetFunction([responseJson[i]], setFlowUprTnkIncmng, "add");
-        }
-      });
-  }, []);
-
-  useEffect(() => {
-    validateAndSetFunction(flowUpperTankOutgoing, setFlowUprTnkOutgng, "add");
-    validateAndSetFunction(flowUpperTankIncoming, setFlowUprTnkIncmng, "add");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [globalData]);
+  const { history, handleChangeHistory } = useHistoryOptions();
+  const flowUprTnkOutgng = useChartValuesSubscription(
+    "Flow/UpperTankOutgoing",
+    history
+  );
+  const flowUprTnkIncmng = useChartValuesSubscription(
+    "Flow/UpperTankIncoming",
+    history
+  );
 
   return (
     <>
@@ -220,17 +145,17 @@ const FlowMeter = () => {
                   <FormControl>
                     <Select
                       className={classes.dropDownBtnStyle}
-                      onChange={pmpInletHandleChange}
+                      onChange={handleChangeHistory}
                       inputProps={{
                         name: "statusHistory",
                         id: "statusHistory",
                       }}
                       defaultValue="lasthour"
                     >
-                      {pmpInletHistoryOptionKeys.map((value, index) => {
+                      {historyOptionsKeys.map((value, index) => {
                         return (
                           <MenuItem value={value} key={index * 2.54}>
-                            {pmpInletHistoryOption[value]}
+                            {historyOptions[value]}
                           </MenuItem>
                         );
                       })}
