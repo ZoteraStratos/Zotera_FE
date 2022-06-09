@@ -7,7 +7,6 @@ import Box from "@material-ui/core/Box";
 import RowRadioButtonsGroup from "./RadioButtons";
 import Temp from "./Thermometer";
 import Grid from "@material-ui/core/Grid";
-import DonutChart from "./Chart/DonutChart";
 import GlobalChart from "./Chart/GlobalChart";
 import "../../Components/pumptable.css";
 
@@ -197,7 +196,7 @@ export default function BasicTabs({
             />
           </Grid>
         </Grid>
-        <Grid container spacing={1}>
+        <Grid container spacing={4}>
           <Grid item xs={8} sm={8}>
             <GlobalChart
               newBackGrndColr={"#87CEEB"}
@@ -210,21 +209,11 @@ export default function BasicTabs({
               pluginsTitleText={"Vibrations Spectrum"}
             />
           </Grid>
-          <Grid item xs={2} sm={2}>
+          <Grid item xs={2} sm={2} ml={2}>
             <Temp
               id="dial7"
               value={`${parseFloat(iCOMOX_Temperature_Value).toFixed(2)}`}
               title=""
-            />
-          </Grid>
-
-          <Grid item xs={2} sm={2} style={{ transform: "scale(0.8)" }}>
-            <DonutChart
-              labelName={"Speed"}
-              siUnit={" RPM"}
-              presentRpm={0}
-              customSegmentStops={increment(2400)}
-              maxValue={2400}
             />
           </Grid>
         </Grid>
@@ -237,15 +226,4 @@ export default function BasicTabs({
       </TabPanel>
     </Box>
   );
-}
-
-function increment(maxValue) {
-  let newArray = [0];
-  let reminder = maxValue / 10;
-  let counter = 0;
-  while (counter < maxValue) {
-    counter = counter + reminder;
-    newArray.push(counter);
-  }
-  return newArray;
 }
