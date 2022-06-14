@@ -213,6 +213,7 @@ const PresureSensor = () => {
                 siUnit={"PSI"}
                 heightForChart={250}
                 loading={loading}
+                history={history}
               />
             </Box>
           </Grid>
@@ -231,6 +232,7 @@ const PresureSensor = () => {
                 siUnit={"PSI"}
                 heightForChart={250}
                 loading={loading}
+                history={history}
               />
             </Box>
           </Grid>

@@ -47,7 +47,7 @@ export const menu = [
         path: "/devices/pumps",
         items: [
           {
-            title: " Pump Station Status",
+            title: " Pump Station",
             items: [],
             path: "/devices/pumps",
           },

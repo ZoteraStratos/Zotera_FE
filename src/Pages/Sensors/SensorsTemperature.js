@@ -261,6 +261,7 @@ const SensorsTemperature = () => {
               siUnit={"F"}
               heightForChart={250}
               loading={loading}
+              history={history}
             />
           </Box>
         </Grid>
@@ -279,6 +280,7 @@ const SensorsTemperature = () => {
               siUnit={"F"}
               heightForChart={250}
               loading={loading}
+              history={history}
             />
           </Box>
         </Grid>

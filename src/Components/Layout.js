@@ -127,9 +127,7 @@ const styles = (theme) => ({
   },
   content: {
     flexGrow: 1,
-    marginLeft: theme.spacing(5),
-    marginRight: theme.spacing(5),
-    paddingTop: theme.spacing(3),
+    paddingTop: theme.spacing(2.5),
   },
   grow: {
     flexGrow: 1,

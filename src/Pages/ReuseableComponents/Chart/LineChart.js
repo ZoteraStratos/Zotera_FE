@@ -1,3 +1,4 @@
+import { Box, CircularProgress } from "@material-ui/core";
 import { Component } from "react";
 import { Line } from "react-chartjs-2";
 
@@ -156,11 +157,24 @@ class LineChart extends Component {
       <>
         <div className="container">
           <div style={{ height: 250 }}>
-            <Line
-              data={this.state.chartData}
-              options={this.state.chartData.options}
-              plugins={[chartAreaBorder]}
-            />
+            {this.props.loading ? (
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  height: "100%",
+                }}
+              >
+                <CircularProgress />
+              </Box>
+            ) : (
+              <Line
+                data={this.state.chartData}
+                options={this.state.chartData.options}
+                plugins={[chartAreaBorder]}
+              />
+            )}
           </div>
         </div>
       </>

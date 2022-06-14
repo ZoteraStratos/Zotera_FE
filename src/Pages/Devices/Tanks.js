@@ -110,6 +110,7 @@ const Tanks = () => {
               siUnit={"dP [mbar] DN25"}
               heightForChart={250}
               loading={loading}
+              history="lasthour"
             />
           </Box>
         </Grid>
@@ -142,6 +143,7 @@ const Tanks = () => {
               siUnit={"dP [mbar] DN25"}
               heightForChart={250}
               loading={loading}
+              history="lasthour"
             />
           </Box>
         </Grid>
@@ -164,6 +166,7 @@ const Tanks = () => {
               siUnit={"PSI"}
               heightForChart={250}
               loading={loading}
+              history="lasthour"
             />
           </Box>
         </Grid>
@@ -182,6 +185,7 @@ const Tanks = () => {
               siUnit={"PSI"}
               heightForChart={250}
               loading={loading}
+              history="lasthour"
             />
           </Box>
         </Grid>

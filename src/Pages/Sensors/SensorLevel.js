@@ -211,6 +211,7 @@ const SensorLevel = () => {
                 siUnit={"Level %"}
                 heightForChart={250}
                 loading={loading}
+                history={history}
               />
             </Box>
           </Grid>
@@ -229,6 +230,7 @@ const SensorLevel = () => {
                 siUnit={"Level %"}
                 heightForChart={250}
                 loading={loading}
+                history={history}
               />
             </Box>
           </Grid>

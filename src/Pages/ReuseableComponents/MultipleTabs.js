@@ -49,6 +49,8 @@ export default function BasicTabs({
   iCOMOX_Temperature_Value,
   siUnit = " HZ",
   dataSetbackgroundColor,
+  loading,
+  history,
 }) {
   const [value, setValue] = useState(0);
 
@@ -207,6 +209,8 @@ export default function BasicTabs({
               siUnit={siUnit}
               heightForChart={250}
               pluginsTitleText={"Vibrations Spectrum"}
+              loading={loading}
+              history={history}
             />
           </Grid>
           <Grid item xs={2} sm={2} ml={2}>

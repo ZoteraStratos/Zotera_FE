@@ -4,9 +4,8 @@ import Box from "@material-ui/core/Box";
 import CardMedia from "@material-ui/core/CardMedia";
 import { DeviceValue } from "../ReuseableComponents/DeviceValue";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   paper: {
-    padding: theme.spacing(0),
     backgroundColor: "red",
     color: "white",
     maxWidth: "50%",

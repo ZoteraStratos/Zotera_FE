@@ -245,6 +245,7 @@ const Valves = () => {
               siUnit={"Level %"}
               heightForChart={250}
               loading={loading}
+              history={history}
             />
           </Box>
         </Grid>
@@ -263,6 +264,7 @@ const Valves = () => {
               siUnit={"Level %"}
               heightForChart={250}
               loading={loading}
+              history={history}
             />
           </Box>
         </Grid>
@@ -281,6 +283,7 @@ const Valves = () => {
               siUnit={"Level %"}
               heightForChart={250}
               loading={loading}
+              history={history}
             />
           </Box>
         </Grid>

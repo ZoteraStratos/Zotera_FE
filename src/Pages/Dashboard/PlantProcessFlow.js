@@ -107,6 +107,7 @@ const ProcessFlow = () => {
 
   return (
     <ThemeProvider theme={theme}>
+      <Box sx={{ height: 20 }} />
       <Grid container spacing={2} display="flex">
         <Grid xs={8} item>
           <Typography>

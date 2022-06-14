@@ -19,7 +19,7 @@ const GlobalChart = ({
   siUnit,
   heightForChart = 120,
   loading,
-  history = "lastWeek",
+  history,
 }) => {
   const labelN = allLabelNames.map((lblName, index) => ({
     label: lblName,
@@ -33,6 +33,15 @@ const GlobalChart = ({
     showLine: true,
   }));
 
+  let unit = "day";
+  if (history === "lastday") {
+    unit = "hour";
+  } else if (history === "lasthour") {
+    unit = "minute";
+  }
+  console.log(history);
+  console.log(unit);
+
   let dataChart = {
     lineChartData: {
       datasets: labelN,
@@ -40,6 +49,7 @@ const GlobalChart = ({
     lineChartOptions: {
       responsive: true,
       maintainAspectRatio: false,
+      spanGaps: true,
       scales: {
         y: {
           display: true,
@@ -47,6 +57,7 @@ const GlobalChart = ({
             display: true,
             text: siUnit,
           },
+          axis: "y",
         },
         x: {
           type: "time",
@@ -54,6 +65,10 @@ const GlobalChart = ({
           title: {
             display: true,
             text: "Date",
+          },
+          axis: "x",
+          time: {
+            unit,
           },
         },
       },

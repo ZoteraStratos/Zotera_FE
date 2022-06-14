@@ -1,5 +1,4 @@
 import Grid from "@material-ui/core/Grid";
-import { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import { Typography, Box } from "@material-ui/core";
@@ -15,6 +14,7 @@ import RowRadioButtonsGroup from "../ReuseableComponents/RadioButtons";
 import GlobalChart from "../ReuseableComponents/Chart/GlobalChart";
 import { FormControl, Select, MenuItem } from "@material-ui/core";
 import { useChartValuesSubscription } from "../../Hooks/useChartValuesSubscription";
+import { useHistoryOptions } from "../../Hooks/useHistoryOptions";
 
 const useStyles = makeStyles({
   root: {
@@ -62,49 +62,37 @@ const pmpInletHistoryOptionKeys = Object.keys(pmpInletHistoryOption);
 
 const PumpMonitor = () => {
   const classes = useStyles();
-  const [history, setHistory] = useState();
-  const [iCOMOXAPrmyXMaxValue] = useChartValuesSubscription(
+  const { history, handleChangeHistory } = useHistoryOptions();
+
+  const sensorTypes = [
     "iCOMOX/AccelerometerPrimary/X/Max/Value",
-    history
-  );
-  const [iCOMOXAPrmyXMinValue] = useChartValuesSubscription(
     "iCOMOX/AccelerometerPrimary/X/Min/Value",
-    history
-  );
-  const [iCOMOXAPrmyYMaxValue] = useChartValuesSubscription(
     "iCOMOX/AccelerometerPrimary/Y/Max/Value",
-    history
-  );
-  const [iCOMOXAPrmyYMinValue] = useChartValuesSubscription(
     "iCOMOX/AccelerometerPrimary/Y/Min/Value",
-    history
-  );
-  const [iCOMOXAPrmyZMaxValue] = useChartValuesSubscription(
     "iCOMOX/AccelerometerPrimary/Z/Max/Value",
-    history
-  );
-  const [iCOMOXAPrmyZMinValue] = useChartValuesSubscription(
     "iCOMOX/AccelerometerPrimary/Z/Min/Value",
-    history
-  );
-
-  const [atmtnSetPointsMotor30Rpm] = useChartValuesSubscription(
     "AutomationSetpoints/Motor30RPM",
-    history
-  );
-  const [atmtnSetPointMotorFullRpm] = useChartValuesSubscription(
     "AutomationSetpoints/MotorFullRPM",
+    "ABBDriveSpeed",
+    "iCOMOX/Temperature/Value",
+  ];
+  const [values, loading] = useChartValuesSubscription(
+    sensorTypes.join(","),
     history
   );
-  const [aBBDriveSpeed] = useChartValuesSubscription("ABBDriveSpeed", history);
+  const [
+    iCOMOXAPrmyXMaxValue,
+    iCOMOXAPrmyXMinValue,
+    iCOMOXAPrmyYMaxValue,
+    iCOMOXAPrmyYMinValue,
+    iCOMOXAPrmyZMaxValue,
+    iCOMOXAPrmyZMinValue,
+    atmtnSetPointsMotor30Rpm,
+    atmtnSetPointMotorFullRpm,
+    aBBDriveSpeed,
+    iCOMOX_Temperature_Values = [],
+  ] = values;
 
-  const pmpInletHandleChange = (event) => {
-    setHistory(event.target.value);
-  };
-
-  const [iCOMOX_Temperature_Values] = useChartValuesSubscription(
-    "iCOMOX/Temperature/Value"
-  );
   const iCOMOX_Temperature_Value = iCOMOX_Temperature_Values[0]
     ? iCOMOX_Temperature_Values[0].y
     : 0;
@@ -177,7 +165,7 @@ const PumpMonitor = () => {
                   <FormControl>
                     <Select
                       className={classes.dropDownBtnStyle}
-                      onChange={pmpInletHandleChange}
+                      onChange={handleChangeHistory}
                       inputProps={{
                         name: "statusHistory",
                         id: "statusHistory",
@@ -253,6 +241,8 @@ const PumpMonitor = () => {
               atmtnSetPointsMotor30Rpm={atmtnSetPointsMotor30Rpm}
               atmtnSetPointMotorFullRpm={atmtnSetPointMotorFullRpm}
               siUnitForDonut={"RPM"}
+              loading={loading}
+              history={history}
             />
           </Grid>
         </Grid>
@@ -281,6 +271,8 @@ const PumpMonitor = () => {
                 dataSetbackgroundColor={["red", "green", "blue"]}
                 siUnit={"RPM"}
                 heightForChart={300}
+                loading={loading}
+                history={history}
               />
             </Box>
           </Grid>
@@ -306,6 +298,8 @@ const PumpMonitor = () => {
                   scalesYTitleText={"Amplitude [dB g]"}
                   scalesXTitleText={"Frequency (Hz)"}
                   pluginsTitleText={"Magnetic Field Spectrum"}
+                  loading={loading}
+                  history={history}
                 />
               </Grid>
 
@@ -323,6 +317,8 @@ const PumpMonitor = () => {
                   scalesYTitleText={"Amplitude [dB g]"}
                   scalesXTitleText={"Frequency (Hz)"}
                   pluginsTitleText={"Accoustic Spectrum"}
+                  loading={loading}
+                  history={history}
                 />
               </Grid>
             </Grid>

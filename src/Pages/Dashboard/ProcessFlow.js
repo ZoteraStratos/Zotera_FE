@@ -208,6 +208,7 @@ const ProcessFlow = () => {
 
   return (
     <ThemeProvider theme={theme}>
+      <Box sx={{ height: 20 }} />
       <Grid container>
         <Grid xs={3} item>
           <Box className={classes.whitePaperStyle}>

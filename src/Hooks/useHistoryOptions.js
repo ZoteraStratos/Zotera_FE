@@ -9,7 +9,7 @@ export const historyOptions = {
 export const historyOptionsKeys = Object.keys(historyOptions);
 
 export const useHistoryOptions = () => {
-  const [history, setHistory] = useState();
+  const [history, setHistory] = useState("lasthour");
   const handleChangeHistory = (event) => {
     setHistory(event.target.value);
   };

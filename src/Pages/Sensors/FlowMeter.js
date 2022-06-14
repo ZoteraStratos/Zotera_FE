@@ -207,6 +207,7 @@ const FlowMeter = () => {
                 siUnit={"GPM"}
                 heightForChart={260}
                 loading={loading}
+                history={history}
               />
             </Box>
           </Grid>
@@ -225,6 +226,7 @@ const FlowMeter = () => {
                 siUnit={"GPM"}
                 heightForChart={260}
                 loading={loading}
+                history={history}
               />
             </Box>
           </Grid>
