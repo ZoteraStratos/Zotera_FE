@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import Grid from "@material-ui/core/Grid";
@@ -16,6 +15,7 @@ import GlobalChart from "../ReuseableComponents/Chart/GlobalChart";
 
 import { Chart, registerables } from "chart.js";
 import { useChartValuesSubscription } from "../../Hooks/useChartValuesSubscription";
+import { useHistoryOptions } from "../../Hooks/useHistoryOptions";
 Chart.register(...registerables);
 
 const useStyles = makeStyles({
@@ -59,21 +59,14 @@ const pmpInletHistoryOptionKeys = Object.keys(pmpInletHistoryOption);
 
 const SensorLevel = () => {
   const classes = useStyles();
-  const [history, setHistory] = useState();
+  const { history, handleChangeHistory } = useHistoryOptions();
 
-  const uprTnkLvlFrChart = useChartValuesSubscription(
-    "UpperTankLevel",
+  const sensorTypes = ["UpperTankLevel", "LowerTankLevel"];
+  const [values, loading] = useChartValuesSubscription(
+    sensorTypes.join(","),
     history
   );
-
-  const lowrTnkLvlFrChart = useChartValuesSubscription(
-    "LowerTankLevel",
-    history
-  );
-
-  const pmpInletHandleChange = (event) => {
-    setHistory(event.target.value);
-  };
+  const [UpperTankLevels, LowerTankLevels] = values;
 
   return (
     <>
@@ -153,7 +146,7 @@ const SensorLevel = () => {
                   <FormControl>
                     <Select
                       className={classes.dropDownBtnStyle}
-                      onChange={pmpInletHandleChange}
+                      onChange={handleChangeHistory}
                       inputProps={{
                         name: "statusHistory",
                         id: "statusHistory",
@@ -209,15 +202,15 @@ const SensorLevel = () => {
               <Typography gutterBottom>
                 <b>Upper Tank Levels</b>
               </Typography>
-              {/* <Charts newBackGrndColr={'pink'} newBorderColr={'pink'} newLabelName={'UpperTankLevel'}/> */}
               <GlobalChart
                 newBackGrndColr={"rgb(17, 160, 2)"}
                 newBorderColr={"rgb(17, 160, 2)"}
                 allLabelNames={["UpperTankLevel"]}
-                arrayOfRespectiveDataset={[uprTnkLvlFrChart]}
+                arrayOfRespectiveDataset={[UpperTankLevels]}
                 dataSetbackgroundColor={["rgb(17, 160, 2)"]}
                 siUnit={"Level %"}
                 heightForChart={250}
+                loading={loading}
               />
             </Box>
           </Grid>
@@ -227,15 +220,15 @@ const SensorLevel = () => {
               <Typography gutterBottom>
                 <b>Lower Tank Levels</b>
               </Typography>
-              {/* <Charts newBackGrndColr={'green'} newBorderColr={'green'} newLabelName={'LowerTankLevel'} /> */}
               <GlobalChart
                 newBackGrndColr={"pink"}
                 newBorderColr={"pink"}
                 allLabelNames={["LowerTankLevel"]}
-                arrayOfRespectiveDataset={[lowrTnkLvlFrChart]}
+                arrayOfRespectiveDataset={[LowerTankLevels]}
                 dataSetbackgroundColor={["pink"]}
                 siUnit={"Level %"}
                 heightForChart={250}
+                loading={loading}
               />
             </Box>
           </Grid>

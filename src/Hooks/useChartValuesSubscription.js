@@ -1,43 +1,87 @@
 import axios from "axios";
-import { useState, useEffect } from "react";
-import { useDataContext } from "../Components/context";
+import { useState, useEffect, useCallback } from "react";
+import { useSocketContext } from "../Components/context";
 import { BASE_URL } from "../constants";
 
+const fetchDataPromise = ({ history, sensorType }) =>
+  axios
+    .get(`${BASE_URL}/list`, {
+      params: {
+        history,
+        sensorType,
+      },
+    })
+    .then((r) =>
+      r.data.reduce(
+        (acc, { name, x, y }) => ({
+          ...acc,
+          [name]: acc[name] ? acc[name].concat({ x, y }) : [{ x, y }],
+        }),
+        {}
+      )
+    );
+
 export const useChartValuesSubscription = (
-  sensorType,
+  sensorTypes = "",
   history = "lasthour"
 ) => {
-  const { register, unregister, data } = useDataContext();
-  const [keyData, setKeyData] = useState([]);
+  const socket = useSocketContext();
+  const [values, setValues] = useState({});
+  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    register(sensorType);
+  const sensorTypeArray = sensorTypes.split(",");
+  const computed = sensorTypeArray.map((key) => values[key]);
 
-    axios
-      .get(
-        `${BASE_URL}/getListData?history=${history}&sensorType=${sensorType}`
-      )
-      .then((r) => r.data)
-      .then(setKeyData);
-    return () => {
-      unregister(sensorType);
+  const getData = useCallback(
+    async (promise) => {
+      try {
+        const result = await promise;
+        setValues(result);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [setValues, setLoading]
+  );
+
+  if (socket) {
+    socket.onmessage = ({ data }) => {
+      try {
+        const {
+          IotData: {
+            payload: { metrics },
+          },
+        } = JSON.parse(data);
+        const newMetrics = metrics.filter((metric) => values[metric.name]);
+        if (
+          newMetrics.length &&
+          (history === "lasthour" || history === "lastDay")
+        ) {
+          getData(
+            fetchDataPromise({
+              history,
+              sensorType: sensorTypeArray,
+            })
+          );
+        }
+      } catch (error) {
+        console.log("Error processing socket data", error);
+      }
     };
-  }, [sensorType, history, register, unregister]);
+  }
 
   useEffect(() => {
-    if (data[sensorType] && !data[sensorType].closed) {
-      data[sensorType].subscribe((point) =>
-        setKeyData((data) => {
-          const array = JSON.parse(JSON.stringify(data));
-          array.pop();
-          return [{ y: point.value, x: point.timestamp }].concat(array);
-        })
-      );
-      return () => {
-        data[sensorType].unsubscribe();
-      };
-    }
-  }, [data, sensorType]);
+    setLoading(true);
+    const sensorTypeArray = sensorTypes.split(",");
+    getData(
+      fetchDataPromise({
+        history,
+        sensorType: sensorTypeArray,
+      })
+    );
+  }, [history, sensorTypes, getData]);
 
-  return keyData;
+  return [computed, loading];
 };

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
@@ -59,7 +59,7 @@ const MultiLevel = ({ item, handleSelectedFilePath }) => {
   };
 
   return (
-    <React.Fragment>
+    <>
       <ListItem button onClick={() => handleClick(item.title)}>
         {open ? (
           <ListItemIcon>
@@ -82,6 +82,6 @@ const MultiLevel = ({ item, handleSelectedFilePath }) => {
           ))}
         </List>
       </Collapse>
-    </React.Fragment>
+    </>
   );
 };

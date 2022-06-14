@@ -1,28 +1,35 @@
 import { useState } from "react";
-import Grid from "@material-ui/core/Grid";
+import { Link } from "react-router-dom";
 import {
   makeStyles,
   ThemeProvider,
   createTheme,
 } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import { Box, Typography } from "@material-ui/core";
-import { HeaderCard } from "../../ReuseableComponents/HeaderCard";
-import Button from "@material-ui/core/Button";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
+import {
+  FormControl,
+  Select,
+  MenuItem,
+  Box,
+  Typography,
+  Grid,
+  Card,
+  Button,
+  Tabs,
+  Tab,
+  TableBody,
+  TableCell,
+  Table,
+  TableRow,
+} from "@material-ui/core";
 import PropTypes from "prop-types";
-import { TableBody, TableCell, TableRow, Table } from "@material-ui/core";
-import { CheckCircleRounded } from "@material-ui/icons";
-import { Link } from "react-router-dom";
-import { FormControl, Select, MenuItem } from "@material-ui/core";
-import GlobalChart from "../../ReuseableComponents/Chart/GlobalChart";
+import { HeaderCard } from "../ReuseableComponents/HeaderCard";
+import GlobalChart from "../ReuseableComponents/Chart/GlobalChart";
 import {
   historyOptions,
   historyOptionsKeys,
   useHistoryOptions,
-} from "../../../Hooks/useHistoryOptions";
-import { useChartValuesSubscription } from "../../../Hooks/useChartValuesSubscription";
+} from "../../Hooks/useHistoryOptions";
+import { useChartValuesSubscription } from "../../Hooks/useChartValuesSubscription";
 
 const theme = createTheme({
   breakpoints: {
@@ -137,51 +144,46 @@ function a11yProps(index) {
   };
 }
 
-const PumpThree = () => {
+const Pump = ({
+  label,
+  stylingImpeller,
+  stylingTemperature,
+  stylingVibration,
+  icon1,
+  icon2,
+}) => {
   const classes = useStyles();
 
   const { history, handleChangeHistory } = useHistoryOptions();
   const [value, setValue] = useState(0);
 
-  const iCOMOXAPrmyZMaxValue = useChartValuesSubscription(
+  const sensorTypes = [
     "iCOMOX/AccelerometerPrimary/Z/Max/Value",
-    history
-  );
-  const iCOMOXAPrmyZMinValue = useChartValuesSubscription(
     "iCOMOX/AccelerometerPrimary/Z/Min/Value",
-    history
-  );
-
-  const atmtnSetPointsMotor30Rpm = useChartValuesSubscription(
     "AutomationSetpoints/Motor30RPM",
-    history
-  );
-  const atmtnSetPointMotorFullRpm = useChartValuesSubscription(
     "AutomationSetpoints/MotorFullRPM",
-    history
-  );
-
-  const iCOMOXTmpertrValue = useChartValuesSubscription(
     "iCOMOX/Temperature/Value",
-    history
-  );
-
-  const iCOMOXAcMaxValue = useChartValuesSubscription(
     "iCOMOX/Acoustic/Max/Value",
-    history
-  );
-  const iCOMOXAcMinValue = useChartValuesSubscription(
     "iCOMOX/Acoustic/Min/Value",
-    history
-  );
-  const iCOMOXAcRMSValue = useChartValuesSubscription(
     "iCOMOX/Acoustic/RMS/Value",
-    history
-  );
-  const iCOMOXAcAvgValue = useChartValuesSubscription(
     "iCOMOX/Acoustic/Avg/Value",
+  ];
+
+  const [values, loading] = useChartValuesSubscription(
+    sensorTypes.join(","),
     history
   );
+  const [
+    iCOMOXAPrmyZMaxValue,
+    iCOMOXAPrmyZMinValue,
+    atmtnSetPointsMotor30Rpm,
+    atmtnSetPointMotorFullRpm,
+    iCOMOXTmpertrValue,
+    iCOMOXAcMaxValue,
+    iCOMOXAcMinValue,
+    iCOMOXAcRMSValue,
+    iCOMOXAcAvgValue,
+  ] = values;
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -194,10 +196,7 @@ const PumpThree = () => {
           <Grid container spacing={1} display="flex">
             <Grid xs={12} item>
               <Box>
-                <HeaderCard
-                  lableName={"Pump Station : "}
-                  labelValue={"Influent Pump Station Pump: #3"}
-                />
+                <HeaderCard lableName={"Pump Station : "} labelValue={label} />
               </Box>
             </Grid>
           </Grid>
@@ -267,14 +266,7 @@ const PumpThree = () => {
                                   width: "max-content",
                                 }}
                               >
-                                <CheckCircleRounded
-                                  style={{
-                                    color: "green",
-                                    background: "white",
-                                    marginRight: "10px",
-                                  }}
-                                />
-                                <span>Running</span>
+                                {icon1}
                               </div>
                             </TableCell>
                             <TableCell className={classes.paddingStyle}>
@@ -404,6 +396,7 @@ const PumpThree = () => {
                       <div className={classes.headerCardCenter}>
                         <img
                           className={classes.imageBorder}
+                          style={stylingImpeller}
                           width="50"
                           height="50"
                           src="/impellerImage.svg"
@@ -415,6 +408,7 @@ const PumpThree = () => {
                       <div className={classes.headerCardCenter}>
                         <img
                           className={classes.imageBorder}
+                          style={stylingVibration}
                           width="50"
                           height="50"
                           src="/vibrationImageTwo.svg"
@@ -426,6 +420,7 @@ const PumpThree = () => {
                       <div className={classes.headerCardCenter}>
                         <img
                           className={classes.imageBorder}
+                          style={stylingTemperature}
                           width="50"
                           height="50"
                           src="/temperatureImage.svg"
@@ -475,6 +470,8 @@ const PumpThree = () => {
                       siUnit={"Amplitude [dB g]"}
                       heightForChart={300}
                       pluginsTitleText={"Vibrations Spectrum"}
+                      history={history}
+                      loading={loading}
                     />
                   </Box>
                   <div className={classes.headerCardCenter}>
@@ -489,6 +486,8 @@ const PumpThree = () => {
                       dataSetbackgroundColor={["rgb(56, 213, 169)"]}
                       siUnit={"F"}
                       heightForChart={300}
+                      history={history}
+                      loading={loading}
                     />
                   </Box>
                 </Grid>
@@ -523,6 +522,8 @@ const PumpThree = () => {
                       siUnit={"Amplitude [dB g]"}
                       heightForChart={300}
                       pluginsTitleText={"Vibrations Spectrum"}
+                      history={history}
+                      loading={loading}
                     />
                   </Box>
                   <div className={classes.headerCardCenter}>
@@ -543,6 +544,8 @@ const PumpThree = () => {
                       dataSetbackgroundColor={["red", "green"]}
                       siUnit={"RPM"}
                       heightForChart={300}
+                      history={history}
+                      loading={loading}
                     />
                   </Box>
                 </Grid>
@@ -567,14 +570,7 @@ const PumpThree = () => {
                                   width: "max-content",
                                 }}
                               >
-                                <CheckCircleRounded
-                                  style={{
-                                    color: "green",
-                                    background: "white",
-                                    marginRight: "10px",
-                                  }}
-                                />
-                                <span>Running</span>
+                                {icon2}
                               </div>
                             </TableCell>
                             <TableCell className={classes.paddingStyle}>
@@ -704,6 +700,7 @@ const PumpThree = () => {
                       <div className={classes.headerCardCenter}>
                         <img
                           className={classes.imageBorder}
+                          style={stylingImpeller}
                           width="50"
                           height="50"
                           src="/impellerImage.svg"
@@ -715,6 +712,7 @@ const PumpThree = () => {
                       <div className={classes.headerCardCenter}>
                         <img
                           className={classes.imageBorder}
+                          style={stylingVibration}
                           width="50"
                           height="50"
                           src="/vibrationImageTwo.svg"
@@ -726,6 +724,7 @@ const PumpThree = () => {
                       <div className={classes.headerCardCenter}>
                         <img
                           className={classes.imageBorder}
+                          style={stylingTemperature}
                           width="50"
                           height="50"
                           src="/temperatureImage.svg"
@@ -777,4 +776,4 @@ const PumpThree = () => {
   );
 };
 
-export default PumpThree;
+export default Pump;

@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { HeaderCard } from "../ReuseableComponents/HeaderCard";
 import Button from "@material-ui/core/Button";
@@ -16,6 +15,7 @@ import GlobalChart from "../ReuseableComponents/Chart/GlobalChart";
 
 import { Chart, registerables } from "chart.js";
 import { useChartValuesSubscription } from "../../Hooks/useChartValuesSubscription";
+import { useHistoryOptions } from "../../Hooks/useHistoryOptions";
 Chart.register(...registerables);
 
 const useStyles = makeStyles({
@@ -78,26 +78,20 @@ const pmpInletHistoryOptionKeys = Object.keys(pmpInletHistoryOption);
 const Valves = () => {
   const classes = useStyles();
 
-  const [history, setHistory] = useState();
-  const uprTnkIncmngValve = useChartValuesSubscription(
+  const { history, handleChangeHistory } = useHistoryOptions();
+  const sensorTypes = [
     "UpperTankOutgoingValve",
-    history
-  );
-  const uprTnkIncmingValve = useChartValuesSubscription(
     "UpperTankIncomingValve",
-    history
-  );
-  const lwrTnkOutgngValve = useChartValuesSubscription(
     "LowerTankOutgoingValve",
+  ];
+  const [values, loading] = useChartValuesSubscription(
+    sensorTypes.join(","),
     history
   );
-
-  const pmpInletHandleChange = (event) => {
-    setHistory(event.target.value);
-  };
+  const [uprTnkIncmngValve, uprTnkIncmingValve, lwrTnkOutgngValve] = values;
 
   return (
-    <React.Fragment className={classes.container}>
+    <>
       <Grid container spacing={2} display="flex">
         <Grid xs={4} item>
           <Box className={classes.headerCardCenter}>
@@ -126,7 +120,7 @@ const Valves = () => {
         </Grid>
       </Grid>
 
-      <Grid container spacing={16} justify="flex-start">
+      <Grid container spacing={2} justifyContent="flex-start">
         <Grid item xs={4} sm={4} md={4} lg={4}>
           <Box className={classes.paper}>
             <DeviceDetailCard
@@ -186,7 +180,7 @@ const Valves = () => {
                 <FormControl>
                   <Select
                     className={classes.dropDownBtnStyle}
-                    onChange={pmpInletHandleChange}
+                    onChange={handleChangeHistory}
                     inputProps={{
                       name: "statusHistory",
                       id: "statusHistory",
@@ -235,7 +229,7 @@ const Valves = () => {
         </Grid>
       </Grid>
 
-      <Grid container spacing={16} justify="flex-start">
+      <Grid container spacing={2} justifyContent="flex-start">
         <Grid item xs={4} sm={4} md={4} lg={4}>
           <Box className={classes.centerText}>
             <br />
@@ -250,6 +244,7 @@ const Valves = () => {
               dataSetbackgroundColor={["rgb(29, 213, 169)"]}
               siUnit={"Level %"}
               heightForChart={250}
+              loading={loading}
             />
           </Box>
         </Grid>
@@ -267,6 +262,7 @@ const Valves = () => {
               dataSetbackgroundColor={["#EE82EE"]}
               siUnit={"Level %"}
               heightForChart={250}
+              loading={loading}
             />
           </Box>
         </Grid>
@@ -284,11 +280,12 @@ const Valves = () => {
               dataSetbackgroundColor={["red"]}
               siUnit={"Level %"}
               heightForChart={250}
+              loading={loading}
             />
           </Box>
         </Grid>
       </Grid>
-    </React.Fragment>
+    </>
   );
 };
 

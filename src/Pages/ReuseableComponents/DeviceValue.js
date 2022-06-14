@@ -1,8 +1,8 @@
-import React from "react";
 import { Typography, Box } from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
 import ProgressBar from "./ProgressBar";
 import { ThemeProvider, createTheme } from "@material-ui/core/styles";
+import { memo } from "react";
 
 const theme = createTheme({
   breakpoints: {
@@ -68,7 +68,7 @@ const BlackTypographyStyle = {
   border: `3px solid black`,
 };
 
-export const DeviceValue = React.memo(function DeviceValue({
+export const DeviceValue = memo(function DeviceValue({
   classNameUsed,
   valueOne,
 }) {
@@ -85,7 +85,7 @@ export const DeviceValue = React.memo(function DeviceValue({
   );
 });
 
-export const DeviceStatus = React.memo(function DeviceStatus({
+export const DeviceStatus = memo(function DeviceStatus({
   classNameUsed,
   status,
 }) {
@@ -106,7 +106,7 @@ export const DeviceStatus = React.memo(function DeviceStatus({
   );
 });
 
-export const DeviceValueWithUnit = React.memo(function DeviceValueWithUnit({
+export const DeviceValueWithUnit = memo(function DeviceValueWithUnit({
   classNameUsed,
   valueOne,
   unitOne,
@@ -127,7 +127,7 @@ export const DeviceValueWithUnit = React.memo(function DeviceValueWithUnit({
   );
 });
 
-export const DeviceValueWithStatus = React.memo(function DeviceValueWithStatus({
+export const DeviceValueWithStatus = memo(function DeviceValueWithStatus({
   classNameUsed,
   valueOne,
   deviceStatus,
@@ -150,7 +150,7 @@ export const DeviceValueWithStatus = React.memo(function DeviceValueWithStatus({
   );
 });
 
-export const DeviceValueWithStatusAndUnit = React.memo(
+export const DeviceValueWithStatusAndUnit = memo(
   function DeviceValueWithStatusAndUnit({
     classNameUsed,
     valueOne,
@@ -175,7 +175,7 @@ export const DeviceValueWithStatusAndUnit = React.memo(
   }
 );
 
-export const ForImage = React.memo(function ForImage({
+export const ForImage = memo(function ForImage({
   classNameUsed,
   valueOne,
   deviceName,

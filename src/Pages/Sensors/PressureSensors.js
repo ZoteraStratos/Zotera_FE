@@ -1,5 +1,3 @@
-import React, { useState } from "react";
-
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -17,6 +15,7 @@ import { HeaderCard } from "../ReuseableComponents/HeaderCard";
 
 import GlobalChart from "../ReuseableComponents/Chart/GlobalChart";
 import { useChartValuesSubscription } from "../../Hooks/useChartValuesSubscription";
+import { useHistoryOptions } from "../../Hooks/useHistoryOptions";
 
 const useStyles = makeStyles({
   root: {
@@ -61,20 +60,17 @@ const pmpInletHistoryOptionKeys = Object.keys(pmpInletHistoryOption);
 
 const PresureSensor = () => {
   const classes = useStyles();
-  const [history, setHistory] = useState();
+  const { history, handleChangeHistory } = useHistoryOptions();
 
-  const pmpInltPresrValue = useChartValuesSubscription(
+  const sensorTypes = [
     "PumpInletPressure/Value",
-    history
-  );
-  const uprTnkIncmngPrsurValue = useChartValuesSubscription(
     "UpperTankIncomingPressure/Value",
+  ];
+  const [values, loading] = useChartValuesSubscription(
+    sensorTypes.join(","),
     history
   );
-
-  const pmpInletHandleChange = (event) => {
-    setHistory(event.target.value);
-  };
+  const [pmpInltPresrValue, uprTnkIncmngPrsurValue] = values;
 
   return (
     <>
@@ -154,7 +150,7 @@ const PresureSensor = () => {
                   <FormControl>
                     <Select
                       className={classes.dropDownBtnStyle}
-                      onChange={pmpInletHandleChange}
+                      onChange={handleChangeHistory}
                       inputProps={{
                         name: "statusHistory",
                         id: "statusHistory",
@@ -216,6 +212,7 @@ const PresureSensor = () => {
                 dataSetbackgroundColor={["blue"]}
                 siUnit={"PSI"}
                 heightForChart={250}
+                loading={loading}
               />
             </Box>
           </Grid>
@@ -233,6 +230,7 @@ const PresureSensor = () => {
                 dataSetbackgroundColor={["rgb(234, 57, 169)"]}
                 siUnit={"PSI"}
                 heightForChart={250}
+                loading={loading}
               />
             </Box>
           </Grid>

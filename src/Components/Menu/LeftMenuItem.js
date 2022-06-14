@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
@@ -60,7 +60,7 @@ const MultiLevel = ({ item }) => {
   };
 
   return (
-    <React.Fragment>
+    <>
       <ListItem
         onClick={handleClick}
         button
@@ -78,7 +78,7 @@ const MultiLevel = ({ item }) => {
           ))}
         </List>
       </Collapse>
-    </React.Fragment>
+    </>
   );
 };
 

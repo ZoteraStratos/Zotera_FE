@@ -1,4 +1,3 @@
-import React, { memo } from "react";
 import {
   makeStyles,
   ThemeProvider,
@@ -149,4 +148,4 @@ const ProcessFlow = () => {
   );
 };
 
-export default memo(ProcessFlow);
+export default ProcessFlow;

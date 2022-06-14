@@ -1,4 +1,3 @@
-import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import CardContent from "@material-ui/core/CardContent";
 import { Typography, Box } from "@material-ui/core";
@@ -55,7 +54,7 @@ export default function DeviceDetailCard({
   const classes = useStyles();
 
   return (
-    <React.Fragment>
+    <>
       <Box className={classes.root}>
         <Box m="auto">
           <img src={imagePath} alt={deviceReading} className={classNameUsed} />
@@ -85,6 +84,6 @@ export default function DeviceDetailCard({
           </span>
         </CardContent>
       </Box>
-    </React.Fragment>
+    </>
   );
 }

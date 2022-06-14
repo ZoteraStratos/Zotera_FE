@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
@@ -50,7 +50,7 @@ export default function BasicTabs({
   siUnit = " HZ",
   dataSetbackgroundColor,
 }) {
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
 
   const [areaSection, setAreaSection] = useState({
     allLabelNames: [allLabelNames[0], allLabelNames[1]],

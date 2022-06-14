@@ -6,7 +6,6 @@ import {
   TableContainer,
   Paper,
 } from "@material-ui/core";
-import React from "react";
 import { useCallback } from "react";
 import "./pumptable.css";
 import { Typography, Box } from "@material-ui/core";

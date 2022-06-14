@@ -42,19 +42,25 @@ const useStyles = makeStyles({
 const Tanks = () => {
   const classes = useStyles();
 
-  const UpperTankLevels = useChartValuesSubscription("UpperTankLevel");
-  const LowerTankLevels = useChartValuesSubscription("LowerTankLevel");
+  const sensorTypes = [
+    "UpperTankLevel",
+    "LowerTankLevel",
+    "Flow/UpperTankOutgoing",
+    "Flow/UpperTankIncoming",
+    "PumpInletPressure/Value",
+    "UpperTankIncomingPressure/Value",
+  ];
+  const [values, loading] = useChartValuesSubscription(sensorTypes.join(","));
+  const [
+    UpperTankLevels = [],
+    LowerTankLevels = [],
+    flowUprTnkOutgng,
+    flowUprTnkIncmng,
+    pmpInltPresrValue,
+    uprTnkIncmngPresurValue,
+  ] = values;
   const UpperTankLevel = UpperTankLevels[0] ? UpperTankLevels[0].y : 0;
   const LowerTankLevel = LowerTankLevels[0] ? LowerTankLevels[0].y : 0;
-
-  const flowUprTnkOutgng = useChartValuesSubscription("Flow/UpperTankOutgoing");
-  const flowUprTnkIncmng = useChartValuesSubscription("Flow/UpperTankIncoming");
-  const pmpInltPresrValue = useChartValuesSubscription(
-    "PumpInletPressure/Value"
-  );
-  const uprTnkIncmngPresurValue = useChartValuesSubscription(
-    "UpperTankIncomingPressure/Value"
-  );
 
   return (
     <>
@@ -74,7 +80,7 @@ const Tanks = () => {
         </Grid>
       </Grid>
 
-      <Grid container spacing={1} justify="flex-start">
+      <Grid container spacing={1} justifyContent="flex-start">
         <Grid item xs={12} sm={6} md={2} lg={2}>
           <ReuseableTank
             imageName={"Upper Tank Level"}
@@ -103,6 +109,7 @@ const Tanks = () => {
               dataSetbackgroundColor={["black"]}
               siUnit={"dP [mbar] DN25"}
               heightForChart={250}
+              loading={loading}
             />
           </Box>
         </Grid>
@@ -134,6 +141,7 @@ const Tanks = () => {
               dataSetbackgroundColor={["black"]}
               siUnit={"dP [mbar] DN25"}
               heightForChart={250}
+              loading={loading}
             />
           </Box>
         </Grid>
@@ -155,6 +163,7 @@ const Tanks = () => {
               dataSetbackgroundColor={["cyan"]}
               siUnit={"PSI"}
               heightForChart={250}
+              loading={loading}
             />
           </Box>
         </Grid>
@@ -172,6 +181,7 @@ const Tanks = () => {
               dataSetbackgroundColor={["red"]}
               siUnit={"PSI"}
               heightForChart={250}
+              loading={loading}
             />
           </Box>
         </Grid>

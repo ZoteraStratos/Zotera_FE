@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import {
   Typography,
   Box,
@@ -15,6 +14,7 @@ import DeviceDetailCard from "../ReuseableComponents/DeviceDetailCard";
 import DonutChart from "../ReuseableComponents/Chart/DonutChart";
 import GlobalChart from "../ReuseableComponents/Chart/GlobalChart";
 import { useChartValuesSubscription } from "../../Hooks/useChartValuesSubscription";
+import { useHistoryOptions } from "../../Hooks/useHistoryOptions";
 
 const useStyles = makeStyles({
   container: {
@@ -88,25 +88,19 @@ const pmpInletHistoryOptionKeys = Object.keys(pmpInletHistoryOption);
 
 const SensorsTemperature = () => {
   const classes = useStyles();
-  const [history, setHistory] = useState();
 
-  const iCOMOXTmpertrValue = useChartValuesSubscription(
-    "iCOMOX/Temperature/Value",
+  const { history, handleChangeHistory } = useHistoryOptions();
+  const sensorTypes = ["iCOMOX/Temperature/Value", "Temps/RawWaterTemp"];
+  const [values, loading] = useChartValuesSubscription(
+    sensorTypes.join(","),
     history
   );
+  const [iCOMOXTmpertrValue, wtrTmpsRawWtrTmp = []] = values;
 
-  const wtrTmpsRawWtrTmp = useChartValuesSubscription(
-    "TemperatureSensor1",
-    history
-  );
   const temperatureSensor = wtrTmpsRawWtrTmp[0] ? wtrTmpsRawWtrTmp[0].y : 0;
 
-  const pmpInletHandleChange = (event) => {
-    setHistory(event.target.value);
-  };
-
   return (
-    <React.Fragment className={classes.container}>
+    <>
       <Grid container spacing={2} display="flex">
         <Grid xs={4} item>
           <Box className={classes.headerCardCenter}>
@@ -135,7 +129,7 @@ const SensorsTemperature = () => {
         </Grid>
       </Grid>
 
-      <Grid container spacing={1} justify="flex-start">
+      <Grid container spacing={1} justifyContent="flex-start">
         <Grid item xs={12} sm={6} md={3} lg={3}>
           <DeviceDetailCard
             imagePath="/temperatureSensor.png"
@@ -201,7 +195,7 @@ const SensorsTemperature = () => {
                 <FormControl>
                   <Select
                     className={classes.dropDownBtnStyle}
-                    onChange={pmpInletHandleChange}
+                    onChange={handleChangeHistory}
                     inputProps={{
                       name: "statusHistory",
                       id: "statusHistory",
@@ -266,6 +260,7 @@ const SensorsTemperature = () => {
               dataSetbackgroundColor={["red"]}
               siUnit={"F"}
               heightForChart={250}
+              loading={loading}
             />
           </Box>
         </Grid>
@@ -283,11 +278,12 @@ const SensorsTemperature = () => {
               dataSetbackgroundColor={["rgb(56, 213, 169)"]}
               siUnit={"F"}
               heightForChart={250}
+              loading={loading}
             />
           </Box>
         </Grid>
       </Grid>
-    </React.Fragment>
+    </>
   );
 };
 

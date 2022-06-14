@@ -63,46 +63,46 @@ const pmpInletHistoryOptionKeys = Object.keys(pmpInletHistoryOption);
 const PumpMonitor = () => {
   const classes = useStyles();
   const [history, setHistory] = useState();
-  const iCOMOXAPrmyXMaxValue = useChartValuesSubscription(
+  const [iCOMOXAPrmyXMaxValue] = useChartValuesSubscription(
     "iCOMOX/AccelerometerPrimary/X/Max/Value",
     history
   );
-  const iCOMOXAPrmyXMinValue = useChartValuesSubscription(
+  const [iCOMOXAPrmyXMinValue] = useChartValuesSubscription(
     "iCOMOX/AccelerometerPrimary/X/Min/Value",
     history
   );
-  const iCOMOXAPrmyYMaxValue = useChartValuesSubscription(
+  const [iCOMOXAPrmyYMaxValue] = useChartValuesSubscription(
     "iCOMOX/AccelerometerPrimary/Y/Max/Value",
     history
   );
-  const iCOMOXAPrmyYMinValue = useChartValuesSubscription(
+  const [iCOMOXAPrmyYMinValue] = useChartValuesSubscription(
     "iCOMOX/AccelerometerPrimary/Y/Min/Value",
     history
   );
-  const iCOMOXAPrmyZMaxValue = useChartValuesSubscription(
+  const [iCOMOXAPrmyZMaxValue] = useChartValuesSubscription(
     "iCOMOX/AccelerometerPrimary/Z/Max/Value",
     history
   );
-  const iCOMOXAPrmyZMinValue = useChartValuesSubscription(
+  const [iCOMOXAPrmyZMinValue] = useChartValuesSubscription(
     "iCOMOX/AccelerometerPrimary/Z/Min/Value",
     history
   );
 
-  const atmtnSetPointsMotor30Rpm = useChartValuesSubscription(
+  const [atmtnSetPointsMotor30Rpm] = useChartValuesSubscription(
     "AutomationSetpoints/Motor30RPM",
     history
   );
-  const atmtnSetPointMotorFullRpm = useChartValuesSubscription(
+  const [atmtnSetPointMotorFullRpm] = useChartValuesSubscription(
     "AutomationSetpoints/MotorFullRPM",
     history
   );
-  const aBBDriveSpeed = useChartValuesSubscription("ABBDriveSpeed", history);
+  const [aBBDriveSpeed] = useChartValuesSubscription("ABBDriveSpeed", history);
 
   const pmpInletHandleChange = (event) => {
     setHistory(event.target.value);
   };
 
-  const iCOMOX_Temperature_Values = useChartValuesSubscription(
+  const [iCOMOX_Temperature_Values] = useChartValuesSubscription(
     "iCOMOX/Temperature/Value"
   );
   const iCOMOX_Temperature_Value = iCOMOX_Temperature_Values[0]

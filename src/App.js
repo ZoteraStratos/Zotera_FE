@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import { Suspense } from "react";
 import Layout from "./Components/Layout";
 import Loader from "./Pages/ReuseableComponents/Loader";
 

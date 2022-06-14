@@ -57,14 +57,12 @@ const FlowMeter = () => {
   const classes = useStyles();
 
   const { history, handleChangeHistory } = useHistoryOptions();
-  const flowUprTnkOutgng = useChartValuesSubscription(
-    "Flow/UpperTankOutgoing",
+  const sensorTypes = ["Flow/UpperTankOutgoing", "Flow/UpperTankIncoming"];
+  const [values, loading] = useChartValuesSubscription(
+    sensorTypes.join(","),
     history
   );
-  const flowUprTnkIncmng = useChartValuesSubscription(
-    "Flow/UpperTankIncoming",
-    history
-  );
+  const [flowUprTnkOutgng, flowUprTnkIncmng] = values;
 
   return (
     <>
@@ -208,6 +206,7 @@ const FlowMeter = () => {
                 dataSetbackgroundColor={["brown"]}
                 siUnit={"GPM"}
                 heightForChart={260}
+                loading={loading}
               />
             </Box>
           </Grid>
@@ -225,6 +224,7 @@ const FlowMeter = () => {
                 dataSetbackgroundColor={["#40E0D0"]}
                 siUnit={"GPM"}
                 heightForChart={260}
+                loading={loading}
               />
             </Box>
           </Grid>

@@ -1,7 +1,9 @@
 import { withStyles } from "@material-ui/core/styles";
-import ChartScatter from "./ChartingComponent";
-
+import CircularProgress from "@material-ui/core/CircularProgress";
 import { Chart as charts, registerables } from "chart.js";
+import ChartScatter from "./ChartingComponent";
+import { Box } from "@material-ui/core";
+
 charts.register(...registerables);
 
 const styles = () => ({
@@ -10,12 +12,14 @@ const styles = () => ({
   },
 });
 
-const ChartTest = ({
+const GlobalChart = ({
   allLabelNames,
   arrayOfRespectiveDataset,
   dataSetbackgroundColor,
   siUnit,
   heightForChart = 120,
+  loading,
+  history = "lastWeek",
 }) => {
   const labelN = allLabelNames.map((lblName, index) => ({
     label: lblName,
@@ -36,9 +40,6 @@ const ChartTest = ({
     lineChartOptions: {
       responsive: true,
       maintainAspectRatio: false,
-      tooltips: {
-        enabled: true,
-      },
       scales: {
         y: {
           display: true,
@@ -62,16 +63,30 @@ const ChartTest = ({
   return (
     <div className="container">
       <div style={{ height: heightForChart }}>
-        {dataChart && dataChart?.lineChartData && (
-          <ChartScatter
-            data={dataChart.lineChartData}
-            options={dataChart.lineChartOptions}
-            type={"scatter"}
-          />
+        {loading ? (
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "100%",
+            }}
+          >
+            <CircularProgress />
+          </Box>
+        ) : (
+          dataChart &&
+          dataChart?.lineChartData && (
+            <ChartScatter
+              data={dataChart.lineChartData}
+              options={dataChart.lineChartOptions}
+              type={"scatter"}
+            />
+          )
         )}
       </div>
     </div>
   );
 };
 
-export default withStyles(styles, { withTheme: true })(ChartTest);
+export default withStyles(styles, { withTheme: true })(GlobalChart);

@@ -16,6 +16,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import PlantProcessFlow from "../Pages/Dashboard/PlantProcessFlow";
+import { CheckCircleRounded, ErrorRounded } from "@material-ui/icons";
 
 const LeftMenuItem = lazy(() => import("./Menu/LeftMenuItem"));
 const Home = lazy(() => import("../Pages/Home/Home"));
@@ -28,12 +29,12 @@ const Lorawan = lazy(() => import("../Pages/Devices/Lorawan"));
 const Nodes = lazy(() => import("../Pages/Devices/Nodes"));
 const Pumps = lazy(() => import("../Pages/Devices/Pumps"));
 
-const PumpOne = lazy(() => import("../Pages/Devices/Pumps/PumpOne"));
-const PumpTwo = lazy(() => import("../Pages/Devices/Pumps/PumpTwo"));
-const PumpThree = lazy(() => import("../Pages/Devices/Pumps/PumpThree"));
-const PumpFour = lazy(() => import("../Pages/Devices/Pumps/PumpFour"));
-const PumpFive = lazy(() => import("../Pages/Devices/Pumps/PumpFive"));
-const PumpSix = lazy(() => import("../Pages/Devices/Pumps/PumpSix"));
+const PumpOne = lazy(() => import("../Pages/Devices/Pump"));
+const PumpTwo = lazy(() => import("../Pages/Devices/Pump"));
+const PumpThree = lazy(() => import("../Pages/Devices/Pump"));
+const PumpFour = lazy(() => import("../Pages/Devices/Pump"));
+const PumpFive = lazy(() => import("../Pages/Devices/Pump"));
+const PumpSix = lazy(() => import("../Pages/Devices/Pump"));
 
 const Rtus = lazy(() => import("../Pages/Devices/Rtus"));
 const Tanks = lazy(() => import("../Pages/Devices/Tanks"));
@@ -126,9 +127,9 @@ const styles = (theme) => ({
   },
   content: {
     flexGrow: 1,
+    marginLeft: theme.spacing(5),
+    marginRight: theme.spacing(5),
     paddingTop: theme.spacing(3),
-    paddingBottom: theme.spacing(3),
-    paddingLeft: theme.spacing(0.3),
   },
   grow: {
     flexGrow: 1,
@@ -283,32 +284,211 @@ class MiniDrawer extends Component {
                 <Route
                   exact
                   path="/devices/pumps/pumpOne"
-                  element={<PumpOne />}
+                  element={
+                    <PumpOne
+                      label="Influent Pump Station Pump: #1"
+                      styling={{}}
+                      icon1={
+                        <>
+                          <CheckCircleRounded
+                            style={{
+                              color: "green",
+                              background: "white",
+                              marginRight: "10px",
+                            }}
+                          />
+                          <span>Running</span>
+                        </>
+                      }
+                      icon2={
+                        <>
+                          <CheckCircleRounded
+                            style={{
+                              color: "green",
+                              background: "white",
+                              marginRight: "10px",
+                            }}
+                          />
+                          <span>Running</span>
+                        </>
+                      }
+                    />
+                  }
                 />
                 <Route
                   exact
                   path="/devices/pumps/pumpTwo"
-                  element={<PumpTwo />}
+                  element={
+                    <PumpTwo
+                      label="Influent Pump Station Pump: #2"
+                      styling={{}}
+                      icon1={
+                        <>
+                          <CheckCircleRounded
+                            style={{
+                              color: "green",
+                              background: "white",
+                              marginRight: "10px",
+                            }}
+                          />
+                          <span>Running</span>
+                        </>
+                      }
+                      icon2={
+                        <>
+                          <CheckCircleRounded
+                            style={{
+                              color: "green",
+                              background: "white",
+                              marginRight: "10px",
+                            }}
+                          />
+                          <span>Running</span>
+                        </>
+                      }
+                    />
+                  }
                 />
                 <Route
                   exact
                   path="/devices/pumps/pumpThree"
-                  element={<PumpThree />}
+                  element={
+                    <PumpThree
+                      label="Influent Pump Station Pump: #3"
+                      styling={{}}
+                      icon1={
+                        <>
+                          <CheckCircleRounded
+                            style={{
+                              color: "green",
+                              background: "white",
+                              marginRight: "10px",
+                            }}
+                          />
+                          <span>Running</span>
+                        </>
+                      }
+                      icon2={
+                        <>
+                          <CheckCircleRounded
+                            style={{
+                              color: "green",
+                              background: "white",
+                              marginRight: "10px",
+                            }}
+                          />
+                          <span>Running</span>
+                        </>
+                      }
+                    />
+                  }
                 />
                 <Route
                   exact
                   path="/devices/pumps/pumpFour"
-                  element={<PumpFour />}
+                  element={
+                    <PumpFour
+                      label="Influent Pump Station Pump: #4"
+                      styling={{}}
+                      icon1={
+                        <>
+                          <CheckCircleRounded
+                            style={{
+                              color: "green",
+                              background: "white",
+                              marginRight: "10px",
+                            }}
+                          />
+                          <span>Running</span>
+                        </>
+                      }
+                      icon2={
+                        <>
+                          <CheckCircleRounded
+                            style={{
+                              color: "green",
+                              background: "white",
+                              marginRight: "10px",
+                            }}
+                          />
+                          <span>Running</span>
+                        </>
+                      }
+                    />
+                  }
                 />
                 <Route
                   exact
                   path="/devices/pumps/pumpFive"
-                  element={<PumpFive />}
+                  element={
+                    <PumpFive
+                      label="Influent Pump Station Pump: #5"
+                      stylingTemperature={{ backgroundColor: "yellow" }}
+                      icon1={
+                        <>
+                          <ErrorRounded
+                            style={{
+                              color: "#FDDA0D",
+                              background: "white",
+                              marginRight: "10px",
+                            }}
+                          />
+                          <span>Warning</span>
+                        </>
+                      }
+                      icon2={
+                        <>
+                          <ErrorRounded
+                            style={{
+                              color: "#FDDA0D",
+                              background: "white",
+                              marginRight: "10px",
+                            }}
+                          />
+                          <span>Warning</span>
+                        </>
+                      }
+                    />
+                  }
                 />
                 <Route
                   exact
                   path="/devices/pumps/pumpSix"
-                  element={<PumpSix />}
+                  element={
+                    <PumpSix
+                      label="Influent Pump Station Pump: #6"
+                      stylingImpeller={{ backgroundColor: "red" }}
+                      stylingVibration={{ backgroundColor: "red" }}
+                      icon1={
+                        <>
+                          <ErrorRounded
+                            style={{
+                              color: "red",
+                              background: "white",
+                              marginRight: "10px",
+                            }}
+                          />
+                          <span>
+                            <b>Unplanned Outage</b>
+                          </span>
+                        </>
+                      }
+                      icon2={
+                        <>
+                          <ErrorRounded
+                            style={{
+                              color: "red",
+                              background: "white",
+                              marginRight: "10px",
+                            }}
+                          />
+                          <span>
+                            <b>Unplanned Outage</b>
+                          </span>
+                        </>
+                      }
+                    />
+                  }
                 />
                 <Route exact path="/devices/tanks" element={<Tanks />} />
 
