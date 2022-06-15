@@ -15,7 +15,9 @@ const fetchDataPromise = ({ history, sensorType }) =>
       r.data.reduce(
         (acc, { name, x, y }) => ({
           ...acc,
-          [name]: acc[name] ? acc[name].concat({ x, y }) : [{ x, y }],
+          [name]: acc[name]
+            ? acc[name].concat({ x, y }).sort((a, b) => a.x - b.x)
+            : [{ x, y }],
         }),
         {}
       )

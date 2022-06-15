@@ -39,6 +39,11 @@ const useStyles = makeStyles({
   },
 });
 
+const round = (value, precision) => {
+  const multiplier = Math.pow(10, precision || 0);
+  return Math.round(value * multiplier) / multiplier;
+};
+
 const Tanks = () => {
   const classes = useStyles();
 
@@ -85,7 +90,7 @@ const Tanks = () => {
           <ReuseableTank
             imageName={"Upper Tank Level"}
             imagetank="/tankImage.png"
-            tankValue={`${parseFloat(UpperTankLevel).toFixed(2)}%`}
+            tankValue={`${round(parseFloat(UpperTankLevel), 1).toFixed(1)}%`}
             classsForImage={classes.upperImageStyle}
           />
           <br />
@@ -118,7 +123,7 @@ const Tanks = () => {
           <ReuseableTank
             imageName={"Lower Tank Level"}
             imagetank="/tankImage.png"
-            tankValue={`${parseFloat(LowerTankLevel).toFixed(2)}%`}
+            tankValue={`${round(parseFloat(LowerTankLevel), 1).toFixed(1)}%`}
             classsForImage={classes.lowerImageStyle}
           />
           <br />
